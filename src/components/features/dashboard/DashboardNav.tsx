@@ -13,6 +13,11 @@ const navigation = [
   { name: 'Settings', href: '/dashboard/settings', icon: '⚙️' },
 ];
 
+// Add test link in development
+if (process.env.NODE_ENV === 'development') {
+  navigation.splice(2, 0, { name: 'Test Coach', href: '/dashboard/coach/test', icon: '🧪' });
+}
+
 export function DashboardNav() {
   const pathname = usePathname();
   const { subscription, currentTier } = useSubscription();

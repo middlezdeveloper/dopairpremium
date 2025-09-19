@@ -1,6 +1,7 @@
 'use client';
 
-import { UserSubscription, SubscriptionTier } from '@/lib/subscription/tiers';
+import { UserSubscription } from '@/lib/firebase-shared/collections';
+import { SubscriptionTier } from '@/lib/subscription/tiers';
 
 interface WelcomeCardProps {
   subscription: UserSubscription | null;
