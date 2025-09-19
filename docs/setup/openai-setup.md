@@ -21,6 +21,8 @@
 4. **Copy the key immediately** (you can't see it again)
 5. Store it securely in your password manager
 
+
+
 ## 💰 Cost Management
 
 ### Development Costs (GPT-3.5-turbo)
