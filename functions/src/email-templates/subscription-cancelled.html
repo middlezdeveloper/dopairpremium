@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subscription Cancelled - We'll Miss You</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f8fffe;
+        }
+        .container {
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .logo {
+            color: #2563eb;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .wellness-accent {
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, #2563eb, #10b981);
+            margin: 0 auto 20px;
+            border-radius: 2px;
+        }
+        h1 {
+            color: #1f2937;
+            font-size: 22px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        .cancellation-banner {
+            background: linear-gradient(135deg, #fef3c7, #fed7aa);
+            border: 1px solid #f59e0b;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+        .cancellation-icon {
+            width: 60px;
+            height: 60px;
+            background: #f59e0b;
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+        }
+        .cancellation-title {
+            font-weight: bold;
+            color: #92400e;
+            font-size: 18px;
+            margin-bottom: 8px;
+        }
+        .cancellation-subtitle {
+            color: #a16207;
+            font-size: 14px;
+        }
+        .message {
+            font-size: 16px;
+            margin-bottom: 25px;
+            color: #4b5563;
+        }
+        .journey-summary {
+            background: linear-gradient(135deg, #f0f9ff, #ecfdf5);
+            border-left: 4px solid #10b981;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 25px 0;
+            text-align: center;
+        }
+        .summary-title {
+            font-weight: bold;
+            color: #065f46;
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+        .achievements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .achievement-item {
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+        }
+        .achievement-number {
+            font-size: 22px;
+            font-weight: bold;
+            color: #2563eb;
+            display: block;
+        }
+        .achievement-label {
+            font-size: 11px;
+            color: #6b7280;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 5px;
+        }
+        .cancellation-details {
+            background: #f9fafb;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 25px 0;
+            font-size: 14px;
+        }
+        .cancellation-details h4 {
+            color: #374151;
+            margin: 0 0 15px 0;
+        }
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            margin: 8px 0;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        .detail-label {
+            color: #6b7280;
+        }
+        .detail-value {
+            color: #374151;
+            font-weight: 600;
+        }
+        .access-timeline {
+            background: #fffbeb;
+            border: 1px solid #fbbf24;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 25px 0;
+        }
+        .timeline-title {
+            font-weight: bold;
+            color: #92400e;
+            margin-bottom: 15px;
+        }
+        .timeline-item {
+            display: flex;
+            align-items: center;
+            margin: 12px 0;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 6px;
+        }
+        .timeline-date {
+            font-weight: bold;
+            color: #a16207;
+            min-width: 120px;
+            font-size: 14px;
+        }
+        .timeline-desc {
+            color: #92400e;
+            margin-left: 15px;
+            font-size: 14px;
+        }
+        .data-preservation {
+            background: #f0f9ff;
+            border: 1px solid #93c5fd;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 25px 0;
+            text-align: center;
+        }
+        .preservation-title {
+            font-weight: bold;
+            color: #1e40af;
+            margin-bottom: 10px;
+        }
+        .comeback-section {
+            background: linear-gradient(135deg, #fef2f2, #fee2e2);
+            border: 1px solid #f87171;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 25px 0;
+            text-align: center;
+        }
+        .comeback-title {
+            font-weight: bold;
+            color: #dc2626;
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+        .comeback-offer {
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+            display: inline-block;
+        }
+        .offer-text {
+            color: #991b1b;
+            font-weight: 600;
+            margin: 0;
+        }
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            color: white;
+            padding: 16px 32px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            text-align: center;
+            margin: 15px 10px;
+            transition: transform 0.2s ease;
+        }
+        .cta-button:hover {
+            transform: translateY(-1px);
+        }
+        .reactivate-button {
+            background: linear-gradient(135deg, #dc2626, #b91c1c);
+        }
+        .feedback-section {
+            background: #f3f4f6;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 25px 0;
+            text-align: center;
+        }
+        .free-resources {
+            background: #ecfdf5;
+            border: 1px solid #a7f3d0;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 25px 0;
+        }
+        .free-resources h4 {
+            color: #065f46;
+            margin: 0 0 15px 0;
+        }
+        .resource-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .resource-item {
+            margin: 8px 0;
+            padding: 8px 0;
+            border-bottom: 1px solid #d1fae5;
+        }
+        .resource-item:last-child {
+            border-bottom: none;
+        }
+        .resource-link {
+            color: #047857;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .resource-link:hover {
+            text-decoration: underline;
+        }
+        .footer {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 14px;
+            color: #6b7280;
+        }
+        @media (max-width: 480px) {
+            body { padding: 10px; }
+            .container { padding: 20px; }
+            h1 { font-size: 20px; }
+            .detail-row { flex-direction: column; }
+            .timeline-item { flex-direction: column; align-items: flex-start; }
+            .timeline-date { min-width: auto; margin-bottom: 5px; }
+            .cta-button { padding: 14px 24px; margin: 8px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">DopairPremium</div>
+            <div class="wellness-accent"></div>
+        </div>
+
+        <div class="cancellation-banner">
+            <div class="cancellation-icon">👋</div>
+            <div class="cancellation-title">Subscription Cancelled</div>
+            <div class="cancellation-subtitle">We're sad to see you go, but we understand</div>
+        </div>
+
+        <h1>{{userName}}, thank you for being part of our journey</h1>
+
+        <div class="message">
+            Your DopairPremium subscription has been successfully cancelled. While we're disappointed to see you go, we respect your decision and want to make sure you have all the information you need about what happens next.
+        </div>
+
+        <div class="journey-summary">
+            <div class="summary-title">Celebrating Your Wellness Journey</div>
+            <p style="margin: 10px 0; color: #047857;">You accomplished meaningful things during your time with us. Here's a snapshot of your wellness journey:</p>
+
+            <div class="achievements-grid">
+                <div class="achievement-item">
+                    <span class="achievement-number">{{totalDays}}</span>
+                    <span class="achievement-label">Days Active</span>
+                </div>
+                <div class="achievement-item">
+                    <span class="achievement-number">{{sessionsCompleted}}</span>
+                    <span class="achievement-label">Sessions Done</span>
+                </div>
+                <div class="achievement-item">
+                    <span class="achievement-number">{{goalsAchieved}}</span>
+                    <span class="achievement-label">Goals Reached</span>
+                </div>
+                <div class="achievement-item">
+                    <span class="achievement-number">{{habitsFormed}}</span>
+                    <span class="achievement-label">Habits Formed</span>
+                </div>
+            </div>
+
+            <p style="margin: 15px 0 0 0; color: #065f46; font-style: italic;">These achievements represent real progress in your digital wellness journey.</p>
+        </div>
+
+        <div class="cancellation-details">
+            <h4>Cancellation Details</h4>
+            <div class="detail-row">
+                <span class="detail-label">Cancellation Date:</span>
+                <span class="detail-value">{{cancellationDate}}</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Last Billing Date:</span>
+                <span class="detail-value">{{lastBillingDate}}</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Refund Status:</span>
+                <span class="detail-value">{{refundStatus}}</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Cancellation ID:</span>
+                <span class="detail-value">{{cancellationId}}</span>
+            </div>
+        </div>
+
+        <div class="access-timeline">
+            <div class="timeline-title">What happens to your account:</div>
+
+            <div class="timeline-item">
+                <div class="timeline-date">Today</div>
+                <div class="timeline-desc">Premium features cancelled, but still accessible</div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-date">{{accessExpiryDate}}</div>
+                <div class="timeline-desc">Premium access expires at end of billing period</div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-date">After expiry</div>
+                <div class="timeline-desc">Account converts to free version with basic features</div>
+            </div>
+        </div>
+
+        <div class="data-preservation">
+            <div class="preservation-title">Your Data is Safe</div>
+            <p style="margin: 0; color: #1e40af;">
+                All your wellness data, progress, and achievements will be preserved. If you decide to return, everything will be exactly as you left it.
+            </p>
+        </div>
+
+        <div class="comeback-section">
+            <div class="comeback-title">We'd Love to Have You Back</div>
+            <p style="margin: 10px 0; color: #991b1b;">Your wellness journey doesn't have to end here. If circumstances change, you're always welcome to return.</p>
+
+            <div class="comeback-offer">
+                <p class="offer-text">Reactivate within 30 days and get 20% off your first month back</p>
+            </div>
+
+            <a href="{{reactivateUrl}}" class="cta-button reactivate-button">Reactivate My Account</a>
+        </div>
+
+        <div class="free-resources">
+            <h4>Free Wellness Resources to Keep You Going</h4>
+            <p style="margin: 0 0 15px 0; color: #047857;">Even though you're no longer a premium member, we still want to support your wellness journey:</p>
+
+            <ul class="resource-list">
+                <li class="resource-item">
+                    <a href="{{blogUrl}}" class="resource-link">Digital Wellness Blog</a> - Weekly tips and insights
+                </li>
+                <li class="resource-item">
+                    <a href="{{newsletterUrl}}" class="resource-link">Wellness Newsletter</a> - Monthly wellness updates
+                </li>
+                <li class="resource-item">
+                    <a href="{{freeToolsUrl}}" class="resource-link">Free Wellness Tools</a> - Basic habit tracking and resources
+                </li>
+                <li class="resource-item">
+                    <a href="{{communityUrl}}" class="resource-link">Community Forum</a> - Connect with others on similar journeys
+                </li>
+                <li class="resource-item">
+                    <a href="{{guidesUrl}}" class="resource-link">Free Guides</a> - Download our most popular wellness guides
+                </li>
+            </ul>
+        </div>
+
+        <div class="feedback-section">
+            <strong>Help Us Improve</strong><br>
+            Your feedback is invaluable to us. Would you mind sharing why you decided to cancel? This helps us create better experiences for everyone.<br><br>
+            <a href="{{feedbackUrl}}" class="cta-button">Share Feedback</a>
+        </div>
+
+        <div class="message">
+            <strong>Remember:</strong> Your wellness journey is uniquely yours, and it continues beyond any single app or service. We're grateful to have been part of your path, even briefly, and we hope the habits and insights you've gained will serve you well.
+        </div>
+
+        <div class="footer">
+            <p>Wishing you continued wellness and success,<br>The DopairPremium Team</p>
+            <p style="margin-top: 20px; font-size: 12px;">
+                This email was sent to {{userEmail}} to confirm your subscription cancellation.<br>
+                <a href="{{downloadDataUrl}}" style="color: #6b7280;">Download Your Data</a> |
+                <a href="{{privacyUrl}}" style="color: #6b7280;">Privacy Policy</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>

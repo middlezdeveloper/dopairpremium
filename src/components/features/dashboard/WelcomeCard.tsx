@@ -40,11 +40,11 @@ export function WelcomeCard({ subscription, currentTier, needsAssessment }: Welc
   const { title, subtitle, action, actionUrl } = getWelcomeMessage();
 
   return (
-    <div className="bg-gradient-to-r from-primary-500 to-recovery-500 rounded-lg shadow-sm p-6 text-white">
+    <div className="bg-gradient-to-r from-indigo-500 to-green-500 rounded-lg shadow-sm p-6 text-white">
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold mb-2">{title}</h1>
-          <p className="text-primary-100 text-lg mb-4">{subtitle}</p>
+          <p className="text-indigo-100 text-lg mb-4">{subtitle}</p>
 
           {subscription && (
             <div className="flex items-center space-x-4 text-sm">
@@ -52,7 +52,7 @@ export function WelcomeCard({ subscription, currentTier, needsAssessment }: Welc
                 {currentTier?.name} Plan
               </span>
               {subscription.status === 'active' && (
-                <span className="bg-recovery-400 rounded-full px-3 py-1">
+                <span className="bg-green-400 rounded-full px-3 py-1">
                   ✓ Active
                 </span>
               )}
@@ -63,7 +63,7 @@ export function WelcomeCard({ subscription, currentTier, needsAssessment }: Welc
         <div>
           <a
             href={actionUrl}
-            className="bg-white text-primary-600 font-medium py-3 px-6 rounded-lg hover:bg-gray-50 transition-colors inline-block"
+            className="bg-white text-indigo-600 font-medium py-3 px-6 rounded-lg hover:bg-gray-50 transition-colors inline-block"
           >
             {action}
           </a>

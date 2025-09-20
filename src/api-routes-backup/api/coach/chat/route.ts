@@ -64,7 +64,7 @@ export async function POST(request: NextRequest) {
     // Calculate current week
     const coach = new AICoach();
     const currentWeek = userProfile.createdAt
-      ? coach.calculateCurrentWeek(userProfile.createdAt.toDate())
+      ? coach.calculateCurrentWeek(userProfile.createdAt instanceof Date ? userProfile.createdAt : new Date(userProfile.createdAt))
       : 1;
 
     // Select best persona for user

@@ -76,7 +76,7 @@ function determinePersonalityType(assessment?: Assessment): string {
 }
 
 function getPathwayDescription(pathway: string): string {
-  const descriptions = {
+  const descriptions: Record<string, string> = {
     'impulsive': 'Struggles with poor self-control and emotion regulation. Benefits from mindfulness and impulse management techniques.',
     'compulsive': 'Anxiety-driven usage patterns. Needs stress management and emotional regulation tools.',
     'relationship': 'Uses technology for social connection. Benefits from offline social strategies and communication skills.',
@@ -89,7 +89,7 @@ function getPathwayDescription(pathway: string): string {
 }
 
 function getToneForPersonality(personality: string): string {
-  const tones = {
+  const tones: Record<string, string> = {
     'high_neuroticism': 'extra supportive, validating, and gentle',
     'low_conscientiousness': 'more structured with specific steps and accountability-focused',
     'high_extraversion': 'energetic, social, and collaborative',
@@ -101,7 +101,7 @@ function getToneForPersonality(personality: string): string {
 }
 
 function getWeeklyFocus(week: number): string {
-  const weeklyFocus = {
+  const weeklyFocus: Record<number, string> = {
     1: 'Foundation building - Understanding your digital habits and setting initial goals',
     2: 'Awareness development - Tracking triggers and identifying patterns',
     3: 'Basic blocking strategies - Implementing your first protective measures',
@@ -120,7 +120,7 @@ function getWeeklyFocus(week: number): string {
 }
 
 function getPathwayStrategies(pathway: string): string {
-  const strategies = {
+  const strategies: Record<string, string> = {
     'impulsive': `
 - Practice the 5-4-3-2-1 grounding technique when feeling urges
 - Use immediate blocking for high-risk situations

@@ -12,7 +12,7 @@ export default function CoachPage() {
   if (subLoading || assessmentLoading) {
     return (
       <div className="flex items-center justify-center min-h-64">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600"></div>
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-600"></div>
       </div>
     );
   }
@@ -48,10 +48,10 @@ export default function CoachPage() {
 
             {assessment && (
               <div className="flex items-center space-x-4 text-sm">
-                <span className="bg-primary-100 text-primary-800 px-3 py-1 rounded-full">
+                <span className="bg-primary-100 text-indigo-800 px-3 py-1 rounded-full">
                   {assessment.addictionPathway} pathway
                 </span>
-                <span className="bg-recovery-100 text-recovery-800 px-3 py-1 rounded-full">
+                <span className="bg-green-100 text-recovery-800 px-3 py-1 rounded-full">
                   Week 3 of 12
                 </span>
                 <span className="bg-gray-100 text-gray-800 px-3 py-1 rounded-full">
@@ -89,7 +89,7 @@ export default function CoachPage() {
 
           <div className="text-right">
             <div className="text-sm text-gray-500 mb-1">Your Coach</div>
-            <div className="w-16 h-16 bg-gradient-to-br from-primary-400 to-recovery-400 rounded-full flex items-center justify-center text-2xl text-white font-bold">
+            <div className="w-16 h-16 bg-gradient-to-br from-indigo-400 to-green-400 rounded-full flex items-center justify-center text-2xl text-white font-bold">
               {personaInfo.name.charAt(0)}
             </div>
           </div>
@@ -108,7 +108,7 @@ export default function CoachPage() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="flex items-start space-x-3">
             <div className="flex-shrink-0 w-8 h-8 bg-primary-100 rounded-full flex items-center justify-center">
-              <span className="text-primary-600 font-semibold text-sm">1</span>
+              <span className="text-indigo-600 font-semibold text-sm">1</span>
             </div>
             <div>
               <h3 className="font-medium text-gray-900 mb-1">Be Specific</h3>
@@ -119,7 +119,7 @@ export default function CoachPage() {
           </div>
 
           <div className="flex items-start space-x-3">
-            <div className="flex-shrink-0 w-8 h-8 bg-recovery-100 rounded-full flex items-center justify-center">
+            <div className="flex-shrink-0 w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
               <span className="text-recovery-600 font-semibold text-sm">2</span>
             </div>
             <div>

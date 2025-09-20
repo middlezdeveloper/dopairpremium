@@ -78,7 +78,7 @@ export function RecentActivity() {
         <div className="mt-6">
           <a
             href="/dashboard/activity"
-            className="text-sm font-medium text-primary-600 hover:text-primary-500"
+            className="text-sm font-medium text-indigo-600 hover:text-indigo-500"
           >
             View all activity →
           </a>

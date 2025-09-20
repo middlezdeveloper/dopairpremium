@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grace Period Active - Limited Access Notice</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f8fffe;
+        }
+        .container {
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .logo {
+            color: #2563eb;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .wellness-accent {
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, #2563eb, #10b981);
+            margin: 0 auto 20px;
+            border-radius: 2px;
+        }
+        h1 {
+            color: #1f2937;
+            font-size: 22px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        .grace-banner {
+            background: linear-gradient(135deg, #fef3c7, #fed7aa);
+            border: 2px solid #f59e0b;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+        .grace-title {
+            font-weight: bold;
+            color: #92400e;
+            font-size: 20px;
+            margin-bottom: 8px;
+        }
+        .grace-subtitle {
+            color: #a16207;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+        .grace-countdown {
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 8px;
+            padding: 15px;
+            display: inline-block;
+            margin-top: 10px;
+        }
+        .countdown-number {
+            font-size: 28px;
+            font-weight: bold;
+            color: #dc2626;
+        }
+        .countdown-label {
+            font-size: 12px;
+            color: #92400e;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .message {
+            font-size: 16px;
+            margin-bottom: 25px;
+            color: #4b5563;
+        }
+        .limited-access-box {
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 25px 0;
+        }
+        .access-title {
+            font-weight: bold;
+            color: #991b1b;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+        .access-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .access-column h4 {
+            margin: 0 0 10px 0;
+            font-size: 14px;
+        }
+        .access-available {
+            color: #065f46;
+        }
+        .access-limited {
+            color: #991b1b;
+        }
+        .access-column ul {
+            margin: 0;
+            padding-left: 16px;
+            font-size: 14px;
+        }
+        .progress-preservation {
+            background: linear-gradient(135deg, #f0f9ff, #ecfdf5);
+            border-left: 4px solid #10b981;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 25px 0;
+        }
+        .preservation-title {
+            font-weight: bold;
+            color: #065f46;
+            margin-bottom: 10px;
+        }
+        .data-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 15px;
+            margin: 15px 0;
+        }
+        .data-stat {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 6px;
+            padding: 10px;
+        }
+        .stat-number {
+            font-size: 18px;
+            font-weight: bold;
+            color: #2563eb;
+            display: block;
+        }
+        .stat-label {
+            font-size: 11px;
+            color: #6b7280;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #dc2626, #b91c1c);
+            color: white;
+            padding: 18px 36px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            text-align: center;
+            margin: 25px 0;
+            transition: transform 0.2s ease;
+            font-size: 16px;
+        }
+        .cta-button:hover {
+            transform: translateY(-1px);
+        }
+        .restore-button {
+            background: linear-gradient(135deg, #059669, #047857);
+        }
+        .timeline-section {
+            background: #f9fafb;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 25px 0;
+        }
+        .timeline-item {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 10px;
+            border-radius: 6px;
+        }
+        .timeline-current {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+        }
+        .timeline-future {
+            background: #fef2f2;
+            border-left: 4px solid #dc2626;
+        }
+        .timeline-date {
+            font-weight: bold;
+            color: #374151;
+            min-width: 100px;
+        }
+        .timeline-desc {
+            color: #6b7280;
+            margin-left: 15px;
+        }
+        .support-section {
+            background: #f3f4f6;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 25px 0;
+            text-align: center;
+        }
+        .footer {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 14px;
+            color: #6b7280;
+        }
+        @media (max-width: 480px) {
+            body { padding: 10px; }
+            .container { padding: 20px; }
+            h1 { font-size: 20px; }
+            .access-grid { grid-template-columns: 1fr; }
+            .cta-button { padding: 16px 28px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">DopairPremium</div>
+            <div class="wellness-accent"></div>
+        </div>
+
+        <div class="grace-banner">
+            <div class="grace-title">Grace Period Active</div>
+            <div class="grace-subtitle">Your account is in limited access mode</div>
+            <div class="grace-countdown">
+                <div class="countdown-number">{{daysRemaining}}</div>
+                <div class="countdown-label">Days to Restore</div>
+            </div>
+        </div>
+
+        <h1>{{userName}}, your wellness journey continues</h1>
+
+        <div class="message">
+            We've temporarily adjusted your account access while we work together to resolve the payment issue. The good news? Your wellness progress is completely safe, and you still have access to core features to maintain your digital wellness routine.
+        </div>
+
+        <div class="progress-preservation">
+            <div class="preservation-title">Your Wellness Data is 100% Safe</div>
+            <p style="margin: 10px 0; color: #065f46;">Every piece of your wellness journey remains securely stored and will be instantly restored when your payment is updated.</p>
+
+            <div class="data-stats">
+                <div class="data-stat">
+                    <span class="stat-number">{{totalSessions}}</span>
+                    <span class="stat-label">Sessions</span>
+                </div>
+                <div class="data-stat">
+                    <span class="stat-number">{{insights}}</span>
+                    <span class="stat-label">Insights</span>
+                </div>
+                <div class="data-stat">
+                    <span class="stat-number">{{habits}}</span>
+                    <span class="stat-label">Habits</span>
+                </div>
+                <div class="data-stat">
+                    <span class="stat-number">{{streakDays}}</span>
+                    <span class="stat-label">Best Streak</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="limited-access-box">
+            <div class="access-title">What you have access to during grace period:</div>
+
+            <div class="access-grid">
+                <div class="access-column">
+                    <h4 class="access-available">✓ Still Available</h4>
+                    <ul style="color: #065f46;">
+                        <li>Basic wellness tracking</li>
+                        <li>Daily check-ins and mood logging</li>
+                        <li>Essential habit monitoring</li>
+                        <li>Basic progress viewing</li>
+                        <li>Account and profile management</li>
+                    </ul>
+                </div>
+                <div class="access-column">
+                    <h4 class="access-limited">⚠ Temporarily Limited</h4>
+                    <ul style="color: #991b1b;">
+                        <li>Advanced analytics and insights</li>
+                        <li>Premium guided sessions</li>
+                        <li>Personalized recommendations</li>
+                        <li>Goal setting and planning tools</li>
+                        <li>Community and expert features</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center;">
+            <a href="{{updatePaymentUrl}}" class="cta-button restore-button">Restore Full Access Now</a>
+        </div>
+
+        <div class="timeline-section">
+            <strong style="color: #374151; display: block; margin-bottom: 15px;">Timeline for your account:</strong>
+
+            <div class="timeline-item timeline-current">
+                <div class="timeline-date">Today</div>
+                <div class="timeline-desc">Grace period active - limited access mode</div>
+            </div>
+
+            <div class="timeline-item timeline-future">
+                <div class="timeline-date">{{suspensionDate}}</div>
+                <div class="timeline-desc">Premium features suspended if payment not updated</div>
+            </div>
+        </div>
+
+        <div class="message">
+            <strong>Easy restoration:</strong> Once you update your payment method, all premium features are instantly restored. There's no data loss, no progress reset - just seamless continuation of your wellness journey.
+        </div>
+
+        <div class="support-section">
+            <strong>Need help or have questions?</strong><br>
+            Our support team understands that payment issues happen and we're here to help find a solution.<br><br>
+            <a href="mailto:support@dopairpremium.com" style="color: #2563eb; font-weight: 600;">support@dopairpremium.com</a><br>
+            <a href="{{supportChatUrl}}" style="color: #2563eb; font-weight: 600;">Live Chat Support</a>
+        </div>
+
+        <div class="message" style="text-align: center; font-style: italic; color: #6b7280;">
+            We're committed to your wellness success and look forward to continuing this journey together.
+        </div>
+
+        <div class="footer">
+            <p>Supporting your wellness journey,<br>The DopairPremium Team</p>
+            <p style="margin-top: 20px; font-size: 12px;">
+                This email was sent to {{userEmail}} regarding your DopairPremium account status.<br>
+                <a href="{{preferencesUrl}}" style="color: #6b7280;">Email Preferences</a> |
+                <a href="{{cancelSubscriptionUrl}}" style="color: #6b7280;">Cancel Subscription</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>

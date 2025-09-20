@@ -110,3 +110,38 @@ OPENAI_API_KEY=sk-your-actual-key-here
 - **OpenAI Help**: [help.openai.com](https://help.openai.com)
 - **Billing Issues**: [platform.openai.com/account/billing](https://platform.openai.com/account/billing)
 - **API Documentation**: [platform.openai.com/docs](https://platform.openai.com/docs)
+
+
+
+⏺ For your Dopair Premium AI coaching platform, I recommend this OpenAI configuration:
+
+  Models to Allow:
+
+  Primary Models (Essential):
+  - gpt-3.5-turbo - Your current coach model (cost-effective)
+  - gpt-4o-mini - Better reasoning for complex situations
+  - text-embedding-ada-002 - For semantic search/memory features
+  - whisper-1 - Voice input for accessibility
+  - omni-moderation-latest - Content safety (critical for mental health)
+
+  Optional Upgrades:
+  - gpt-4o - Premium tier coaching (higher quality responses)
+  - tts-1 - Text-to-speech for audio responses
+
+  Models to Block:
+
+  Block everything else, especially:
+  - All image generation models (DALL-E) - unnecessary cost
+  - All o1/o3 models - too expensive for chat
+  - Audio preview models - still in development
+  - Instruct models - wrong format for chat
+
+  Rate Limits (Recommended):
+
+  gpt-3.5-turbo: 100 requests/minute, 150K tokens/minute
+  gpt-4o-mini: 50 requests/minute, 50K tokens/minute
+  whisper-1: 10 requests/minute
+  text-embedding-ada-002: 100 requests/minute
+
+  This setup protects against unexpected costs while enabling all core coaching features. Start
+  conservative - you can always enable more models later as usage grows.

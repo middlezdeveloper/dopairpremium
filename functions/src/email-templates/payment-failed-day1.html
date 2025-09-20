@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quick Payment Update - DopairPremium</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f8fffe;
+        }
+        .container {
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .logo {
+            color: #2563eb;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .wellness-accent {
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, #2563eb, #10b981);
+            margin: 0 auto 20px;
+            border-radius: 2px;
+        }
+        h1 {
+            color: #1f2937;
+            font-size: 22px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        .message {
+            font-size: 16px;
+            margin-bottom: 25px;
+            color: #4b5563;
+        }
+        .wellness-highlight {
+            background: linear-gradient(135deg, #f0f9ff, #ecfdf5);
+            border-left: 4px solid #10b981;
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 8px;
+        }
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            color: white;
+            padding: 16px 32px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            text-align: center;
+            margin: 20px 0;
+            transition: transform 0.2s ease;
+        }
+        .cta-button:hover {
+            transform: translateY(-1px);
+        }
+        .support-section {
+            background: #f9fafb;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 25px 0;
+            text-align: center;
+        }
+        .footer {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 14px;
+            color: #6b7280;
+        }
+        @media (max-width: 480px) {
+            body { padding: 10px; }
+            .container { padding: 20px; }
+            h1 { font-size: 20px; }
+            .cta-button { padding: 14px 24px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">DopairPremium</div>
+            <div class="wellness-accent"></div>
+        </div>
+
+        <h1>Hi {{userName}}, quick heads up about your payment</h1>
+
+        <div class="message">
+            We hope you're continuing to thrive on your digital wellness journey! We wanted to reach out because we encountered a small issue processing your payment for DopairPremium.
+        </div>
+
+        <div class="wellness-highlight">
+            <strong>Your progress is safe!</strong> All your wellness data, achievements, and personalized insights are securely stored while we sort this out together.
+        </div>
+
+        <div class="message">
+            This happens sometimes - expired cards, updated billing info, or just a temporary glitch. No worries at all! You can update your payment method with just one click below:
+        </div>
+
+        <div style="text-align: center;">
+            <a href="{{updatePaymentUrl}}" class="cta-button">Update Payment Method</a>
+        </div>
+
+        <div class="message">
+            <strong>What this means for you:</strong>
+            <ul style="margin: 15px 0; padding-left: 20px;">
+                <li>Your premium features remain active for now</li>
+                <li>All your wellness progress and data are completely safe</li>
+                <li>We'll try processing again in a couple of days</li>
+            </ul>
+        </div>
+
+        <div class="support-section">
+            <strong>Need help?</strong><br>
+            We're here to support your wellness journey every step of the way. Reach out to us at <a href="mailto:support@dopairpremium.com" style="color: #2563eb;">support@dopairpremium.com</a>
+        </div>
+
+        <div class="footer">
+            <p>Keep prioritizing your digital wellness,<br>The DopairPremium Team</p>
+            <p style="margin-top: 20px; font-size: 12px;">
+                This email was sent to {{userEmail}} because you have an active DopairPremium subscription.<br>
+                <a href="{{unsubscribeUrl}}" style="color: #6b7280;">Unsubscribe</a> |
+                <a href="{{preferencesUrl}}" style="color: #6b7280;">Email Preferences</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>

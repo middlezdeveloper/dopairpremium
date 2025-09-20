@@ -1,74 +1,173 @@
 export const COLLECTIONS = {
   USERS: 'users',
-  ASSESSMENTS: 'assessments',
   CONVERSATIONS: 'conversations',
-  BLOCKING_RULES: 'blockingRules',
-  WEB_CONTENT: 'webContent',
+  ASSESSMENTS: 'assessments',
+  SUBSCRIPTIONS: 'subscriptions',
+  ADMIN_LOGS: 'adminLogs',
+  USAGE_TRACKING: 'usageTracking',
+  APPROVAL_REQUESTS: 'approvalRequests',
+  STRIPE_CUSTOMERS: 'stripe_customers',
 } as const;
 
 export const SUBCOLLECTIONS = {
   MESSAGES: 'messages',
-  RULES: 'rules',
-  BLOG_POSTS: 'blogPosts',
+  SESSIONS: 'sessions',
 } as const;
 
-// Firestore document interfaces matching the shared schema
+// Type definitions
+export type UserStatus = 'free' | 'premium' | 'past_due' | 'grace_period' | 'suspended';
+export type ApprovalType = 'pending' | 'stripe' | 'admin';
+export type PaymentStatus = 'active' | 'past_due' | 'canceled' | 'incomplete';
+
 export interface UserProfile {
   uid: string;
   email: string;
-  displayName?: string;
-  photoURL?: string;
-  assessmentId?: string;
-  subscription: UserSubscription;
-  deviceTokens?: string[];
-  createdAt: Date;
-  lastActive: Date;
-}
+  displayName: string | null;
+  photoURL: string | null;
 
-export interface UserSubscription {
-  tier: 'free' | 'recovery' | 'alumni' | 'family';
-  status: 'active' | 'canceled' | 'past_due' | 'incomplete';
-  stripeCustomerId?: string;
-  stripeSubscriptionId?: string;
-  currentPeriodEnd?: Date;
-  cancelAtPeriodEnd?: boolean;
-  familyAccountId?: string; // For family members
-  isOwner?: boolean; // For family owners
+  // New status system
+  status: UserStatus;
+  paymentStatus: PaymentStatus;
+  approvalType: ApprovalType;
+  approvedBy?: string; // admin uid who approved
+  approvedAt?: any; // timestamp
+
+  // Subscription info
+  subscription?: {
+    tier: 'free' | 'premium';
+    stripeCustomerId?: string;
+    subscriptionId?: string;
+    priceId?: string;
+  };
+
+  // Grace period management
+  gracePeriodEnd?: any; // timestamp
+  paymentFailedAt?: any; // timestamp
+
+  // Legacy compatibility
+  isApproved: boolean;
+  signUpMethod: string;
+  createdAt: any;
+  lastActive: any;
+  assessmentId: string | null;
 }
 
 export interface Assessment {
   id: string;
-  userId?: string; // Can be anonymous
-  ddasScores: {
-    impulsive: number;
-    compulsive: number;
+  userId: string;
+  scores: {
     total: number;
+    categories: Record<string, number>;
   };
-  addictionPathway: 'impulsive' | 'compulsive' | 'mixed';
+  ddasScores: {
+    compulsive: number;
+    impulsive: number;
+    behavioral: number;
+    emotional: number;
+  };
   responses: Record<string, any>;
-  timestamp: Date;
-  completedAnonymously: boolean;
+  pathway: 'awareness' | 'reduction' | 'abstinence';
+  addictionPathway: 'awareness' | 'reduction' | 'abstinence';
+  recommendations: string[];
+  completedAt: any;
 }
 
-export interface ConversationMessage {
-  id: string;
-  role: 'user' | 'assistant';
-  content: string;
-  timestamp: Date;
-  tokens?: number;
-  model?: string;
+// Usage tracking for chat limits and abuse prevention
+export interface UsageTracking {
+  userId: string;
+  date: string; // YYYY-MM-DD format
+  chatMessages: number;
+  resetAt: any; // midnight timestamp
+  lastMessageAt?: any; // timestamp of last message
+  warnings?: number; // abuse warning count
+  blocked?: boolean; // temporarily blocked for abuse
 }
 
-export interface BlockingRule {
+// Admin approval queue
+export interface ApprovalRequest {
   id: string;
   userId: string;
-  type: 'app' | 'website' | 'keyword';
-  target: string;
-  isActive: boolean;
-  schedule?: {
-    days: number[]; // 0-6 (Sunday-Saturday)
-    startTime: string; // HH:MM
-    endTime: string; // HH:MM
+  userEmail: string;
+  userDisplayName?: string;
+  requestType: 'manual_approval' | 'subscription_issue' | 'grace_period_extension';
+  status: 'pending' | 'approved' | 'rejected';
+  requestedAt: any; // timestamp
+  processedAt?: any; // timestamp
+  processedBy?: string; // admin uid
+  notes?: string; // admin notes
+  metadata?: {
+    assessmentScore?: number;
+    signUpMethod?: string;
+    currentUsage?: number;
   };
-  createdAt: Date;
 }
+
+// Admin action logging
+export interface AdminLog {
+  id: string;
+  adminId: string;
+  adminEmail: string;
+  action: 'approve_user' | 'reject_user' | 'suspend_user' | 'extend_grace_period' | 'reset_usage_limits';
+  targetUserId: string;
+  targetUserEmail: string;
+  timestamp: any;
+  notes?: string;
+  metadata?: Record<string, any>;
+}
+
+// Stripe customer data
+export interface StripeCustomer {
+  userId: string;
+  customerId: string;
+  email: string;
+  subscriptions?: StripeSubscription[];
+  defaultPaymentMethod?: string;
+  createdAt: any;
+  updatedAt: any;
+}
+
+export interface StripeSubscription {
+  id: string;
+  customerId: string;
+  status: 'active' | 'past_due' | 'canceled' | 'incomplete' | 'trialing';
+  priceId: string;
+  currentPeriodStart: any;
+  currentPeriodEnd: any;
+  cancelAtPeriodEnd: boolean;
+  createdAt: any;
+  updatedAt: any;
+}
+
+// Access level configuration
+export const ACCESS_LEVELS = {
+  free: {
+    ddas: true,
+    chat: false,
+    premiumContent: false,
+    chatLimit: 0,
+  },
+  premium: {
+    ddas: true,
+    chat: true,
+    premiumContent: true,
+    chatLimit: 100, // daily limit
+  },
+  past_due: {
+    ddas: true,
+    chat: false, // First restriction
+    premiumContent: false,
+    chatLimit: 0,
+  },
+  grace_period: {
+    ddas: true,
+    chat: true,
+    premiumContent: false, // Partial restriction
+    chatLimit: 20, // Reduced limit
+  },
+  suspended: {
+    ddas: true, // Keep wellness basics
+    chat: false,
+    premiumContent: false,
+    chatLimit: 0,
+  },
+} as const;

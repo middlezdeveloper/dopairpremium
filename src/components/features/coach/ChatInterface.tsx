@@ -225,11 +225,11 @@ export function ChatInterface({ userId = 'test-user' }: ChatInterfaceProps) {
   return (
     <div className="flex flex-col h-[600px] max-w-4xl mx-auto bg-white rounded-lg shadow-sm border">
       {/* Header */}
-      <div className="bg-gradient-to-r from-primary-500 to-recovery-500 text-white p-4 rounded-t-lg">
+      <div className="bg-gradient-to-r from-indigo-500 to-green-500 text-white p-4 rounded-t-lg">
         <div className="flex items-center justify-between">
           <div>
             <h2 className="text-xl font-bold">{personaInfo.name}</h2>
-            <p className="text-primary-100 text-sm">{personaInfo.description}</p>
+            <p className="text-indigo-100 text-sm">{personaInfo.description}</p>
           </div>
           <div className="text-right text-sm opacity-90">
             <div>Week {assessment ? '3' : '1'} of 12</div>
@@ -313,7 +313,7 @@ export function ChatInterface({ userId = 'test-user' }: ChatInterfaceProps) {
           <button
             onClick={sendMessage}
             disabled={loading || !input.trim()}
-            className="px-6 py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors font-medium"
+            className="px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-primary-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors font-medium"
           >
             Send
           </button>

@@ -76,7 +76,7 @@ export function QuickActions({ subscription, needsAssessment }: QuickActionsProp
                 action.available
                   ? action.highlight
                     ? 'border-amber-300 bg-amber-50 hover:border-amber-400'
-                    : 'border-gray-200 hover:border-primary-300 hover:bg-primary-50'
+                    : 'border-gray-200 hover:border-indigo-300 hover:bg-primary-50'
                   : 'border-gray-100 bg-gray-50 cursor-not-allowed opacity-60'
               }`}
             >
