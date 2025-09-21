@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "next dev -p 3001",
-    "build": "next build",
+    "build": "next build && next export",
     "start": "next start -p 3001",
     "lint": "next lint",
     "type-check": "tsc --noEmit",
@@ -15,6 +15,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@stripe/react-stripe-js": "^4.0.2",
     "@stripe/stripe-js": "^7.9.0",
     "@tailwindcss/postcss": "^4.1.13",
     "@types/node": "^24.5.2",

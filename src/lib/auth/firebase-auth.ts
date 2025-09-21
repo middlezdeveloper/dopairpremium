@@ -193,6 +193,9 @@ export async function signOutUser() {
   }
 }
 
+// Export signOut for components that expect it
+export { signOut };
+
 // Password reset
 export async function resetPassword(email: string) {
   try {

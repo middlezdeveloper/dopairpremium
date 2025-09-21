@@ -38,6 +38,16 @@ export interface UserProfile {
     stripeCustomerId?: string;
     subscriptionId?: string;
     priceId?: string;
+    // Promotional/discount tracking
+    signupPromotion?: {
+      couponCode: string;
+      discountAmount: number;
+      discountType: 'amount_off' | 'percent_off';
+      appliedAt: any; // timestamp
+      originalPrice: number;
+      discountedPrice: number;
+      isPilotUser: boolean;
+    };
   };
 
   // Grace period management

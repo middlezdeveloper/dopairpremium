@@ -168,6 +168,37 @@ async function handleSubscriptionCreated(event: Stripe.Event): Promise<any> {
     return { status: "user_not_found" };
   }
 
+  // Check for discount information
+  let signupPromotion = undefined;
+  if (subscription.discount) {
+    const coupon = (subscription.discount as any).coupon;
+    const price = subscription.items.data[0]?.price;
+    const originalPrice = price?.unit_amount || 0;
+
+    let discountAmount = 0;
+    let discountedPrice = originalPrice;
+
+    if (coupon.amount_off) {
+      discountAmount = coupon.amount_off;
+      discountedPrice = Math.max(0, originalPrice - discountAmount);
+    } else if (coupon.percent_off) {
+      discountAmount = coupon.percent_off;
+      discountedPrice = Math.round(originalPrice * (100 - coupon.percent_off) / 100);
+    }
+
+    signupPromotion = {
+      couponCode: coupon.id || '',
+      discountAmount,
+      discountType: coupon.amount_off ? 'amount_off' : 'percent_off',
+      appliedAt: admin.firestore.FieldValue.serverTimestamp(),
+      originalPrice,
+      discountedPrice,
+      isPilotUser: coupon.id === '4NDdQSl5' || coupon.name?.includes('DOPAIR98VIP') || false
+    };
+
+    console.log(`Discount applied for user ${user.uid}: ${JSON.stringify(signupPromotion)}`);
+  }
+
   // Update user to premium status
   await updateUserSubscriptionStatus(user.uid, {
     status: 'premium',
@@ -177,7 +208,8 @@ async function handleSubscriptionCreated(event: Stripe.Event): Promise<any> {
       tier: 'premium',
       stripeCustomerId: customerId,
       subscriptionId: subscription.id,
-      priceId: subscription.items.data[0]?.price.id
+      priceId: subscription.items.data[0]?.price.id,
+      signupPromotion
     }
   });
 
@@ -199,8 +231,27 @@ async function handleSubscriptionCreated(event: Stripe.Event): Promise<any> {
     'Auto-approved via Stripe subscription creation', {
       subscriptionId: subscription.id,
       customerId,
-      priceId: subscription.items.data[0]?.price.id
+      priceId: subscription.items.data[0]?.price.id,
+      signupPromotion
     });
+
+  // Log promotional signup separately for analytics
+  if (signupPromotion) {
+    await admin.firestore().collection(COLLECTIONS.ADMIN_LOGS).add({
+      adminId: 'system',
+      adminEmail: 'system@dopair.app',
+      action: 'promotional_signup',
+      targetUserId: user.uid,
+      targetUserEmail: user.email,
+      timestamp: admin.firestore.FieldValue.serverTimestamp(),
+      notes: `User signed up with promotional code: ${signupPromotion.couponCode}`,
+      metadata: {
+        subscriptionId: subscription.id,
+        ...signupPromotion,
+        isPilotUser: signupPromotion.isPilotUser
+      }
+    });
+  }
 
   return { status: "success", userId: user.uid, subscriptionId: subscription.id };
 }

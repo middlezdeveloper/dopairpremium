@@ -357,3 +357,15 @@ export { stripeWebhooks, processGracePeriodExpirations } from "./stripe-webhooks
 
 // Export admin utilities
 export { webhookAdmin } from "./webhook-admin";
+
+// Export billing management functions
+export {
+  getBillingInfo,
+  getBillingHistory,
+  pauseSubscription,
+  cancelSubscription,
+  getPaymentMethodUpdateURL
+} from "./billing-management";
+
+// Export checkout session creation
+export { createCheckoutSession } from "./create-checkout-session";
