@@ -16,6 +16,8 @@ const corsHandler = cors({
   origin: [
     'https://dopair.app',
     'https://premium.dopair.app',
+    'https://dopair.web.app',
+    'https://premium.dopair.web.app',
     'http://localhost:3000',
     'http://localhost:3001'
   ],
