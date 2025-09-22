@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "site": "dopair-premium",
+    "site": "dopair",
     "public": "out",
     "ignore": [
       "firebase.json",

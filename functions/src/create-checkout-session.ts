@@ -14,6 +14,7 @@ let stripe: Stripe | null = null;
 // CORS configuration
 const corsHandler = cors({
   origin: [
+    'https://dopair.app',
     'https://premium.dopair.app',
     'http://localhost:3000',
     'http://localhost:3001'
@@ -84,8 +85,8 @@ export const createCheckoutSession = onRequest({
           },
         ],
         allow_promotion_codes: true,
-        success_url: `${process.env.NODE_ENV === 'production' ? 'https://premium.dopair.app' : 'http://localhost:3001'}${publicCheckout ? '/checkout/success' : '/account'}?session_id={CHECKOUT_SESSION_ID}`,
-        cancel_url: `${process.env.NODE_ENV === 'production' ? 'https://premium.dopair.app' : 'http://localhost:3001'}${publicCheckout ? '/checkout' : '/test-checkout'}`,
+        success_url: `${process.env.NODE_ENV === 'production' ? (publicCheckout ? 'https://dopair.app' : 'https://premium.dopair.app') : 'http://localhost:3001'}${publicCheckout ? '/checkout/success' : '/account'}?session_id={CHECKOUT_SESSION_ID}`,
+        cancel_url: `${process.env.NODE_ENV === 'production' ? (publicCheckout ? 'https://dopair.app' : 'https://premium.dopair.app') : 'http://localhost:3001'}${publicCheckout ? '/checkout' : '/test-checkout'}`,
         metadata: {
           userId: user?.uid || 'public',
           userEmail: user?.email || '',
