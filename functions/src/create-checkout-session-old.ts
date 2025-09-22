@@ -7,84 +7,100 @@ import { COLLECTIONS } from '../lib/collections';
 // Define secrets
 const stripeSecretKey = defineSecret('STRIPE_SECRET_KEY');
 
-// Initialize Stripe
+// Initialize Stripe (will be initialized in handler)
 let stripe: Stripe | null = null;
 
 /**
- * Clean checkout session function with proper CORS
+ * Create Stripe checkout session for subscription
  */
 export const createCheckoutSession = onRequest({
   secrets: [stripeSecretKey],
-  cors: true
 }, async (req, res) => {
-    // Set CORS headers manually to ensure they work
-    res.set('Access-Control-Allow-Origin', '*');
+    console.log('🚀 FUNCTION START - Method:', req.method, 'Origin:', req.headers.origin);
+
+    // Set CORS headers FIRST THING - before any other logic
+    const allowedOrigins = [
+      'https://dopair.app',
+      'https://premium.dopair.app',
+      'https://dopair.web.app',
+      'https://premium.dopair.web.app',
+      'http://localhost:3000',
+      'http://localhost:3001'
+    ];
+
+    const origin = req.headers.origin;
+    if (allowedOrigins.includes(origin || '')) {
+      res.set('Access-Control-Allow-Origin', origin);
+    }
+
     res.set('Access-Control-Allow-Credentials', 'true');
     res.set('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
     res.set('Access-Control-Allow-Headers', 'Content-Type, Authorization');
 
-    // Handle preflight
+    // Handle preflight requests BEFORE any other logic
     if (req.method === 'OPTIONS') {
-      console.log('✅ Handling OPTIONS preflight request');
       res.status(200).end();
       return;
     }
-    console.log('🚀 Function called - Method:', req.method, 'Origin:', req.headers.origin);
 
-    if (req.method !== 'POST') {
-      console.log('❌ Method not allowed:', req.method);
-      res.status(405).json({ error: 'Method not allowed' });
+    if (req.method !== "POST") {
+      res.status(405).json({ error: "Method not allowed" });
       return;
     }
 
-    try {
-      console.log('🔄 Processing POST request...');
+    console.log('🚀 Function called with method:', req.method);
+    console.log('🚀 Request body:', req.body);
 
+    try {
       // Initialize Stripe
       if (!stripe) {
         const secretValue = stripeSecretKey.value();
-        console.log('🔑 Initializing Stripe with key length:', secretValue?.length);
+        console.log('Initializing Stripe with secret key length:', secretValue?.length);
 
         if (!secretValue || secretValue.trim().length === 0) {
           throw new Error('Stripe secret key is empty or invalid');
         }
 
         stripe = new Stripe(secretValue.trim(), {
-          apiVersion: '2023-10-16',
+          apiVersion: "2023-10-16",
         });
       }
 
       const { priceId, mode = 'subscription', publicCheckout = false } = req.body;
-      console.log('📝 Request data:', { priceId, mode, publicCheckout });
 
-      // Check if this is a public checkout (no auth required)
-      const isPublicCheckout = publicCheckout === true || publicCheckout === 'true';
-      console.log('🔍 Is public checkout:', isPublicCheckout);
+      console.log('🔍 Request body:', { priceId, mode, publicCheckout });
+      console.log('🔍 publicCheckout type:', typeof publicCheckout, 'value:', publicCheckout);
 
+      // For public checkout, we don't require authentication
       let user = null;
       let stripeCustomerId = null;
 
+      // Explicitly check if publicCheckout is true (handle string/boolean conversion)
+      const isPublicCheckout = publicCheckout === true || publicCheckout === 'true';
+      console.log('🔍 isPublicCheckout:', isPublicCheckout);
+
       if (!isPublicCheckout) {
-        console.log('🔒 Verifying authentication...');
+        console.log('🔒 Running authentication check (!isPublicCheckout =', !isPublicCheckout, ')');
+        // Verify authentication for authenticated checkouts
         user = await verifyAuthentication(req);
         if (!user) {
-          console.log('❌ Authentication failed');
-          res.status(401).json({ error: 'Unauthorized' });
+          console.log('❌ Authentication failed, returning Unauthorized');
+          res.status(401).json({ error: "Unauthorized" });
           return;
         }
-        console.log('✅ User authenticated:', user.uid);
+        // Get or create Stripe customer for authenticated users
         stripeCustomerId = await getOrCreateStripeCustomer(user.uid, user.email || '');
       } else {
-        console.log('✅ Public checkout - skipping authentication');
+        console.log('✅ Skipping authentication for public checkout');
       }
 
       if (!priceId) {
-        console.log('❌ Price ID missing');
-        res.status(400).json({ error: 'Price ID is required' });
+        res.status(400).json({ error: "Price ID is required" });
         return;
       }
 
-      console.log('💳 Creating Stripe checkout session...');
+      // Create checkout session
+      console.log('Creating checkout session', isPublicCheckout ? '(public)' : `for user: ${user?.uid}`, 'with price:', priceId);
 
       const sessionParams: Stripe.Checkout.SessionCreateParams = {
         customer: stripeCustomerId,
@@ -113,18 +129,32 @@ export const createCheckoutSession = onRequest({
         } : undefined,
       };
 
+      console.log('Session params created, calling Stripe API...');
+      console.log('allow_promotion_codes:', sessionParams.allow_promotion_codes);
       const session = await stripe.checkout.sessions.create(sessionParams);
-      console.log('✅ Checkout session created:', session.id);
+      console.log('Checkout session created successfully:', session.id);
+      console.log('Session allow_promotion_codes:', session.allow_promotion_codes);
+      console.log('Session object keys:', Object.keys(session));
+      console.log('Session client_secret:', session.client_secret);
+
+      // For embedded checkout, retrieve the session to get client_secret
+      let clientSecret = session.client_secret;
+      if (!clientSecret && sessionParams.ui_mode === 'embedded') {
+        console.log('Retrieving session to get client_secret for embedded mode');
+        const retrievedSession = await stripe.checkout.sessions.retrieve(session.id);
+        console.log('Retrieved session client_secret:', retrievedSession.client_secret);
+        clientSecret = retrievedSession.client_secret;
+      }
 
       res.json({
         sessionId: session.id,
         url: session.url,
-        clientSecret: session.client_secret,
+        clientSecret: clientSecret,
       });
 
     } catch (error) {
-      console.error('❌ Error creating checkout session:', error);
-      res.status(500).json({ error: 'Failed to create checkout session' });
+      console.error("Error creating checkout session:", error);
+      res.status(500).json({ error: "Failed to create checkout session" });
     }
 });
 
@@ -134,13 +164,13 @@ export const createCheckoutSession = onRequest({
 async function verifyAuthentication(req: any) {
   try {
     const authHeader = req.headers.authorization;
-    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
       return null;
     }
-    const idToken = authHeader.split('Bearer ')[1];
+    const idToken = authHeader.split("Bearer ")[1];
     return await admin.auth().verifyIdToken(idToken);
   } catch (error) {
-    console.error('Authentication verification failed:', error);
+    console.error("Authentication verification failed:", error);
     return null;
   }
 }
@@ -152,10 +182,12 @@ async function getOrCreateStripeCustomer(userId: string, email: string): Promise
   const userDoc = await admin.firestore().collection(COLLECTIONS.USERS).doc(userId).get();
   const userData = userDoc.data();
 
+  // Check if user already has a Stripe customer ID
   if (userData?.subscription?.stripeCustomerId) {
     return userData.subscription.stripeCustomerId;
   }
 
+  // Create new Stripe customer
   const customer = await stripe!.customers.create({
     email: email,
     metadata: {
@@ -163,6 +195,7 @@ async function getOrCreateStripeCustomer(userId: string, email: string): Promise
     },
   });
 
+  // Save customer ID to user document
   await admin.firestore().collection(COLLECTIONS.USERS).doc(userId).update({
     'subscription.stripeCustomerId': customer.id,
     updatedAt: admin.firestore.FieldValue.serverTimestamp(),

@@ -369,3 +369,6 @@ export {
 
 // Export checkout session creation
 export { createCheckoutSession } from "./create-checkout-session";
+
+// Export CORS test function
+export { corsTest } from "./cors-test";

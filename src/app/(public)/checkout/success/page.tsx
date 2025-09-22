@@ -4,9 +4,30 @@ import { useEffect, useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 
 function CheckoutSuccessContent() {
-  const searchParams = useSearchParams();
-  const sessionId = searchParams.get('session_id');
+  const [sessionId, setSessionId] = useState<string | null>(null);
   const [customerEmail, setCustomerEmail] = useState<string>('');
+  const [mounted, setMounted] = useState(false);
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    setMounted(true);
+    if (searchParams) {
+      setSessionId(searchParams.get('session_id'));
+    }
+  }, [searchParams]);
+
+  if (!mounted) {
+    return (
+      <div className="min-h-screen bg-gray-50 py-12">
+        <div className="max-w-md mx-auto bg-white rounded-lg shadow-sm p-8">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600 mx-auto mb-4"></div>
+            <p className="text-gray-600">Loading...</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   useEffect(() => {
     // You could fetch checkout session details here if needed

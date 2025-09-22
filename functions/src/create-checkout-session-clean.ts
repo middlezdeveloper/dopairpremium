@@ -13,12 +13,32 @@ let stripe: Stripe | null = null;
 /**
  * Clean checkout session function with proper CORS
  */
-export const createCheckoutSession = onRequest({
+export const createCheckoutSessionClean = onRequest({
   secrets: [stripeSecretKey],
-  cors: true
 }, async (req, res) => {
-    // Set CORS headers manually to ensure they work
-    res.set('Access-Control-Allow-Origin', '*');
+    console.log('🚀 Clean function called - Method:', req.method, 'Origin:', req.headers.origin);
+
+    // Set CORS headers for all responses
+    const allowedOrigins = [
+      'https://dopair.app',
+      'https://premium.dopair.app',
+      'https://dopair.web.app',
+      'https://premium.dopair.web.app',
+      'http://localhost:3000',
+      'http://localhost:3001'
+    ];
+
+    const origin = req.headers.origin;
+    console.log('🔍 Checking origin:', origin);
+
+    if (allowedOrigins.includes(origin || '')) {
+      res.set('Access-Control-Allow-Origin', origin);
+      console.log('✅ CORS origin allowed:', origin);
+    } else {
+      res.set('Access-Control-Allow-Origin', 'https://dopair.app'); // fallback
+      console.log('⚠️ Using fallback CORS origin for:', origin);
+    }
+
     res.set('Access-Control-Allow-Credentials', 'true');
     res.set('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
     res.set('Access-Control-Allow-Headers', 'Content-Type, Authorization');
@@ -29,7 +49,6 @@ export const createCheckoutSession = onRequest({
       res.status(200).end();
       return;
     }
-    console.log('🚀 Function called - Method:', req.method, 'Origin:', req.headers.origin);
 
     if (req.method !== 'POST') {
       console.log('❌ Method not allowed:', req.method);
