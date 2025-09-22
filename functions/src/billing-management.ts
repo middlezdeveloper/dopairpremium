@@ -14,7 +14,6 @@ let stripe: Stripe | null = null;
 // CORS configuration
 const corsHandler = cors({
   origin: [
-    'https://dopair-premium.web.app',
     'https://premium.dopair.app',
     'http://localhost:3000',
     'http://localhost:3001'
