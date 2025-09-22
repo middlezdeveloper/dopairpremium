@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Dopamine Assessment™ - Email Confirmation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-teal: #4ECDC4;
+            --secondary-coral: #FF6B6B;
+            --success-green: #96CEB4;
+            --warning-orange: #FECA57;
+            --background-primary: #1a1a1a;
+            --background-secondary: #2a2a2a;
+            --text-primary: #ffffff;
+            --text-secondary: #b0b0b0;
+            --card-background: #333333;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, var(--background-primary) 0%, var(--background-secondary) 100%);
+            color: var(--text-primary);
+            font-size: 1rem;
+            line-height: 1.5;
+            overflow-x: hidden;
+            font-weight: 400;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 1.25rem;
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 600;
+            line-height: 1.25;
+            margin-bottom: 1rem;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            line-height: 1.33;
+            margin-bottom: 0.75rem;
+        }
+
+        h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            line-height: 1.4;
+            margin-bottom: 0.5rem;
+        }
+
+        h4 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            line-height: 1.44;
+            margin-bottom: 0.5rem;
+        }
+
+        p {
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 1.75rem; }
+            h2 { font-size: 1.375rem; }
+            h3 { font-size: 1.125rem; }
+            body { font-size: 0.9rem; }
+        }
+
+        .email-section {
+            text-align: center;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .results-preview {
+            background: var(--card-background);
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 2rem 0;
+            border: 2px solid var(--warning-orange);
+        }
+
+        .results-teaser {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .teaser-item {
+            text-align: center;
+        }
+
+        .teaser-score {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-teal);
+        }
+
+        .teaser-label {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .value-list {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background: rgba(255, 107, 107, 0.1);
+            border-radius: 8px;
+            border-left: 4px solid var(--secondary-coral);
+        }
+
+        .value-list h4 {
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .value-list ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .value-list li {
+            margin: 0.5rem 0;
+            color: var(--text-secondary);
+        }
+
+        .input-group {
+            margin: 2rem 0;
+        }
+
+        .form-input {
+            width: 100%;
+            max-width: 400px;
+            padding: 1rem 1.5rem;
+            background: var(--card-background);
+            border: 2px solid rgba(78, 205, 196, 0.3);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            height: 56px;
+            box-sizing: border-box;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary-teal);
+            box-shadow: 0 0 0 3px rgba(78, 205, 196, 0.1);
+        }
+
+        .privacy-badges {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .btn {
+            background: linear-gradient(45deg, var(--primary-teal), var(--secondary-coral));
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(78, 205, 196, 0.3);
+        }
+
+        .btn-large {
+            font-size: 1.2rem;
+            padding: 1.2rem 2.5rem;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+        }
+
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Email Capture -->
+        <section class="email-section" id="emailSection">
+            <h2>🎉 Congratulations, <span id="nameDisplay"></span>!</h2>
+            <p style="font-size: 1.1rem; margin-bottom: 1rem;">Your Digital Dopamine Assessment™ is complete. Enter your email to access your personalized results.</p>
+            
+            <div class="results-preview">
+                <h3>🔓 Access Your Complete Results</h3>
+                <div class="results-teaser">
+                    <div class="teaser-item">
+                        <div class="teaser-score" id="previewScore">--</div>
+                        <div class="teaser-label">Overall Score</div>
+                    </div>
+                    <div class="teaser-item">
+                        <div class="teaser-score" id="previewCategory">--</div>
+                        <div class="teaser-label">Risk Level</div>
+                    </div>
+                    <div class="teaser-item">
+                        <div class="teaser-score" id="previewAlerts">--</div>
+                        <div class="teaser-label">Alerts</div>
+                    </div>
+                </div>
+                
+                <div class="value-list">
+                    <h4>You'll receive instantly:</h4>
+                    <ul>
+                        <li>✅ Detailed breakdown of your dependency patterns</li>
+                        <li>✅ Personalized digital wellness action plan</li>
+                        <li>✅ Evidence-based improvement strategies</li>
+                    </ul>
+                    <h4 style="margin-top: 1.5rem;">Plus ongoing support:</h4>
+                    <ul>
+                        <li>📧 Weekly digital wellness tips and strategies</li>
+                        <li>🧠 Latest research insights on digital dependency</li>
+                        <li>🔧 Practical tools for building healthier tech habits</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="input-group">
+                <input type="email" class="form-input" id="userEmail" placeholder="Enter your email address" required>
+            </div>
+            
+            <div class="privacy-agreement" style="background: rgba(150, 206, 180, 0.1); padding: 1rem; border-radius: 8px; margin: 1.5rem 0; text-align: left;">
+                <label style="display: flex; align-items: flex-start; gap: 0.75rem; font-size: 0.9rem; cursor: pointer;">
+                    <input type="checkbox" id="privacyAgreement" required style="margin-top: 0.4rem; flex-shrink: 0; width: 16px; height: 16px;">
+                    <span>I agree to receive emails with my results and digital wellness tips. I understand I can unsubscribe at any time. By proceeding, I accept the <a href="terms-conditions.html" target="_blank" style="color: var(--primary-teal); text-decoration: underline;">Terms & Conditions</a> and <a href="privacy-policy.html" target="_blank" style="color: var(--primary-teal); text-decoration: underline;">Privacy Policy</a>.</span>
+                </label>
+            </div>
+            
+            <div class="privacy-badges">
+                <span>🔒 100% Private</span>
+                <span>📧 Helpful Content Only</span>
+                <span>❌ Unsubscribe Anytime</span>
+            </div>
+            
+            <button class="btn btn-large" onclick="proceedToResults()" style="margin-bottom: 3rem;">Get My Complete Results</button>
+        </section>
+    </div>
+
+    <script src="src/analytics-tracker.js"></script>
+    <script type="module" src="src/email-service.js"></script>
+    <script>
+        // Load data from localStorage and populate preview
+        document.addEventListener('DOMContentLoaded', function() {
+            initEmailPage();
+        });
+
+        function initEmailPage() {
+            // Check if this is a confirmation callback
+            const urlParams = new URLSearchParams(window.location.search);
+            const status = urlParams.get('status');
+            const token = urlParams.get('token');
+
+            if (status === 'success' && token) {
+                // This is email confirmation success - show success message and send results
+                showConfirmationSuccess(token);
+                return;
+            }
+
+            if (status === 'error') {
+                const message = urlParams.get('message') || 'Email confirmation failed';
+                showConfirmationError(message);
+                return;
+            }
+
+            // Check if we have assessment data
+            const ddasSession = localStorage.getItem('ddas_session');
+            if (!ddasSession) {
+                // No assessment data, redirect to assessment
+                window.location.href = '/assessment';
+                return;
+            }
+
+            const sessionData = JSON.parse(ddasSession);
+
+            // Populate name and preview data
+            document.getElementById('nameDisplay').textContent = sessionData.firstName || 'there';
+
+            if (sessionData.scores) {
+                const totalScore = sessionData.totalScore || 0;
+                const category = getScoreCategory(totalScore);
+                const alertCount = sessionData.alertCount || 0;
+
+                document.getElementById('previewScore').textContent = totalScore;
+                document.getElementById('previewCategory').textContent = category;
+                document.getElementById('previewAlerts').textContent = alertCount;
+            }
+        }
+
+        function showConfirmationSuccess(token) {
+            document.getElementById('emailSection').innerHTML = `
+                <div style="text-align: center; animation: fadeInUp 0.8s ease-out;">
+                    <h2>✅ Email Confirmed Successfully!</h2>
+                    <p style="font-size: 1.2rem; margin: 2rem 0; color: var(--success-green);">
+                        Thank you for confirming your email address. Your personalized assessment results are being prepared and will be sent to you shortly.
+                    </p>
+
+                    <div style="background: var(--card-background); border-radius: 16px; padding: 2rem; margin: 2rem 0; border: 2px solid var(--success-green);">
+                        <h3>🎯 What's Next?</h3>
+                        <div style="text-align: left; margin: 1.5rem 0;">
+                            <p>📧 <strong>Check your email inbox</strong> - Your detailed results will arrive within the next few minutes</p>
+                            <p>📱 <strong>Check your spam folder</strong> - Sometimes our emails end up there</p>
+                            <p>🎁 <strong>Explore your personalized action plan</strong> - Use it to start building healthier digital habits today</p>
+                        </div>
+                    </div>
+
+                    <div style="margin: 2rem 0; padding: 1.5rem; background: rgba(78, 205, 196, 0.1); border-radius: 12px; border-left: 4px solid var(--primary-teal);">
+                        <h4>🔄 Sending your results now...</h4>
+                        <div id="sendingStatus" style="margin-top: 1rem; color: var(--text-secondary);">
+                            ⏳ Preparing your personalized assessment results...
+                        </div>
+                    </div>
+
+                    <a href="/assessment" class="btn btn-large" style="margin-top: 2rem;">Take Assessment Again</a>
+                </div>
+            `;
+
+            // Send the results email automatically
+            sendResultsEmail(token);
+        }
+
+        function showConfirmationError(message) {
+            document.getElementById('emailSection').innerHTML = `
+                <div style="text-align: center; animation: fadeInUp 0.8s ease-out;">
+                    <h2>❌ Email Confirmation Failed</h2>
+                    <p style="font-size: 1.1rem; margin: 2rem 0; color: var(--secondary-coral);">
+                        ${message}
+                    </p>
+
+                    <div style="background: var(--card-background); border-radius: 16px; padding: 2rem; margin: 2rem 0; border: 2px solid var(--secondary-coral);">
+                        <h3>🔄 What can you do?</h3>
+                        <div style="text-align: left; margin: 1.5rem 0;">
+                            <p>🔗 <strong>Check your email</strong> - Make sure you clicked the correct link</p>
+                            <p>⏰ <strong>Link expired?</strong> - Confirmation links expire after 24 hours</p>
+                            <p>🆕 <strong>Take the assessment again</strong> - You can retake it anytime</p>
+                        </div>
+                    </div>
+
+                    <a href="/assessment" class="btn btn-large" style="margin-top: 2rem;">Take Assessment Again</a>
+                </div>
+            `;
+        }
+
+        async function sendResultsEmail(verificationToken) {
+            const statusDiv = document.getElementById('sendingStatus');
+
+            try {
+                statusDiv.innerHTML = '📧 Sending your assessment results...';
+
+                // Send results using verification token - all data is stored server-side
+                const response = await fetch('/api/send-assessment-email', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        verificationToken: verificationToken
+                    })
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    statusDiv.innerHTML = '✅ Results sent successfully! Check your email inbox.';
+                    statusDiv.style.color = 'var(--success-green)';
+                } else {
+                    throw new Error(result.error || 'Failed to send results');
+                }
+            } catch (error) {
+                console.error('Failed to send results email:', error);
+                statusDiv.innerHTML = '❌ Failed to send results. Please contact support.';
+                statusDiv.style.color = 'var(--secondary-coral)';
+            }
+        }
+
+        function getScoreCategory(score) {
+            if (score >= 70) return "High Risk";
+            if (score >= 50) return "Moderate";
+            if (score >= 30) return "Low Risk";
+            return "Excellent";
+        }
+
+        function proceedToResults() {
+            const email = document.getElementById('userEmail').value.trim();
+            const privacyChecked = document.getElementById('privacyAgreement').checked;
+            const button = document.querySelector('.btn[onclick="proceedToResults()"]');
+
+            // Immediately disable button to prevent double clicks
+            if (button.disabled) {
+                return; // Already processing
+            }
+            button.disabled = true;
+            button.textContent = 'Sending Results...';
+            button.style.opacity = '0.7';
+            button.style.cursor = 'not-allowed';
+
+            if (!email) {
+                alert('Please enter your email address');
+                // Re-enable button on validation error
+                button.disabled = false;
+                button.textContent = 'Get My Complete Results';
+                button.style.opacity = '1';
+                button.style.cursor = 'pointer';
+                return;
+            }
+
+            if (!email.includes('@')) {
+                alert('Please enter a valid email address');
+                // Re-enable button on validation error
+                button.disabled = false;
+                button.textContent = 'Get My Complete Results';
+                button.style.opacity = '1';
+                button.style.cursor = 'pointer';
+                return;
+            }
+
+            if (!privacyChecked) {
+                alert('Please agree to the Terms & Conditions and Privacy Policy');
+                // Re-enable button on validation error
+                button.disabled = false;
+                button.textContent = 'Get My Complete Results';
+                button.style.opacity = '1';
+                button.style.cursor = 'pointer';
+                return;
+            }
+
+            // Update session data with email
+            const ddasSession = JSON.parse(localStorage.getItem('ddas_session') || '{}');
+            ddasSession.email = email;
+            ddasSession.emailCapturedAt = new Date().toISOString();
+            localStorage.setItem('ddas_session', JSON.stringify(ddasSession));
+
+            // Send to email service
+            try {
+                if (typeof EmailService !== 'undefined') {
+                    EmailService.captureEmail(email, ddasSession.firstName || 'User');
+                }
+            } catch (error) {
+                console.log('Email service not available:', error);
+            }
+
+            // Track analytics
+            try {
+                if (typeof AnalyticsTracker !== 'undefined') {
+                    AnalyticsTracker.trackEvent('email_captured', {
+                        email: email,
+                        assessment_id: ddasSession.assessmentId
+                    });
+                }
+            } catch (error) {
+                console.log('Analytics not available:', error);
+            }
+
+            // Auto-email timer no longer needed - results sent immediately upon email confirmation
+            // localStorage.setItem('autoEmailTimer', Date.now().toString());
+            // localStorage.setItem('autoEmailEnabled', 'true');
+            
+            // Navigate to results page
+            window.location.href = '/results';
+        }
+    </script>
+</body>
+</html>

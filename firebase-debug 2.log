@@ -1,0 +1,16 @@
+[debug] [2025-09-22T03:51:52.017Z] ----------------------------------------------------------------------
+[debug] [2025-09-22T03:51:52.019Z] Command:       /usr/local/bin/node /usr/local/bin/firebase deploy --only hosting
+[debug] [2025-09-22T03:51:52.019Z] CLI Version:   14.16.0
+[debug] [2025-09-22T03:51:52.019Z] Platform:      darwin
+[debug] [2025-09-22T03:51:52.019Z] Node Version:  v22.19.0
+[debug] [2025-09-22T03:51:52.019Z] Time:          Mon Sep 22 2025 13:51:52 GMT+1000 (Australian Eastern Standard Time)
+[debug] [2025-09-22T03:51:52.019Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-09-22T03:51:52.103Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-09-22T03:51:52.103Z] > authorizing via signed-in user (middlezdeveloper@gmail.com)
+[debug] [2025-09-22T03:51:52.103Z] [iam] checking project dopair for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2025-09-22T03:51:52.103Z] Checked if tokens are valid: true, expires at: 1758514774127
+[debug] [2025-09-22T03:51:52.103Z] Checked if tokens are valid: true, expires at: 1758514774127
+[debug] [2025-09-22T03:51:52.104Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/dopair:testIamPermissions [none]
+[debug] [2025-09-22T03:51:52.104Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/dopair:testIamPermissions x-goog-quota-user=projects/dopair
+[debug] [2025-09-22T03:51:52.104Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/dopair:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}

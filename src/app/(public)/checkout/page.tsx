@@ -22,7 +22,7 @@ export default function PublicCheckoutPage() {
     try {
       console.log('Creating public checkout session');
 
-      // Call our Cloud Function to create checkout session
+      // Call our Cloud Function to create checkout session - using Firebase Functions URL
       const response = await fetch('https://us-central1-dopair.cloudfunctions.net/createCheckoutSession', {
         method: 'POST',
         headers: {

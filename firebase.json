@@ -13,6 +13,18 @@
         "function": "chatWithCoach"
       },
       {
+        "source": "/assessment",
+        "destination": "/assessment.html"
+      },
+      {
+        "source": "/email-confirm",
+        "destination": "/email-confirmation.html"
+      },
+      {
+        "source": "/results",
+        "destination": "/results.html"
+      },
+      {
         "source": "**",
         "destination": "/index.html"
       }

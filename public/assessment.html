@@ -1,0 +1,1634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Dopamine Assessment™</title>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-teal: #4ECDC4;
+            --secondary-coral: #FF6B6B;
+            --success-green: #96CEB4;
+            --warning-orange: #FECA57;
+            --background-primary: #1a1a1a;
+            --background-secondary: #2a2a2a;
+            --text-primary: #ffffff;
+            --text-secondary: #b0b0b0;
+            --card-background: #333333;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, var(--background-primary) 0%, var(--background-secondary) 100%);
+            color: var(--text-primary);
+            font-size: 1rem; /* 16px base */
+            line-height: 1.5; /* 1.5x line height */
+            overflow-x: hidden;
+            font-weight: 400; /* Regular weight */
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 1.25rem; /* 20px */
+            min-height: 100vh;
+        }
+
+        /* Apple-style Typography System */
+        h1 {
+            font-size: 2rem; /* 32px - Large Title */
+            font-weight: 600; /* Semibold */
+            line-height: 1.25;
+            margin-bottom: 1rem; /* 16px */
+        }
+
+        h2 {
+            font-size: 1.5rem; /* 24px - Title 1 */
+            font-weight: 600; /* Semibold */
+            line-height: 1.33;
+            margin-bottom: 0.75rem; /* 12px */
+        }
+
+        h3 {
+            font-size: 1.25rem; /* 20px - Title 2 */
+            font-weight: 600; /* Semibold */
+            line-height: 1.4;
+            margin-bottom: 0.5rem; /* 8px */
+        }
+
+        h4 {
+            font-size: 1.125rem; /* 18px - Title 3 */
+            font-weight: 600; /* Semibold */
+            line-height: 1.44;
+            margin-bottom: 0.5rem; /* 8px */
+        }
+
+        p {
+            font-size: 1rem; /* 16px - Body */
+            font-weight: 400; /* Regular */
+            line-height: 1.5;
+            margin-bottom: 1rem; /* 16px */
+        }
+
+        .subheading, .label {
+            font-size: 0.875rem; /* 14px - Caption 1 */
+            font-weight: 400; /* Regular */
+            line-height: 1.43;
+        }
+
+        /* Responsive Typography */
+        @media (max-width: 768px) {
+            h1 { font-size: 1.75rem; } /* 28px on mobile */
+            h2 { font-size: 1.375rem; } /* 22px on mobile */
+            h3 { font-size: 1.125rem; } /* 18px on mobile */
+            body { font-size: 0.9rem; } /* 14.4px on mobile */
+        }
+
+        /* Section Spacing */
+        .section-spacing {
+            margin-bottom: 2rem; /* 32px section spacing */
+        }
+
+        .large-section-spacing {
+            margin-bottom: 3rem; /* 48px for major sections */
+        }
+
+        /* Force page to start at top */
+        html, body {
+            scroll-behavior: auto;
+            overflow-x: hidden;
+            margin: 0;
+            padding: 0;
+        }
+        
+        /* Landing page starts at top like all others */
+        .landing-section {
+            padding-top: 2rem;
+        }
+
+        /* Ensure consistent bottom spacing for all sections */
+        section {
+            padding-bottom: 4rem;
+        }
+
+        /* Add extra spacing for the last element in each section */
+        section > *:last-child {
+            margin-bottom: 2rem;
+        }
+
+        /* Special spacing for sections ending with buttons */
+        .btn:last-child,
+        .results-section .btn,
+        .email-section .btn {
+            margin-bottom: 3rem !important;
+        }
+
+
+        .landing-section {
+            text-align: center;
+            animation: fadeInUp 0.8s ease-out;
+            /* centering is handled above */
+        }
+
+        .hero-title {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, var(--primary-teal), var(--secondary-coral));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1rem, 3vw, 1.3rem);
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .brain-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 2rem;
+            background: linear-gradient(45deg, var(--primary-teal), var(--secondary-coral));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            animation: pulse 2s infinite;
+        }
+
+        .value-props {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 3rem 0;
+        }
+
+        .value-prop {
+            background: var(--card-background);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid rgba(78, 205, 196, 0.2);
+            text-align: center;
+        }
+
+        .value-prop-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--primary-teal);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem auto;
+            font-size: 1.5rem;
+        }
+
+        .research-sources {
+            text-align: center;
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: rgba(78, 205, 196, 0.1);
+            border-radius: 12px;
+            border: 1px solid rgba(78, 205, 196, 0.2);
+        }
+
+        .research-badges {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            margin-top: 0.5rem;
+        }
+
+        .research-badge {
+            color: var(--primary-teal);
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+
+        .testimonial {
+            text-align: center;
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: rgba(255, 107, 107, 0.1);
+            border-radius: 12px;
+            border-left: 4px solid var(--secondary-coral);
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .testimonial-author {
+            color: var(--primary-teal);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .name-section {
+            display: none;
+            text-align: center;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .input-group {
+            margin: 2rem 0;
+        }
+
+        .form-input {
+            width: 100%;
+            max-width: 400px;
+            padding: 1rem 1.5rem;
+            background: var(--card-background);
+            border: 2px solid rgba(78, 205, 196, 0.3);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            height: 56px; /* Force consistent height for all form inputs */
+            box-sizing: border-box;
+        }
+
+        .form-input select {
+            height: 56px; /* Ensure select elements match */
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary-teal);
+            box-shadow: 0 0 0 3px rgba(78, 205, 196, 0.1);
+        }
+
+        .quiz-section {
+            display: none;
+        }
+
+        .progress-container {
+            background: var(--card-background);
+            border-radius: 20px;
+            height: 8px;
+            margin-bottom: 2rem;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-teal), var(--secondary-coral));
+            border-radius: 20px;
+            transition: width 0.5s ease;
+            width: 0%;
+        }
+
+        .progress-text {
+            text-align: center;
+            margin-bottom: 1rem;
+            color: var(--text-secondary);
+        }
+
+        .question-card {
+            background: var(--card-background);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(78, 205, 196, 0.2);
+            animation: slideInRight 0.5s ease-out;
+        }
+
+        .question-number {
+            color: var(--primary-teal);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .question-text {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+        }
+
+        .options-container {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .option-button {
+            background: rgba(78, 205, 196, 0.1);
+            border: 2px solid rgba(78, 205, 196, 0.3);
+            border-radius: 12px;
+            padding: 1rem 1.5rem;
+            text-align: left;
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .option-button:hover {
+            background: rgba(78, 205, 196, 0.2);
+            border-color: var(--primary-teal);
+            transform: translateY(-2px);
+        }
+
+        .option-button.selected {
+            background: var(--primary-teal);
+            color: var(--background-primary);
+            border-color: var(--primary-teal);
+        }
+
+        .option-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .option-button:disabled:hover {
+            transform: none;
+            background: rgba(78, 205, 196, 0.1);
+        }
+
+        .option-button.selected:disabled:hover {
+            background: var(--primary-teal);
+        }
+
+        .research-insight {
+            background: rgba(255, 107, 107, 0.1);
+            border-left: 4px solid var(--secondary-coral);
+            padding: 1rem;
+            margin-top: 1.5rem;
+            border-radius: 0 8px 8px 0;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .next-question-container {
+            display: block !important;
+            width: 100% !important;
+            margin-top: 1.5rem !important;
+            text-align: center !important;
+            clear: both !important;
+            float: none !important;
+        }
+
+        .email-section {
+            display: none;
+            text-align: center;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .results-preview {
+            background: var(--card-background);
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 2rem 0;
+            border: 2px solid var(--warning-orange);
+        }
+
+        .results-teaser {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .teaser-item {
+            text-align: center;
+        }
+
+        .teaser-score {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-teal);
+        }
+
+        .teaser-label {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .value-list {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background: rgba(255, 107, 107, 0.1);
+            border-radius: 8px;
+            border-left: 4px solid var(--secondary-coral);
+        }
+
+        .value-list h4 {
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .value-list ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .value-list li {
+            margin: 0.5rem 0;
+            color: var(--text-secondary);
+        }
+
+        .privacy-badges {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .results-section {
+            display: none;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .overall-score {
+            text-align: center;
+            background: var(--card-background);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .score-circle {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: conic-gradient(var(--primary-teal) 0deg, var(--secondary-coral) 180deg, var(--warning-orange) 270deg, var(--background-secondary) 360deg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            position: relative;
+        }
+
+        .score-inner {
+            width: 90px;
+            height: 90px;
+            background: var(--card-background);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .dimensions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .dimension-card {
+            background: var(--card-background);
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 1px solid rgba(78, 205, 196, 0.2);
+        }
+
+        .dimension-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .dimension-rating {
+            padding: 0.3rem 0.8rem;
+            border-radius: 16px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .rating-excellent {
+            background: var(--success-green);
+            color: var(--background-primary);
+        }
+
+        .rating-good {
+            background: var(--primary-teal);
+            color: var(--background-primary);
+        }
+
+        .rating-moderate {
+            background: var(--warning-orange);
+            color: var(--background-primary);
+        }
+
+        .rating-concern {
+            background: var(--secondary-coral);
+            color: white;
+        }
+
+        /* Badge styles for new conversion page */
+        .badge-good {
+            background: #10B981;
+            color: white;
+        }
+
+        .badge-moderate {
+            background: #F59E0B;
+            color: white;
+        }
+
+        .badge-concern {
+            background: #EF4444;
+            color: white;
+        }
+
+        /* Animations for conversion page */
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        @keyframes shimmer {
+            0% {
+                background-position: -200px 0;
+            }
+            100% {
+                background-position: calc(200px + 100%) 0;
+            }
+        }
+
+        /* Apply animations to conversion elements */
+        .results-hero {
+            animation: fadeInScale 0.8s ease-out;
+        }
+
+        .dimension-card-new {
+            animation: slideInUp 0.6s ease-out;
+            animation-fill-mode: both;
+        }
+
+        .dimension-card-new:nth-child(1) { animation-delay: 0.1s; }
+        .dimension-card-new:nth-child(2) { animation-delay: 0.2s; }
+        .dimension-card-new:nth-child(3) { animation-delay: 0.3s; }
+        .dimension-card-new:nth-child(4) { animation-delay: 0.4s; }
+
+        .premium-module-card {
+            animation: slideInUp 0.6s ease-out;
+            animation-fill-mode: both;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .premium-module-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .premium-module-card:nth-child(1) { animation-delay: 0.2s; }
+        .premium-module-card:nth-child(2) { animation-delay: 0.4s; }
+        .premium-module-card:nth-child(3) { animation-delay: 0.6s; }
+        .premium-module-card:nth-child(4) { animation-delay: 0.8s; }
+        .premium-module-card:nth-child(5) { animation-delay: 1.0s; }
+        .premium-module-card:nth-child(6) { animation-delay: 1.2s; }
+
+        .social-proof-section {
+            animation: slideInUp 0.8s ease-out;
+            animation-fill-mode: both;
+            animation-delay: 0.5s;
+        }
+
+        .conversion-cta-section {
+            animation: fadeInScale 0.8s ease-out;
+            animation-fill-mode: both;
+            animation-delay: 0.7s;
+        }
+
+        .faq-section {
+            animation: slideInUp 0.8s ease-out;
+            animation-fill-mode: both;
+            animation-delay: 0.9s;
+        }
+
+        .final-conversion-section {
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        /* Button animations */
+        .btn {
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        /* Primary CTA button special effects */
+        .btn[onclick="showCompleteResults()"] {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn[onclick="showCompleteResults()"]::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -200px;
+            width: 200px;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            animation: shimmer 3s ease-in-out infinite;
+        }
+
+        /* FAQ arrow rotation */
+        .faq-arrow {
+            transition: transform 0.3s ease;
+        }
+
+        /* Pentagon chart animations */
+        .pentagon-chart-container {
+            animation: fadeInScale 0.8s ease-out;
+            animation-delay: 0.3s;
+            animation-fill-mode: both;
+        }
+
+        /* Lock overlay pulse for premium cards */
+        .lock-overlay {
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        /* Stats counter animation */
+        @keyframes countUp {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .social-proof-section div[style*="font-size: 2rem"] {
+            animation: countUp 0.8s ease-out;
+            animation-fill-mode: both;
+        }
+
+        /* Mobile responsive animations */
+        @media (max-width: 768px) {
+            .premium-module-card:hover {
+                transform: none;
+            }
+            
+            .btn:hover {
+                transform: none;
+            }
+        }
+
+        .dimension-score {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .dimension-bar {
+            height: 8px;
+            background: var(--background-secondary);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 1rem;
+        }
+
+        .dimension-fill {
+            height: 100%;
+            background: var(--primary-teal);
+            border-radius: 4px;
+            transition: width 1s ease;
+        }
+
+        .dimension-feedback {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .btn {
+            background: linear-gradient(45deg, var(--primary-teal), var(--secondary-coral));
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(78, 205, 196, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid var(--primary-teal);
+            color: var(--primary-teal);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary-teal);
+            color: white;
+        }
+
+        .btn-large {
+            font-size: 1.2rem;
+            padding: 1.2rem 2.5rem;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            .question-card {
+                padding: 1.5rem;
+            }
+            
+            .value-props {
+                grid-template-columns: 1fr;
+            }
+
+            .research-badges {
+                gap: 1rem;
+            }
+
+            .dimensions-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .hidden {
+            display: none !important;
+        }
+        /* Mobile-friendly Tooltip System */
+        .tooltip-wrapper {
+            position: relative;
+            display: inline-flex;
+            align-items: flex-start;
+            gap: 0.25rem;
+        }
+
+        .info-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            min-width: 28px;
+            min-height: 28px;
+            background: transparent;
+            border: none;
+            color: var(--primary-teal);
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: all 0.2s ease;
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
+            margin-top: 2px;
+            margin-left: 0.2rem;
+        }
+
+        .info-icon:hover,
+        .info-icon:focus {
+            background: rgba(78, 205, 196, 0.2);
+            border-radius: 50%;
+            color: var(--primary-teal);
+            transform: scale(1.1);
+        }
+
+        .info-icon:active {
+            transform: scale(0.95);
+        }
+
+        /* Tooltip Content */
+        .tooltip-content {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 85vw;
+            width: 700px;
+            max-height: 80vh;
+            overflow-y: auto;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            border: 2px solid var(--primary-teal);
+        }
+
+        .tooltip-content.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .tooltip-header {
+            padding: 1.5rem 1.5rem 1rem;
+            border-bottom: 1px solid rgba(78, 205, 196, 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .tooltip-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--primary-teal);
+            margin: 0;
+            line-height: 1.3;
+        }
+
+        .tooltip-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #666;
+            cursor: pointer;
+            padding: 0;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .tooltip-close:hover,
+        .tooltip-close:focus {
+            background: rgba(255, 107, 107, 0.1);
+            color: var(--secondary-coral);
+        }
+
+        .tooltip-body {
+            padding: 1.5rem;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .tooltip-body p {
+            margin-bottom: 1rem;
+        }
+
+        .tooltip-body p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Backdrop */
+        .tooltip-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .tooltip-backdrop.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 480px) {
+            .tooltip-content {
+                width: 95vw;
+                max-height: 85vh;
+                border-radius: 12px;
+            }
+            
+            .tooltip-header {
+                padding: 1.2rem 1.2rem 0.8rem;
+            }
+            
+            .tooltip-body {
+                padding: 1.2rem;
+                font-size: 0.9rem;
+            }
+            
+            .tooltip-title {
+                font-size: 1.1rem;
+            }
+        }
+
+        /* Accessibility improvements */
+        @media (prefers-reduced-motion: reduce) {
+            .tooltip-content,
+            .tooltip-backdrop,
+            .info-icon {
+                transition: none;
+            }
+        }
+
+        /* High contrast mode support */
+        @media (prefers-contrast: high) {
+            .info-icon {
+                border-width: 3px;
+            }
+            
+            .tooltip-content {
+                border-width: 3px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+            }
+        }
+
+        /* Dimension header layout adjustments */
+        .dimension-header {
+            display: flex !important;
+            justify-content: space-between !important;
+            align-items: center !important;
+            gap: 1rem !important;
+        }
+        
+        /* Action Plan Card Styling - ensure consistency with Results cards */
+        .action-plan-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(78, 205, 196, 0.4);
+        }
+
+        .dimension-header .tooltip-wrapper {
+            flex: 1 !important;
+            justify-content: flex-start !important;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Landing Section -->
+        <section class="landing-section" id="landing">
+            <div class="brain-icon">🧠</div>
+            <h1 class="hero-title">Discover Your Digital Dopamine Dependency</h1>
+            <p class="hero-subtitle">Take our research-backed Digital Dependency Assessment™ and get your personalized digital wellness score in just 7 minutes</p>
+            
+            <div class="value-props">
+                <div class="value-prop">
+                    <div class="value-prop-icon">🔬</div>
+                    <h3>Science-Based</h3>
+                    <p>Based on peer-reviewed research from leading neuroscientists and habit specialists</p>
+                </div>
+                <div class="value-prop">
+                    <div class="value-prop-icon">⏱️</div>
+                    <h3>Quick Assessment</h3>
+                    <p>20 evidence-based questions • 7 minutes • Instant personalized results</p>
+                </div>
+                <div class="value-prop">
+                    <div class="value-prop-icon">📊</div>
+                    <h3>Actionable Insights</h3>
+                    <p>Your complete dependency breakdown plus specific steps for improvement</p>
+                </div>
+            </div>
+            
+            <div class="scientific-foundation">
+                <div style="background: var(--card-background); border-radius: 16px; padding: 2rem; margin-bottom: 1.5rem; border: 1px solid rgba(150, 206, 180, 0.3);">
+                    <h2 style="text-align: center; color: var(--primary-teal); margin-bottom: 0.5rem;">Our Scientific Foundation</h2>
+                    <h3 style="text-align: center; color: var(--text-primary); margin-bottom: 2rem;">The Digital Dependency Assessment™ Model</h3>
+                    
+                    <p style="margin-bottom: 1.5rem; color: var(--text-secondary); line-height: 1.6;">This assessment is grounded in <strong>Dr. Mark Griffiths' Component Model of Habit</strong>—the gold standard framework used worldwide to understand behavioral habits. Originally developed to study gambling and substance habit, this scientifically-validated model has been successfully adapted for digital behaviors and extensively validated in major assessment scales including the Bergen Social Media Habit Scale (BSMAS), Bergen Facebook Habit Scale (BFAS), and Internet Habit Test variations.</p>
+                    
+                    <p style="margin-bottom: 1.5rem; color: var(--text-secondary); line-height: 1.6;">We combine Dr. Griffiths' habit framework (the behavioral "what") with <strong>Dr. Anna Lembke's breakthrough dopamine research from Stanford University</strong> (the neurobiological "why"). This dual approach gives you both the psychological patterns and the brain science behind your smartphone habits.</p>
+                    
+                    <p style="margin: 0; color: var(--text-primary); line-height: 1.6;"><strong>Your Results:</strong> We measure your digital dependency across four evidence-based dimensions and provide targeted interventions that address the root causes of digital dependency.</p>
+                </div>
+            </div>
+
+            <div class="testimonial">
+                <p class="testimonial-text">"This assessment was my wake-up call. The action plan helped me reduce screen time by 3 hours in just 2 weeks."</p>
+                <p class="testimonial-author">- Sarah M., Marketing Professional</p>
+            </div>
+            
+            <button class="btn" onclick="console.log('Button clicked!'); if(typeof startAssessment === 'function') { startAssessment(); } else { console.error('startAssessment not available:', typeof startAssessment); }">Start Free Assessment</button>
+            <div style="height: 3rem;"></div>
+        </section>
+
+        <!-- Name Collection -->
+        <section class="name-section" id="nameSection">
+            <h2>Let's personalize your experience</h2>
+            <p>Help us provide more relevant insights by sharing a few quick details.</p>
+            
+            <div class="input-group">
+                <label for="userName" style="display: block; margin-bottom: 0.5rem; color: var(--text-primary); font-weight: 600;">First Name</label>
+                <input type="text" class="form-input" id="userName" placeholder="Enter your first name" maxlength="50">
+            </div>
+
+            <div class="input-group">
+                <label for="birthYear" style="display: block; margin-bottom: 0.5rem; color: var(--text-primary); font-weight: 600;">Year of Birth</label>
+                <input type="number" class="form-input" id="birthYear" placeholder="e.g. 1990" min="1920" max="2010" maxlength="4">
+                <small style="color: var(--text-secondary); margin-top: 0.25rem; display: block;">Used for personalized life impact calculations</small>
+            </div>
+
+            <div class="input-group">
+                <label for="gender" style="display: block; margin-bottom: 0.5rem; color: var(--text-primary); font-weight: 600;">Gender</label>
+                <select class="form-input" id="gender">
+                    <option value="">Select gender</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="non-binary">Non-binary</option>
+                    <option value="prefer-not-to-say">Prefer not to say</option>
+                </select>
+            </div>
+
+            
+            <button class="btn" onclick="startQuiz()">Continue</button>
+        </section>
+
+        <!-- Quiz Section -->
+        <section class="quiz-section" id="quizSection">
+            <div class="progress-text">
+                <span id="progressText">Question 1 of 20</span>
+            </div>
+            <div class="progress-container">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+            
+            <div class="question-card" id="questionCard">
+                <!-- Question content will be dynamically inserted -->
+            </div>
+        </section>
+
+        <!-- Email section moved to separate page -->
+
+        <!-- Results section moved to separate page -->
+
+    <!-- Firebase SDKs -->
+    <script src="src/analytics-tracker.js"></script>
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+        import { getFirestore, collection, addDoc, doc, updateDoc, serverTimestamp, arrayUnion } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+        
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDZTvAZSZb96LHC2QYk1l4wBq9m42eSa8M",
+            authDomain: "dopair.firebaseapp.com",
+            projectId: "dopair",
+            storageBucket: "dopair.firebasestorage.app",
+            messagingSenderId: "49485045614",
+            appId: "1:49485045614:web:8e7fba7242e3b270f6ab7f",
+            measurementId: "G-PJH603P6D2"
+        };
+        
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        
+        // Make Firebase available globally
+        window.firebaseDB = db;
+        window.firebaseUtils = { collection, addDoc, doc, updateDoc, serverTimestamp, arrayUnion };
+        
+        // Initialize analytics tracker
+        window.analytics = new AnalyticsTracker();
+        window.analytics.setupExitTracking();
+        
+        // Aggressively force scroll to top on page load
+        if ('scrollRestoration' in history) {
+            history.scrollRestoration = 'manual';
+        }
+        
+        // Immediate scroll
+        window.scrollTo(0, 0);
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0;
+        
+        // Force scroll on various events
+        document.addEventListener('DOMContentLoaded', () => {
+            window.scrollTo(0, 0);
+            document.documentElement.scrollTop = 0;
+            document.body.scrollTop = 0;
+        });
+        
+        window.addEventListener('load', () => {
+            window.scrollTo(0, 0);
+            document.documentElement.scrollTop = 0;
+            document.body.scrollTop = 0;
+        });
+        
+        // Force scroll after a small delay too
+        setTimeout(() => {
+            window.scrollTo(0, 0);
+            document.documentElement.scrollTop = 0;
+            document.body.scrollTop = 0;
+        }, 100);
+        
+        // Tooltip System JavaScript
+        class TooltipSystem {
+            constructor() {
+                this.activeTooltip = null;
+                this.tooltipData = {
+                    'assessment-title': {
+                        title: 'Digital Dopamine Assessment™',
+                        content: `This assessment is built on Dr. Mark Griffiths' scientifically-validated Component Model of Habit, used worldwide to understand behavioral habits. We adapted his six core habit components into four user-friendly categories, incorporating recent research on smartphone habit, dopamine systems, and digital wellness. The model draws from peer-reviewed studies including the Bergen Social Media Habit Scale and longitudinal research from Stanford University's Habit Medicine clinic.`
+                    },
+                    'salience-preoccupation': {
+                        title: 'Salience & Preoccupation',
+                        content: `This measures how often you think about your phone when not using it, whether it feels like the most important thing in your life, and if thoughts about checking it interrupt other activities. High scores suggest your phone has become a central focus that crowds out other interests.`
+                    },
+                    'loss-of-control': {
+                        title: 'Loss of Control',
+                        content: `This assesses whether you can stick to limits you set for yourself, resist urges to check your phone, and stop using it when you intend to. High scores indicate difficulty controlling usage despite wanting to, similar to other impulse control challenges.`
+                    },
+                    'tolerance-withdrawal': {
+                        title: 'Tolerance & Withdrawal',
+                        content: `This examines if you need more phone time to feel satisfied and how you feel when separated from your device. High scores suggest you may experience anxiety, restlessness, or discomfort when your phone isn't available, and that your usage has gradually increased over time.`
+                    },
+                    'functional-impairment': {
+                        title: 'Functional Impairment',
+                        content: `This looks at whether phone use interferes with important areas of your life like sleep, work productivity, face-to-face relationships, or physical activities. High scores indicate that phone use may be creating real problems in daily functioning and life satisfaction.`
+                    },
+                    'dimension-breakdown': {
+                        title: 'Your Dimension Breakdown & Insights',
+                        content: `These four dimensions represent the core aspects of digital dependency based on scientific research. Each score shows how your phone use patterns align with established markers of problematic technology use. Understanding these dimensions helps identify specific areas where targeted interventions can be most effective.`
+                    },
+                    'phone-usage-impact': {
+                        title: 'Phone Usage Life Impact',
+                        content: `This visualization shows how your current phone usage patterns will impact your remaining lifetime. The calculation is based on average life expectancy and 7.5 hours sleep per night. The colored bars represent your years awake and phone-free (green), time spent on your phone that could be reclaimed (red), and sleeping hours (gray). This helps put your digital habits into perspective and shows the potential time available for other meaningful activities.`
+                    }
+                };
+                this.init();
+            }
+
+            init() {
+                this.createTooltipContainer();
+                this.bindEvents();
+            }
+
+            createTooltipContainer() {
+                // Create backdrop
+                this.backdrop = document.createElement('div');
+                this.backdrop.className = 'tooltip-backdrop';
+                this.backdrop.addEventListener('click', () => this.closeTooltip());
+                document.body.appendChild(this.backdrop);
+
+                // Create tooltip content container
+                this.tooltip = document.createElement('div');
+                this.tooltip.className = 'tooltip-content';
+                this.tooltip.setAttribute('role', 'dialog');
+                this.tooltip.setAttribute('aria-modal', 'true');
+                document.body.appendChild(this.tooltip);
+            }
+
+            bindEvents() {
+                // Handle click events on info icons
+                document.addEventListener('click', (e) => {
+                    if (e.target.classList.contains('info-icon')) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        const tooltipId = e.target.getAttribute('data-tooltip');
+                        console.log('Clicked info icon with tooltip ID:', tooltipId);
+                        this.showTooltip(tooltipId);
+                    }
+                });
+
+                // Handle escape key
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape' && this.activeTooltip) {
+                        this.closeTooltip();
+                    }
+                });
+
+                // Prevent scrolling when tooltip is open
+                this.tooltip.addEventListener('touchmove', (e) => {
+                    e.stopPropagation();
+                });
+            }
+
+            showTooltip(tooltipId) {
+                console.log('showTooltip called with ID:', tooltipId);
+                console.log('Available tooltip data keys:', Object.keys(this.tooltipData));
+                
+                const data = this.tooltipData[tooltipId];
+                if (!data) {
+                    console.warn('No tooltip data found for:', tooltipId);
+                    console.warn('Available keys:', Object.keys(this.tooltipData));
+                    return;
+                }
+
+                console.log('Found tooltip data:', data);
+                this.activeTooltip = tooltipId;
+
+                // Set content
+                const tooltipHTML = `
+                    <div class="tooltip-header">
+                        <h3 class="tooltip-title">${data.title}</h3>
+                        <button class="tooltip-close" aria-label="Close tooltip" onclick="window.tooltipSystem.closeTooltip()">
+                            ×
+                        </button>
+                    </div>
+                    <div class="tooltip-body">
+                        <p>${data.content}</p>
+                    </div>
+                `;
+                
+                console.log('Setting tooltip HTML:', tooltipHTML);
+                this.tooltip.innerHTML = tooltipHTML;
+
+                // Show tooltip with animation
+                requestAnimationFrame(() => {
+                    this.backdrop.classList.add('active');
+                    this.tooltip.classList.add('active');
+                    
+                    console.log('Tooltip should be visible now');
+                    
+                    // Focus management for accessibility
+                    const closeButton = this.tooltip.querySelector('.tooltip-close');
+                    if (closeButton) {
+                        closeButton.focus();
+                    }
+                    
+                    // Prevent body scroll
+                    document.body.style.overflow = 'hidden';
+                });
+            }
+
+            closeTooltip() {
+                if (!this.activeTooltip) return;
+
+                const currentTooltip = this.activeTooltip;
+                
+                this.backdrop.classList.remove('active');
+                this.tooltip.classList.remove('active');
+                this.activeTooltip = null;
+                
+                // Restore body scroll
+                document.body.style.overflow = '';
+
+                // Return focus to the trigger element
+                setTimeout(() => {
+                    const triggerElement = document.querySelector(`[data-tooltip="${currentTooltip}"]`);
+                    if (triggerElement) {
+                        triggerElement.focus();
+                    }
+                }, 100);
+            }
+        }
+
+        // Initialize tooltip system when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            window.tooltipSystem = new TooltipSystem();
+        });
+
+        // Load the quiz app after Firebase is ready
+        const script = document.createElement('script');
+        script.type = 'module';
+        script.src = './src/quiz-app.js';
+        script.onload = () => {
+            console.log('Quiz app loaded successfully');
+            console.log('startAssessment function available:', typeof window.startAssessment);
+            console.log('quiz instance available:', typeof window.quiz);
+        };
+        script.onerror = (error) => {
+            console.error('Error loading quiz app:', error);
+        };
+        document.head.appendChild(script);
+
+        // Fallback startAssessment function
+        window.startAssessment = function() {
+            console.log('Fallback startAssessment called');
+            const landing = document.getElementById('landing');
+            const nameSection = document.getElementById('nameSection');
+            
+            if (landing && nameSection) {
+                landing.style.display = 'none';
+                nameSection.style.display = 'block';
+                window.scrollTo(0, 0);
+                console.log('Assessment started successfully');
+            } else {
+                console.error('Landing or nameSection element not found', {
+                    landing: !!landing,
+                    nameSection: !!nameSection
+                });
+            }
+        };
+
+        // Fallback startQuiz function
+        window.startQuiz = function() {
+            console.log('Fallback startQuiz called');
+            const nameSection = document.getElementById('nameSection');
+            const quizSection = document.getElementById('quizSection');
+            const nameInput = document.getElementById('userName');
+            
+            if (nameInput && nameInput.value.trim()) {
+                if (nameSection && quizSection) {
+                    nameSection.style.display = 'none';
+                    quizSection.style.display = 'block';
+                    window.scrollTo(0, 0);
+                    console.log('Quiz started successfully');
+                } else {
+                    console.error('Quiz sections not found', {
+                        nameSection: !!nameSection,
+                        quizSection: !!quizSection
+                    });
+                }
+            } else {
+                alert('Please enter your name to continue');
+            }
+        };
+    </script>
+
+
+    <!-- Stripe Integration -->
+    <script src="https://js.stripe.com/v3/"></script>
+    <script>
+        // Initialize Stripe - Replace with your publishable key
+        // For testing: use pk_test_... key, for production: use pk_live_... key
+        const stripe = Stripe('pk_test_51S4LL4B0md0hKsVZcoLB07vZO2iFciBybGNlDGA79NJveduHrwmgrbLOvrjVmEUQJ8kRXi5Vic19PRPFX8M4waha00OrvOmKOw');
+        
+        // Global Stripe checkout function
+        window.proceedToStripeCheckout = async function(event) {
+            try {
+                console.log('🚀 Stripe checkout initiated!', event);
+                
+                // Track checkout initiation
+                if (window.analytics) {
+                    window.analytics.trackButtonClick('stripe_checkout_initiated');
+                }
+
+                // Show loading state
+                let button = event?.target || document.querySelector('[onclick*="proceedToStripeCheckout"]');
+                let originalText = 'Get My Complete Program';
+                if (button) {
+                    originalText = button.textContent;
+                    button.textContent = 'Loading checkout...';
+                    button.disabled = true;
+                }
+
+                // Store user data for post-purchase
+                const userData = {
+                    firstName: window.quiz?.userName || 'User',
+                    birthYear: window.quiz?.birthYear || null,
+                    assessmentId: window.quiz?.assessmentId || 'assessment-' + Date.now(),
+                    timestamp: Date.now(),
+                    email: window.quiz?.userEmail || null
+                };
+                localStorage.setItem('dopair_user_data', JSON.stringify(userData));
+
+                // Detect mobile or production environment - use direct payment link
+                const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+                const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+                
+                if (isMobile) {
+                    // For mobile, use direct Stripe payment link (better UX on mobile)
+                    console.log('Using Stripe payment link for mobile');
+                    window.location.href = 'https://buy.stripe.com/test_6oE6ped5U1Xr6vCcMN'; // Test payment link
+                    return;
+                }
+                
+                if (!isLocalhost) {
+                    // For production desktop, still try embedded but fallback to payment link
+                    console.log('Production desktop - attempting embedded checkout');
+                }
+
+                // Desktop localhost - try the embedded checkout
+                let response;
+                try {
+                    response = await fetch('http://localhost:3001/api/create-checkout-session', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            priceId: 'price_test_complete_program',
+                            successUrl: window.location.origin + '/payment-success',
+                            cancelUrl: window.location.origin + '/payment-cancelled',
+                            customerEmail: userData.email,
+                            metadata: {
+                                assessmentId: userData.assessmentId,
+                                firstName: userData.firstName,
+                                birthYear: userData.birthYear
+                            }
+                        })
+                    });
+                } catch (fetchError) {
+                    // Network error - fallback to payment link
+                    console.log('Network error, using payment link fallback:', fetchError);
+                    window.location.href = 'https://buy.stripe.com/test_6oE6ped5U1Xr6vCcMN'; // Test payment link
+                    return;
+                }
+
+                if (!response.ok) {
+                    // Server error - fallback to payment link
+                    console.log('Server error, using payment link fallback');
+                    window.location.href = 'https://buy.stripe.com/test_6oE6ped5U1Xr6vCcMN'; // Test payment link
+                    return;
+                }
+
+                const session = await response.json();
+                console.log('📄 Session response:', session);
+
+                // Create embedded checkout modal using client secret
+                const checkout = await stripe.initEmbeddedCheckout({
+                    clientSecret: session.clientSecret
+                });
+
+                // Create modal overlay
+                const overlay = document.createElement('div');
+                overlay.id = 'checkout-overlay';
+                overlay.style.cssText = `
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100vw;
+                    height: 100vh;
+                    background: rgba(0, 0, 0, 0.8);
+                    z-index: 9999;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    backdrop-filter: blur(5px);
+                `;
+                
+                // Add close button
+                const closeBtn = document.createElement('button');
+                closeBtn.innerHTML = '✕';
+                closeBtn.style.cssText = `
+                    position: absolute;
+                    top: 2rem;
+                    right: 2rem;
+                    background: white;
+                    border: none;
+                    width: 40px;
+                    height: 40px;
+                    border-radius: 50%;
+                    font-size: 1.2rem;
+                    cursor: pointer;
+                    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                    z-index: 10001;
+                `;
+                closeBtn.onclick = () => {
+                    document.body.removeChild(overlay);
+                    if (button) {
+                        button.textContent = originalText;
+                        button.disabled = false;
+                    }
+                };
+                
+                // Create empty container for Stripe (MUST be empty!)
+                const checkoutContainer = document.createElement('div');
+                checkoutContainer.id = 'stripe-checkout-container';
+                checkoutContainer.style.cssText = `
+                    width: 100%;
+                    max-width: 600px;
+                    max-height: 90vh;
+                    overflow: auto;
+                    background: white;
+                    border-radius: 12px;
+                    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+                `;
+                
+                // Add close button and empty container to overlay
+                overlay.appendChild(closeBtn);
+                overlay.appendChild(checkoutContainer);
+                document.body.appendChild(overlay);
+                
+                // Mount checkout to the EMPTY container
+                checkout.mount(checkoutContainer);
+
+            } catch (error) {
+                console.error('🚨 Stripe checkout error:', error);
+                
+                // Show user-friendly error
+                const errorMsg = error.message.includes('fetch') 
+                    ? 'Using direct payment link...' 
+                    : 'Sorry, there was an error. Please try again.';
+                
+                if (error.message.includes('fetch')) {
+                    // Fallback to direct payment link
+                    window.location.href = 'https://buy.stripe.com/fZu3cu4TSgo35OQbAO63K00';
+                } else {
+                    alert(errorMsg);
+                }
+                
+                // Reset button
+                const resetButton = () => {
+                    if (button) {
+                        button.textContent = originalText;
+                        button.disabled = false;
+                    }
+                };
+                resetButton();
+                
+                // Track error
+                if (window.analytics) {
+                    window.analytics.trackError('stripe_checkout_error', error.message);
+                }
+            }
+        };
+
+        // Update existing proceedToCheckout function to use Stripe
+        window.proceedToCheckout = window.proceedToStripeCheckout;
+        
+        // Fallback function for any buttons still calling openPremiumModal
+        window.openPremiumModal = function() {
+            console.log('🔄 openPremiumModal called - redirecting to Stripe checkout');
+            window.proceedToStripeCheckout();
+        };
+        
+        // Also make the modal button use Stripe
+        document.addEventListener('DOMContentLoaded', function() {
+            // Update the "Get My Complete Program" button in the modal
+            const modalButton = document.getElementById('unlockPremiumBtn');
+            if (modalButton) {
+                modalButton.onclick = window.proceedToStripeCheckout;
+            }
+        });
+    </script>
+</body>
+</html>

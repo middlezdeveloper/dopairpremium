@@ -2,7 +2,6 @@ import { onRequest } from 'firebase-functions/v2/https';
 import { defineSecret } from 'firebase-functions/params';
 import * as admin from 'firebase-admin';
 import Stripe from 'stripe';
-const cors = require('cors');
 import { COLLECTIONS } from '../lib/collections';
 
 // Define secrets
@@ -11,26 +10,37 @@ const stripeSecretKey = defineSecret('STRIPE_SECRET_KEY');
 // Initialize Stripe (will be initialized in handler)
 let stripe: Stripe | null = null;
 
-// CORS configuration
-const corsHandler = cors({
-  origin: [
-    'https://dopair.app',
-    'https://premium.dopair.app',
-    'https://dopair.web.app',
-    'https://premium.dopair.web.app',
-    'http://localhost:3000',
-    'http://localhost:3001'
-  ],
-  credentials: true
-});
-
 /**
  * Create Stripe checkout session for subscription
  */
 export const createCheckoutSession = onRequest({
   secrets: [stripeSecretKey],
 }, async (req, res) => {
-  return corsHandler(req, res, async () => {
+    // Set CORS headers FIRST THING - before any other logic
+    const allowedOrigins = [
+      'https://dopair.app',
+      'https://premium.dopair.app',
+      'https://dopair.web.app',
+      'https://premium.dopair.web.app',
+      'http://localhost:3000',
+      'http://localhost:3001'
+    ];
+
+    const origin = req.headers.origin;
+    if (allowedOrigins.includes(origin || '')) {
+      res.set('Access-Control-Allow-Origin', origin);
+    }
+
+    res.set('Access-Control-Allow-Credentials', 'true');
+    res.set('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+    res.set('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+
+    // Handle preflight requests BEFORE any other logic
+    if (req.method === 'OPTIONS') {
+      res.status(200).end();
+      return;
+    }
+
     if (req.method !== "POST") {
       res.status(405).json({ error: "Method not allowed" });
       return;
@@ -130,7 +140,6 @@ export const createCheckoutSession = onRequest({
       console.error("Error creating checkout session:", error);
       res.status(500).json({ error: "Failed to create checkout session" });
     }
-  });
 });
 
 /**

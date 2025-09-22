@@ -1,0 +1,2649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Dopamine Assessment™ - Results</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-teal: #4ECDC4;
+            --secondary-coral: #FF6B6B;
+            --success-green: #96CEB4;
+            --warning-orange: #FECA57;
+            --background-primary: #1a1a1a;
+            --background-secondary: #2a2a2a;
+            --text-primary: #ffffff;
+            --text-secondary: #b0b0b0;
+            --card-background: #333333;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, var(--background-primary) 0%, var(--background-secondary) 100%);
+            color: var(--text-primary);
+            font-size: 1rem; /* 16px base */
+            line-height: 1.5; /* 1.5x line height */
+            overflow-x: hidden;
+            font-weight: 400; /* Regular weight */
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 1.25rem; /* 20px */
+            min-height: 100vh;
+        }
+
+        /* Apple-style Typography System */
+        h1 {
+            font-size: 2rem; /* 32px - Large Title */
+            font-weight: 600; /* Semibold */
+            line-height: 1.25;
+            margin-bottom: 1rem; /* 16px */
+        }
+
+        h2 {
+            font-size: 1.5rem; /* 24px - Title 1 */
+            font-weight: 600; /* Semibold */
+            line-height: 1.33;
+            margin-bottom: 0.75rem; /* 12px */
+        }
+
+        h3 {
+            font-size: 1.25rem; /* 20px - Title 2 */
+            font-weight: 600; /* Semibold */
+            line-height: 1.4;
+            margin-bottom: 0.5rem; /* 8px */
+        }
+
+        h4 {
+            font-size: 1.125rem; /* 18px - Title 3 */
+            font-weight: 600; /* Semibold */
+            line-height: 1.44;
+            margin-bottom: 0.5rem; /* 8px */
+        }
+
+        p {
+            font-size: 1rem; /* 16px - Body */
+            font-weight: 400; /* Regular */
+            line-height: 1.5;
+            margin-bottom: 1rem; /* 16px */
+        }
+
+        .subheading, .label {
+            font-size: 0.875rem; /* 14px - Caption 1 */
+            font-weight: 400; /* Regular */
+            line-height: 1.43;
+        }
+
+        /* Responsive Typography */
+        @media (max-width: 768px) {
+            h1 { font-size: 1.75rem; } /* 28px on mobile */
+            h2 { font-size: 1.375rem; } /* 22px on mobile */
+            h3 { font-size: 1.125rem; } /* 18px on mobile */
+            body { font-size: 0.9rem; } /* 14.4px on mobile */
+        }
+
+        /* Section Spacing */
+        .section-spacing {
+            margin-bottom: 2rem; /* 32px section spacing */
+        }
+
+        .large-section-spacing {
+            margin-bottom: 3rem; /* 48px for major sections */
+        }
+
+        /* Force page to start at top */
+        html, body {
+            scroll-behavior: auto;
+            overflow-x: hidden;
+            margin: 0;
+            padding: 0;
+        }
+        
+        /* Landing page starts at top like all others */
+        .landing-section {
+            padding-top: 2rem;
+        }
+
+        /* Ensure consistent bottom spacing for all sections */
+        section {
+            padding-bottom: 4rem;
+        }
+
+        /* Add extra spacing for the last element in each section */
+        section > *:last-child {
+            margin-bottom: 2rem;
+        }
+
+        /* Special spacing for sections ending with buttons */
+        .btn:last-child,
+        .results-section .btn,
+        .email-section .btn {
+            margin-bottom: 3rem !important;
+        }
+
+
+        .landing-section {
+            display: none;
+        }
+
+        .hero-title {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, var(--primary-teal), var(--secondary-coral));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1rem, 3vw, 1.3rem);
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .brain-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 2rem;
+            background: linear-gradient(45deg, var(--primary-teal), var(--secondary-coral));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            animation: pulse 2s infinite;
+        }
+
+        .value-props {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 3rem 0;
+        }
+
+        .value-prop {
+            background: var(--card-background);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid rgba(78, 205, 196, 0.2);
+            text-align: center;
+        }
+
+        .value-prop-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--primary-teal);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem auto;
+            font-size: 1.5rem;
+        }
+
+        .research-sources {
+            text-align: center;
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: rgba(78, 205, 196, 0.1);
+            border-radius: 12px;
+            border: 1px solid rgba(78, 205, 196, 0.2);
+        }
+
+        .research-badges {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            margin-top: 0.5rem;
+        }
+
+        .research-badge {
+            color: var(--primary-teal);
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+
+        .testimonial {
+            text-align: center;
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: rgba(255, 107, 107, 0.1);
+            border-radius: 12px;
+            border-left: 4px solid var(--secondary-coral);
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .testimonial-author {
+            color: var(--primary-teal);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .name-section {
+            display: none;
+        }
+
+        .input-group {
+            margin: 2rem 0;
+        }
+
+        .form-input {
+            width: 100%;
+            max-width: 400px;
+            padding: 1rem 1.5rem;
+            background: var(--card-background);
+            border: 2px solid rgba(78, 205, 196, 0.3);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            height: 56px; /* Force consistent height for all form inputs */
+            box-sizing: border-box;
+        }
+
+        .form-input select {
+            height: 56px; /* Ensure select elements match */
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary-teal);
+            box-shadow: 0 0 0 3px rgba(78, 205, 196, 0.1);
+        }
+
+        .quiz-section {
+            display: none;
+        }
+
+        .progress-container {
+            background: var(--card-background);
+            border-radius: 20px;
+            height: 8px;
+            margin-bottom: 2rem;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-teal), var(--secondary-coral));
+            border-radius: 20px;
+            transition: width 0.5s ease;
+            width: 0%;
+        }
+
+        .progress-text {
+            text-align: center;
+            margin-bottom: 1rem;
+            color: var(--text-secondary);
+        }
+
+        .question-card {
+            background: var(--card-background);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(78, 205, 196, 0.2);
+            animation: slideInRight 0.5s ease-out;
+        }
+
+        .question-number {
+            color: var(--primary-teal);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .question-text {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+        }
+
+        .options-container {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .option-button {
+            background: rgba(78, 205, 196, 0.1);
+            border: 2px solid rgba(78, 205, 196, 0.3);
+            border-radius: 12px;
+            padding: 1rem 1.5rem;
+            text-align: left;
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .option-button:hover {
+            background: rgba(78, 205, 196, 0.2);
+            border-color: var(--primary-teal);
+            transform: translateY(-2px);
+        }
+
+        .option-button.selected {
+            background: var(--primary-teal);
+            color: var(--background-primary);
+            border-color: var(--primary-teal);
+        }
+
+        .option-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .option-button:disabled:hover {
+            transform: none;
+            background: rgba(78, 205, 196, 0.1);
+        }
+
+        .option-button.selected:disabled:hover {
+            background: var(--primary-teal);
+        }
+
+        .research-insight {
+            background: rgba(255, 107, 107, 0.1);
+            border-left: 4px solid var(--secondary-coral);
+            padding: 1rem;
+            margin-top: 1.5rem;
+            border-radius: 0 8px 8px 0;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .next-question-container {
+            display: block !important;
+            width: 100% !important;
+            margin-top: 1.5rem !important;
+            text-align: center !important;
+            clear: both !important;
+            float: none !important;
+        }
+
+        .email-section {
+            display: none;
+        }
+
+        .results-preview {
+            background: var(--card-background);
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 2rem 0;
+            border: 2px solid var(--warning-orange);
+        }
+
+        .results-teaser {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .teaser-item {
+            text-align: center;
+        }
+
+        .teaser-score {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-teal);
+        }
+
+        .teaser-label {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .value-list {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background: rgba(255, 107, 107, 0.1);
+            border-radius: 8px;
+            border-left: 4px solid var(--secondary-coral);
+        }
+
+        .value-list h4 {
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .value-list ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .value-list li {
+            margin: 0.5rem 0;
+            color: var(--text-secondary);
+        }
+
+        .privacy-badges {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .results-section {
+            display: block;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .overall-score {
+            text-align: center;
+            background: var(--card-background);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .score-circle {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: conic-gradient(var(--primary-teal) 0deg, var(--secondary-coral) 180deg, var(--warning-orange) 270deg, var(--background-secondary) 360deg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            position: relative;
+        }
+
+        .score-inner {
+            width: 90px;
+            height: 90px;
+            background: var(--card-background);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .dimensions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .dimension-card {
+            background: var(--card-background);
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 1px solid rgba(78, 205, 196, 0.2);
+        }
+
+        .dimension-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .dimension-rating {
+            padding: 0.3rem 0.8rem;
+            border-radius: 16px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .rating-excellent {
+            background: var(--success-green);
+            color: var(--background-primary);
+        }
+
+        .rating-good {
+            background: var(--primary-teal);
+            color: var(--background-primary);
+        }
+
+        .rating-moderate {
+            background: var(--warning-orange);
+            color: var(--background-primary);
+        }
+
+        .rating-concern {
+            background: var(--secondary-coral);
+            color: white;
+        }
+
+        /* Badge styles for new conversion page */
+        .badge-good {
+            background: #10B981;
+            color: white;
+        }
+
+        .badge-moderate {
+            background: #F59E0B;
+            color: white;
+        }
+
+        .badge-concern {
+            background: #EF4444;
+            color: white;
+        }
+
+        /* Animations for conversion page */
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        @keyframes shimmer {
+            0% {
+                background-position: -200px 0;
+            }
+            100% {
+                background-position: calc(200px + 100%) 0;
+            }
+        }
+
+        /* Apply animations to conversion elements */
+        .results-hero {
+            animation: fadeInScale 0.8s ease-out;
+        }
+
+        .dimension-card-new {
+            animation: slideInUp 0.6s ease-out;
+            animation-fill-mode: both;
+        }
+
+        .dimension-card-new:nth-child(1) { animation-delay: 0.1s; }
+        .dimension-card-new:nth-child(2) { animation-delay: 0.2s; }
+        .dimension-card-new:nth-child(3) { animation-delay: 0.3s; }
+        .dimension-card-new:nth-child(4) { animation-delay: 0.4s; }
+
+        .premium-module-card {
+            animation: slideInUp 0.6s ease-out;
+            animation-fill-mode: both;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .premium-module-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .premium-module-card:nth-child(1) { animation-delay: 0.2s; }
+        .premium-module-card:nth-child(2) { animation-delay: 0.4s; }
+        .premium-module-card:nth-child(3) { animation-delay: 0.6s; }
+        .premium-module-card:nth-child(4) { animation-delay: 0.8s; }
+        .premium-module-card:nth-child(5) { animation-delay: 1.0s; }
+        .premium-module-card:nth-child(6) { animation-delay: 1.2s; }
+
+        .social-proof-section {
+            animation: slideInUp 0.8s ease-out;
+            animation-fill-mode: both;
+            animation-delay: 0.5s;
+        }
+
+        .conversion-cta-section {
+            animation: fadeInScale 0.8s ease-out;
+            animation-fill-mode: both;
+            animation-delay: 0.7s;
+        }
+
+        .faq-section {
+            animation: slideInUp 0.8s ease-out;
+            animation-fill-mode: both;
+            animation-delay: 0.9s;
+        }
+
+        .final-conversion-section {
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        /* Button animations */
+        .btn {
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        /* Primary CTA button special effects */
+        .btn[onclick="showCompleteResults()"] {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn[onclick="showCompleteResults()"]::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -200px;
+            width: 200px;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            animation: shimmer 3s ease-in-out infinite;
+        }
+
+        /* FAQ arrow rotation */
+        .faq-arrow {
+            transition: transform 0.3s ease;
+        }
+
+        /* Pentagon chart animations */
+        .pentagon-chart-container {
+            animation: fadeInScale 0.8s ease-out;
+            animation-delay: 0.3s;
+            animation-fill-mode: both;
+        }
+
+        /* Lock overlay pulse for premium cards */
+        .lock-overlay {
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        /* Stats counter animation */
+        @keyframes countUp {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .social-proof-section div[style*="font-size: 2rem"] {
+            animation: countUp 0.8s ease-out;
+            animation-fill-mode: both;
+        }
+
+        /* Mobile responsive animations */
+        @media (max-width: 768px) {
+            .premium-module-card:hover {
+                transform: none;
+            }
+            
+            .btn:hover {
+                transform: none;
+            }
+        }
+
+        .dimension-score {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .dimension-bar {
+            height: 8px;
+            background: var(--background-secondary);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 1rem;
+        }
+
+        .dimension-fill {
+            height: 100%;
+            background: var(--primary-teal);
+            border-radius: 4px;
+            transition: width 1s ease;
+        }
+
+        .dimension-feedback {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .btn {
+            background: linear-gradient(45deg, var(--primary-teal), var(--secondary-coral));
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(78, 205, 196, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid var(--primary-teal);
+            color: var(--primary-teal);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary-teal);
+            color: white;
+        }
+
+        .btn-large {
+            font-size: 1.2rem;
+            padding: 1.2rem 2.5rem;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            .question-card {
+                padding: 1.5rem;
+            }
+            
+            .value-props {
+                grid-template-columns: 1fr;
+            }
+
+            .research-badges {
+                gap: 1rem;
+            }
+
+            .dimensions-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .hidden {
+            display: none !important;
+        }
+        /* Mobile-friendly Tooltip System */
+        .tooltip-wrapper {
+            position: relative;
+            display: inline-flex;
+            align-items: flex-start;
+            gap: 0.25rem;
+        }
+
+        .info-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            min-width: 28px;
+            min-height: 28px;
+            background: transparent;
+            border: none;
+            color: var(--primary-teal);
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: all 0.2s ease;
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
+            margin-top: 2px;
+            margin-left: 0.2rem;
+        }
+
+        .info-icon:hover,
+        .info-icon:focus {
+            background: rgba(78, 205, 196, 0.2);
+            border-radius: 50%;
+            color: var(--primary-teal);
+            transform: scale(1.1);
+        }
+
+        .info-icon:active {
+            transform: scale(0.95);
+        }
+
+        /* Tooltip Content */
+        .tooltip-content {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 85vw;
+            width: 700px;
+            max-height: 80vh;
+            overflow-y: auto;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            border: 2px solid var(--primary-teal);
+        }
+
+        .tooltip-content.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .tooltip-header {
+            padding: 1.5rem 1.5rem 1rem;
+            border-bottom: 1px solid rgba(78, 205, 196, 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .tooltip-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--primary-teal);
+            margin: 0;
+            line-height: 1.3;
+        }
+
+        .tooltip-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #666;
+            cursor: pointer;
+            padding: 0;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .tooltip-close:hover,
+        .tooltip-close:focus {
+            background: rgba(255, 107, 107, 0.1);
+            color: var(--secondary-coral);
+        }
+
+        .tooltip-body {
+            padding: 1.5rem;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .tooltip-body p {
+            margin-bottom: 1rem;
+        }
+
+        .tooltip-body p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Backdrop */
+        .tooltip-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .tooltip-backdrop.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 480px) {
+            .tooltip-content {
+                width: 95vw;
+                max-height: 85vh;
+                border-radius: 12px;
+            }
+            
+            .tooltip-header {
+                padding: 1.2rem 1.2rem 0.8rem;
+            }
+            
+            .tooltip-body {
+                padding: 1.2rem;
+                font-size: 0.9rem;
+            }
+            
+            .tooltip-title {
+                font-size: 1.1rem;
+            }
+        }
+
+        /* Accessibility improvements */
+        @media (prefers-reduced-motion: reduce) {
+            .tooltip-content,
+            .tooltip-backdrop,
+            .info-icon {
+                transition: none;
+            }
+        }
+
+        /* High contrast mode support */
+        @media (prefers-contrast: high) {
+            .info-icon {
+                border-width: 3px;
+            }
+            
+            .tooltip-content {
+                border-width: 3px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+            }
+        }
+
+        /* Dimension header layout adjustments */
+        .dimension-header {
+            display: flex !important;
+            justify-content: space-between !important;
+            align-items: center !important;
+            gap: 1rem !important;
+        }
+        
+        /* Action Plan Card Styling - ensure consistency with Results cards */
+        .action-plan-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(78, 205, 196, 0.4);
+        }
+
+        .dimension-header .tooltip-wrapper {
+            flex: 1 !important;
+            justify-content: flex-start !important;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Landing Section -->
+        <section class="landing-section" id="landing">
+            <div class="brain-icon">🧠</div>
+            <h1 class="hero-title">Discover Your Digital Dopamine Dependency</h1>
+            <p class="hero-subtitle">Take our research-backed Digital Dependency Assessment™ and get your personalized digital wellness score in just 7 minutes</p>
+            
+            <div class="value-props">
+                <div class="value-prop">
+                    <div class="value-prop-icon">🔬</div>
+                    <h3>Science-Based</h3>
+                    <p>Based on peer-reviewed research from leading neuroscientists and habit specialists</p>
+                </div>
+                <div class="value-prop">
+                    <div class="value-prop-icon">⏱️</div>
+                    <h3>Quick Assessment</h3>
+                    <p>20 evidence-based questions • 7 minutes • Instant personalized results</p>
+                </div>
+                <div class="value-prop">
+                    <div class="value-prop-icon">📊</div>
+                    <h3>Actionable Insights</h3>
+                    <p>Your complete dependency breakdown plus specific steps for improvement</p>
+                </div>
+            </div>
+            
+            <div class="scientific-foundation">
+                <div style="background: var(--card-background); border-radius: 16px; padding: 2rem; margin-bottom: 1.5rem; border: 1px solid rgba(150, 206, 180, 0.3);">
+                    <h2 style="text-align: center; color: var(--primary-teal); margin-bottom: 0.5rem;">Our Scientific Foundation</h2>
+                    <h3 style="text-align: center; color: var(--text-primary); margin-bottom: 2rem;">The Digital Dependency Assessment™ Model</h3>
+                    
+                    <p style="margin-bottom: 1.5rem; color: var(--text-secondary); line-height: 1.6;">This assessment is grounded in <strong>Dr. Mark Griffiths' Component Model of Habit</strong>—the gold standard framework used worldwide to understand behavioral habits. Originally developed to study gambling and substance habit, this scientifically-validated model has been successfully adapted for digital behaviors and extensively validated in major assessment scales including the Bergen Social Media Habit Scale (BSMAS), Bergen Facebook Habit Scale (BFAS), and Internet Habit Test variations.</p>
+                    
+                    <p style="margin-bottom: 1.5rem; color: var(--text-secondary); line-height: 1.6;">We combine Dr. Griffiths' habit framework (the behavioral "what") with <strong>Dr. Anna Lembke's breakthrough dopamine research from Stanford University</strong> (the neurobiological "why"). This dual approach gives you both the psychological patterns and the brain science behind your smartphone habits.</p>
+                    
+                    <p style="margin: 0; color: var(--text-primary); line-height: 1.6;"><strong>Your Results:</strong> We measure your digital dependency across four evidence-based dimensions and provide targeted interventions that address the root causes of digital dependency.</p>
+                </div>
+            </div>
+
+            <div class="testimonial">
+                <p class="testimonial-text">"This assessment was my wake-up call. The action plan helped me reduce screen time by 3 hours in just 2 weeks."</p>
+                <p class="testimonial-author">- Sarah M., Marketing Professional</p>
+            </div>
+            
+            <button class="btn" onclick="startAssessment()">Start Free Assessment</button>
+            <div style="height: 3rem;"></div>
+        </section>
+
+        <!-- Name Collection -->
+        <section class="name-section" id="nameSection">
+            <h2>Let's personalize your experience</h2>
+            <p>Help us provide more relevant insights by sharing a few quick details.</p>
+            
+            <div class="input-group">
+                <label for="userName" style="display: block; margin-bottom: 0.5rem; color: var(--text-primary); font-weight: 600;">First Name</label>
+                <input type="text" class="form-input" id="userName" placeholder="Enter your first name" maxlength="50">
+            </div>
+
+            <div class="input-group">
+                <label for="birthYear" style="display: block; margin-bottom: 0.5rem; color: var(--text-primary); font-weight: 600;">Year of Birth</label>
+                <input type="number" class="form-input" id="birthYear" placeholder="e.g. 1990" min="1920" max="2010" maxlength="4">
+                <small style="color: var(--text-secondary); margin-top: 0.25rem; display: block;">Used for personalized life impact calculations</small>
+            </div>
+
+            <div class="input-group">
+                <label for="gender" style="display: block; margin-bottom: 0.5rem; color: var(--text-primary); font-weight: 600;">Gender</label>
+                <select class="form-input" id="gender">
+                    <option value="">Select gender</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="non-binary">Non-binary</option>
+                    <option value="prefer-not-to-say">Prefer not to say</option>
+                </select>
+            </div>
+
+            
+            <button class="btn" onclick="startQuiz()">Continue</button>
+        </section>
+
+        <!-- Quiz Section -->
+        <section class="quiz-section" id="quizSection">
+            <div class="progress-text">
+                <span id="progressText">Question 1 of 20</span>
+            </div>
+            <div class="progress-container">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+            
+            <div class="question-card" id="questionCard">
+                <!-- Question content will be dynamically inserted -->
+            </div>
+        </section>
+
+
+        <!-- Results Section -->
+        <section class="results-section" id="resultsSection">
+            <div class="container">
+            <!-- SECTION 0: HERO WITH PENTAGON CHART -->
+            <div class="results-hero" style="text-align: center; margin-bottom: 1rem;">
+                <h1 style="color: var(--primary-teal); font-size: 2.2rem; margin-bottom: 1rem;">🎯 Your Complete Digital Dopamine Assessment™</h1>
+                <p style="font-size: 1.2rem; color: var(--text-secondary); margin-bottom: 1rem;">
+                    Congratulations <span id="userFirstName"></span>! You've taken the first step toward digital freedom.
+                </p>
+                
+                <!-- Pentagon Chart -->
+                <div class="pentagon-chart-container" style="margin: 1rem auto 0.5rem auto; max-width: 500px; overflow: visible;">
+                    <div id="pentagonChart" style="width: 100%; min-height: 400px;"></div>
+                </div>
+            </div>
+
+            <!-- Dimension Breakdown Cards (2x2 Grid) -->
+            <div class="dimensions-grid" id="dimensionsGrid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-bottom: 3rem;">
+                <!-- Will be populated by JavaScript -->
+            </div>
+
+            <!-- LIFE IMPACT VISUALIZATION -->
+            <div class="life-impact-section" id="lifeImpactSection" style="background: var(--card-background); border-radius: 16px; padding: 2rem; margin-bottom: 3rem; border: 2px solid rgba(255, 107, 107, 0.2);">
+                <h3 style="color: var(--secondary-coral); margin-bottom: 1rem; text-align: center;">
+                    📱 Your Phone Usage Life Impact 
+                    <button class="info-icon" data-tooltip="phone-usage-impact" aria-label="Learn more about Phone Usage Life Impact" style="width: 20px; height: 20px; min-width: 20px; min-height: 20px; font-size: 0.8rem; margin-left: 0.2rem;">ⓘ</button>
+                </h3>
+                <div id="lifeImpactContent">
+                    <!-- Will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <!-- SECTION 1: YOUR BASIC ACTION PLAN -->
+            <div class="basic-action-plan-header" style="text-align: center; margin-bottom: 3rem;">
+                <h2 style="color: var(--primary-teal); margin-bottom: 0.5rem;">Your Personalized Action Plan</h2>
+                <p style="color: var(--text-secondary); margin-bottom: 0;">Based on your assessment, here's your tailored starter plan:</p>
+            </div>
+            
+            <!-- Card Grid Container (matching dimensions-grid) -->
+            <div id="actionPlanGrid" class="dimensions-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-bottom: 3rem;">
+                <!-- Cards will be populated by JavaScript -->
+            </div>
+                
+                
+            </div>
+
+            <!-- SECTION 2: PREMIUM MODULES PREVIEW -->
+            <div class="premium-modules-section" style="margin-bottom: 3rem;">
+                <div class="section-header" style="text-align: center; margin-bottom: 2rem;">
+                    <h2 style="color: var(--primary-teal); font-size: 2rem; margin-bottom: 1rem;">Upgrade for a Complete Personalized Program</h2>
+                </div>
+
+                <!-- Restored Content from Previous Box -->
+                <div style="text-align: center; margin-bottom: 3rem;">
+                    <p style="color: var(--text-secondary); margin-bottom: 0.5rem; font-size: 0.95rem;">Ready for breakthrough results?</p>
+                    <p style="color: var(--text-primary); font-weight: 600; margin-bottom: 1rem; font-size: 1.2rem;">
+                        Get your complete <span style="color: var(--secondary-coral);">personalized transformation system</span>
+                    </p>
+                    <p style="color: var(--text-secondary); margin-bottom: 1.5rem; font-size: 0.9rem; max-width: 480px; margin-left: auto; margin-right: auto;">
+                        These 4 strategies are just the beginning. Your complete program includes advanced techniques, crisis protocols, and week-by-week guidance tailored to your unique habit profile.
+                    </p>
+                    <div style="display: flex; justify-content: center; gap: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap;">
+                        <div style="background: rgba(150, 206, 180, 0.15); padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.8rem; color: var(--primary-teal); font-weight: 600;">
+                            ✅ 85% Success Rate
+                        </div>
+                        <div style="background: rgba(150, 206, 180, 0.15); padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.8rem; color: var(--primary-teal); font-weight: 600;">
+                            🧬 DNA-Matched Strategies
+                        </div>
+                        <div style="background: rgba(150, 206, 180, 0.15); padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.8rem; color: var(--primary-teal); font-weight: 600;">
+                            📅 12-Week Plan
+                        </div>
+                    </div>
+                    <button id="unlockPremiumBtn" onclick="showCompleteResults()" style="
+                        background: var(--secondary-coral);
+                        color: white;
+                        border: none;
+                        padding: 1rem 2rem;
+                        border-radius: 8px;
+                        font-weight: 600;
+                        cursor: pointer;
+                        font-size: 1.1rem;
+                        transition: all 0.3s ease;
+                        display: inline-flex;
+                        align-items: center;
+                        gap: 0.75rem;
+                        box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
+                    ">
+                        <span style="font-size: 1.3em;">🚀</span>
+                        Get My Complete Program
+                    </button>
+                </div>
+
+                <!-- Premium Module Cards -->
+                <div class="premium-modules-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; margin-bottom: 3rem;">
+                    
+                    <!-- Module 1: Habit DNA -->
+                    <div class="premium-module-card locked" style="background: var(--card-background); border-radius: 16px; padding: 2rem; position: relative; border: 2px solid rgba(150, 206, 180, 0.3);">
+                        <div class="lock-overlay" style="position: absolute; top: 1rem; right: 1rem; background: rgba(255, 107, 107, 0.1); color: var(--secondary-coral); padding: 0.5rem; border-radius: 50%; font-size: 1.2rem;">🔒</div>
+                        <h3 style="color: var(--primary-teal); margin-bottom: 1rem;">🧬 Your Habit DNA Analysis</h3>
+                        <h4 style="color: var(--text-primary); margin-bottom: 1rem;">Discover Your Personal Habit Pathway</h4>
+                        <ul style="color: var(--text-secondary); margin-bottom: 1.5rem; padding-left: 1.2rem;">
+                            <li>Are you Impulsive, Relationship-driven, Stimulation-seeking, or Habitual?</li>
+                            <li>Get pathway-specific strategies that work for YOUR brain</li>
+                            <li>Understand the neuroscience behind your specific triggers</li>
+                        </ul>
+                        <div class="locked-content-preview" style="background: rgba(0, 0, 0, 0.05); padding: 1rem; border-radius: 8px; filter: blur(2px); margin-bottom: 1rem;">
+                            <p style="color: var(--text-secondary); font-style: italic;">"Based on your responses, you show signs of the Relationship Maintenance pathway. This means your phone use is primarily driven by..."</p>
+                        </div>
+                        <p style="color: var(--primary-teal); font-weight: bold; text-align: center;">✨ Personalized for YOU: 4 distinct intervention tracks</p>
+                    </div>
+
+                    <!-- Module 2: Personality Strategies -->
+                    <div class="premium-module-card locked" style="background: var(--card-background); border-radius: 16px; padding: 2rem; position: relative; border: 2px solid rgba(150, 206, 180, 0.3);">
+                        <div class="lock-overlay" style="position: absolute; top: 1rem; right: 1rem; background: rgba(255, 107, 107, 0.1); color: var(--secondary-coral); padding: 0.5rem; border-radius: 50%; font-size: 1.2rem;">🔒</div>
+                        <h3 style="color: var(--primary-teal); margin-bottom: 1rem;">🧠 Personality-Matched Strategies</h3>
+                        <h4 style="color: var(--text-primary); margin-bottom: 1rem;">🧠 Personality and Motivation Aligned Strategies</h4>
+                        <ul style="color: var(--text-secondary); margin-bottom: 1.5rem; padding-left: 1.2rem;">
+                            <li>Discover if you need structure, flexibility, social support, or independence</li>
+                            <li>Get change strategies that work with your personality, not against it</li>
+                            <li>Connect daily actions to your personal motivations</li>
+                        </ul>
+                        <div class="locked-content-preview" style="background: rgba(0, 0, 0, 0.05); padding: 1rem; border-radius: 8px; filter: blur(2px); margin-bottom: 1rem;">
+                            <p style="color: var(--text-secondary); font-style: italic;">"Your high conscientiousness means you'll thrive with structured daily routines. We recommend..."</p>
+                        </div>
+                        <p style="color: var(--primary-teal); font-weight: bold; text-align: center;">✨ Personalized for YOU: 12 personality-specific program variations</p>
+                    </div>
+
+                    <!-- HIDDEN: Module 3: Personal Why -->
+                    <!--
+                    <div class="premium-module-card locked" style="background: var(--card-background); border-radius: 16px; padding: 2rem; position: relative; border: 2px solid rgba(150, 206, 180, 0.3);">
+                        <div class="lock-overlay" style="position: absolute; top: 1rem; right: 1rem; background: rgba(255, 107, 107, 0.1); color: var(--secondary-coral); padding: 0.5rem; border-radius: 50%; font-size: 1.2rem;">🔒</div>
+                        <h3 style="color: var(--primary-teal); margin-bottom: 1rem;">❤️ Your Personal Why & Motivation Engine</h3>
+                        <h4 style="color: var(--text-primary); margin-bottom: 1rem;">Uncover What Really Motivates Your Change</h4>
+                        <ul style="color: var(--text-secondary); margin-bottom: 1.5rem; padding-left: 1.2rem;">
+                            <li>Identify your core values and what phone habit is costing you</li>
+                            <li>Build an unshakeable foundation for lasting transformation</li>
+                            <li>Connect daily actions to your deepest personal reasons</li>
+                        </ul>
+                        <div class="locked-content-preview" style="background: rgba(0, 0, 0, 0.05); padding: 1rem; border-radius: 8px; filter: blur(2px); margin-bottom: 1rem;">
+                            <p style="color: var(--text-secondary); font-style: italic;">"Your primary motivation is relationship quality. Every week, we'll remind you how phone freedom brings you closer to..."</p>
+                        </div>
+                        <p style="color: var(--primary-teal); font-weight: bold; text-align: center;">✨ Personalized for YOU: Values-driven program customization</p>
+                    </div>
+                    -->
+
+                    <!-- HIDDEN: Module 4: Accountability Partner -->
+                    <!--
+                    <div class="premium-module-card locked" style="background: var(--card-background); border-radius: 16px; padding: 2rem; position: relative; border: 2px solid rgba(150, 206, 180, 0.3);">
+                        <div class="lock-overlay" style="position: absolute; top: 1rem; right: 1rem; background: rgba(255, 107, 107, 0.1); color: var(--secondary-coral); padding: 0.5rem; border-radius: 50%; font-size: 1.2rem;">🔒</div>
+                        <h3 style="color: var(--primary-teal); margin-bottom: 1rem;">🤝 Your Perfect Accountability Partner Match</h3>
+                        <h4 style="color: var(--text-primary); margin-bottom: 1rem;">Get Matched with Your Ideal Accountability Partner</h4>
+                        <ul style="color: var(--text-secondary); margin-bottom: 1.5rem; padding-left: 1.2rem;">
+                            <li>Connect with someone who understands your specific struggles</li>
+                            <li>Receive weekly check-ins and real-time support when you need it</li>
+                            <li>Join a community of people transforming their digital habits</li>
+                        </ul>
+                        <div class="locked-content-preview" style="background: rgba(0, 0, 0, 0.05); padding: 1rem; border-radius: 8px; filter: blur(2px); margin-bottom: 1rem;">
+                            <p style="color: var(--text-secondary); font-style: italic;">"Based on your profile, we're matching you with Sarah M., who has a similar habit pathway and has been in recovery for 8 weeks..."</p>
+                        </div>
+                        <p style="color: var(--primary-teal); font-weight: bold; text-align: center;">✨ Personalized for YOU: Human accountability partnership system</p>
+                    </div>
+                    -->
+
+                    <!-- Module 5: AI Coach -->
+                    <div class="premium-module-card locked" style="background: var(--card-background); border-radius: 16px; padding: 2rem; position: relative; border: 2px solid rgba(150, 206, 180, 0.3);">
+                        <div class="lock-overlay" style="position: absolute; top: 1rem; right: 1rem; background: rgba(255, 107, 107, 0.1); color: var(--secondary-coral); padding: 0.5rem; border-radius: 50%; font-size: 1.2rem;">🔒</div>
+                        <h3 style="color: var(--primary-teal); margin-bottom: 1rem;">🤖 Your Personal AI Digital Wellness Coach</h3>
+                        <h4 style="color: var(--text-primary); margin-bottom: 1rem;">24/7 CBT-Trained AI Coach Just for You</h4>
+                        <ul style="color: var(--text-secondary); margin-bottom: 1.5rem; padding-left: 1.2rem;">
+                            <li>Get expert coaching adapted to your personality and habit type</li>
+                            <li>Receive real-time support during difficult moments</li>
+                            <li>Track progress and adapt strategies based on what's working</li>
+                        </ul>
+                        <div class="locked-content-preview" style="background: rgba(0, 0, 0, 0.05); padding: 1rem; border-radius: 8px; filter: blur(2px); margin-bottom: 1rem;">
+                            <p style="color: var(--text-secondary); font-style: italic;">"Hi! I'm your personal coach. I've analyzed your assessment and I'll be here 24/7 to help you through your Impulsive pathway recovery..."</p>
+                        </div>
+                        <p style="color: var(--primary-teal); font-weight: bold; text-align: center;">✨ Personalized for YOU: AI coaching trained on your specific profile</p>
+                    </div>
+
+                    <!-- Module 6: 12-Week Program -->
+                    <div class="premium-module-card locked" style="background: var(--card-background); border-radius: 16px; padding: 2rem; position: relative; border: 2px solid rgba(150, 206, 180, 0.3);">
+                        <div class="lock-overlay" style="position: absolute; top: 1rem; right: 1rem; background: rgba(255, 107, 107, 0.1); color: var(--secondary-coral); padding: 0.5rem; border-radius: 50%; font-size: 1.2rem;">🔒</div>
+                        <h3 style="color: var(--primary-teal); margin-bottom: 1rem;">📊 12-Week Adaptive Recovery Program</h3>
+                        <h4 style="color: var(--text-primary); margin-bottom: 1rem;">Your Dynamic 12-week Transformation Plan</h4>
+                        <ul style="color: var(--text-secondary); margin-bottom: 1.5rem; padding-left: 1.2rem;">
+                            <li>Week-by-week action plans that adapt based on your progress</li>
+                            <li>Crisis intervention protocols for difficult moments</li>
+                            <li>Progress tracking and milestone celebrations</li>
+                        </ul>
+                        <div class="locked-content-preview" style="background: rgba(0, 0, 0, 0.05); padding: 1rem; border-radius: 8px; filter: blur(2px); margin-bottom: 1rem;">
+                            <p style="color: var(--text-secondary); font-style: italic;">"Week 1 Focus: Based on your Loss of Control score, we're starting with environmental design. This week you'll..."</p>
+                        </div>
+                        <p style="color: var(--primary-teal); font-weight: bold; text-align: center;">✨ Personalized for YOU: 64+ program variations based on your assessment</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION 3: SOCIAL PROOF & URGENCY -->
+            <div class="social-proof-section" style="margin: 4rem 0; text-align: center;">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-bottom: 3rem;">
+                    <!-- Testimonial 1 -->
+                    <div style="background: var(--card-background); padding: 2rem; border-radius: 16px; border-left: 4px solid var(--primary-teal);">
+                        <p style="font-style: italic; color: var(--text-secondary); margin-bottom: 1rem; line-height: 1.6;">
+                            💬 "The personalized approach made all the difference. Generic advice never worked for me, but understanding my 'Relationship pathway' and having my sister as my accountability partner with Dopair's framework - that's what finally clicked."
+                        </p>
+                        <p style="color: var(--primary-teal); font-weight: 600;">- Sarah K., recovered after 8 weeks</p>
+                    </div>
+
+                    <!-- Testimonial 2 -->
+                    <div style="background: var(--card-background); padding: 2rem; border-radius: 16px; border-left: 4px solid var(--secondary-coral);">
+                        <p style="font-style: italic; color: var(--text-secondary); margin-bottom: 1rem; line-height: 1.6;">
+                            💬 "I tried everything - app blockers, willpower, even therapy. But getting strategies designed for my personality type and having an AI coach available 24/7? Game changer."
+                        </p>
+                        <p style="color: var(--secondary-coral); font-weight: 600;">- Michael R., 6 months phone-free</p>
+                    </div>
+                </div>
+
+                <!-- Stats Display -->
+                <div style="display: flex; justify-content: center; gap: 3rem; flex-wrap: wrap; margin-bottom: 2rem;">
+                    <div style="text-align: center;">
+                        <div style="font-size: 2rem; font-weight: bold; color: var(--primary-teal);">📊 2,847</div>
+                        <div style="color: var(--text-secondary);">success stories and counting</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 2rem; font-weight: bold; color: var(--secondary-coral);">⭐ 4.9/5</div>
+                        <div style="color: var(--text-secondary);">average satisfaction rating</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 2rem; font-weight: bold; color: var(--success-green);">🔄 89%</div>
+                        <div style="color: var(--text-secondary);">report significant improvement within 30 days</div>
+                    </div>
+                </div>
+
+                <!-- Urgency Element -->
+                <div style="background: linear-gradient(135deg, rgba(255, 107, 107, 0.1), rgba(78, 205, 196, 0.1)); padding: 2rem; border-radius: 16px; margin-bottom: 2rem;">
+                    <h3 style="color: var(--secondary-coral); margin-bottom: 1rem;">⚡ Special Launch Pricing: 67% Off</h3>
+                    <p style="color: var(--text-secondary); margin-bottom: 1rem;">This assessment-driven approach is launching next week at $297</p>
+                    <div style="font-size: 1.5rem; font-weight: bold; color: var(--primary-teal); margin-bottom: 1rem;">Get lifetime access today: $97</div>
+                    <div style="display: flex; justify-content: center; gap: 2rem; font-size: 0.9rem; color: var(--text-secondary);">
+                        <span>⏰ 127 people have taken this assessment in the last 24 hours</span>
+                        <span>🎯 Only available to people who've completed the full assessment</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION 4: CONVERSION CTA & PRICING -->
+            <div class="conversion-cta-section" style="margin: 4rem 0; text-align: center; background: var(--card-background); padding: 3rem; border-radius: 20px; border: 2px solid rgba(150, 206, 180, 0.3);">
+                <h2 style="color: var(--primary-teal); font-size: 2.2rem; margin-bottom: 2rem;">🚀 Ready to Transform Your Digital Life?</h2>
+                <p style="color: var(--text-secondary); margin-bottom: 2rem; font-size: 1.1rem;">Get your complete personalized program including:</p>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin-bottom: 3rem; text-align: left;">
+                    <div style="display: flex; align-items: flex-start; gap: 0.75rem;"><span style="color: var(--success-green); flex-shrink: 0; margin-top: 0.1rem;">✅</span> Your Unique Habit Pathway Analysis</div>
+                    <div style="display: flex; align-items: flex-start; gap: 0.75rem;"><span style="color: var(--success-green); flex-shrink: 0; margin-top: 0.1rem;">✅</span> Personality-Matched Strategies That Actually Work</div>
+                    <div style="display: flex; align-items: flex-start; gap: 0.75rem;"><span style="color: var(--success-green); flex-shrink: 0; margin-top: 0.1rem;">✅</span> 24/7 AI coach trained on your specific profile</div>
+                    <div style="display: flex; align-items: flex-start; gap: 0.75rem;"><span style="color: var(--success-green); flex-shrink: 0; margin-top: 0.1rem;">✅</span> 12-week adaptive recovery program</div>
+                    <div style="display: flex; align-items: flex-start; gap: 0.75rem;"><span style="color: var(--success-green); flex-shrink: 0; margin-top: 0.1rem;">✅</span> Crisis support and relapse prevention</div>
+                    <div style="display: flex; align-items: flex-start; gap: 0.75rem;"><span style="color: var(--success-green); flex-shrink: 0; margin-top: 0.1rem;">✅</span> Progress tracking and milestone celebrations</div>
+                </div>
+
+                <!-- Large prominent pricing display -->
+                <div style="background: linear-gradient(135deg, var(--primary-teal), var(--secondary-coral)); padding: 2rem; border-radius: 16px; margin-bottom: 2rem; color: white;">
+                    <div style="font-size: 1.2rem; margin-bottom: 0.5rem;">Complete Personalized Program</div>
+                    <div style="font-size: 2.5rem; font-weight: bold; margin-bottom: 0.5rem;">
+                        <span style="text-decoration: line-through; opacity: 0.7; font-size: 1.5rem;">$297</span> → Today Only <span style="color: #FFD700;">$97</span>
+                    </div>
+                    <button class="btn" onclick="showCompleteResults()" style="background: white; color: var(--primary-teal); font-weight: bold; font-size: 1.1rem; padding: 1rem 2rem; margin-top: 1rem; border: none; min-width: 300px;">
+                        Get My Complete Personalized Program - $97 →
+                    </button>
+                </div>
+
+                <!-- Secondary CTA -->
+                <button class="btn" onclick="sendBasicResults()" style="background: transparent; border: 2px solid var(--primary-teal); color: var(--primary-teal); padding: 0.75rem 1.5rem; margin-top: 1rem;">
+                    No Thanks, Send Me My Basic Results via Email
+                </button>
+            </div>
+
+            <!-- SECTION 5: FAQ - OBJECTION HANDLING -->
+            <div class="faq-section" style="margin: 4rem 0;">
+                <h2 style="color: var(--primary-teal); text-align: center; margin-bottom: 3rem;">❓ Frequently Asked Questions</h2>
+                <p style="text-align: center; color: var(--text-secondary); margin-bottom: 3rem;">Everything you need to know about your Complete Personalized Program</p>
+
+                <div class="faq-container" style="max-width: 800px; margin: 0 auto;">
+                    <!-- FAQ Item 1 -->
+                    <div class="faq-item" style="background: var(--card-background); margin-bottom: 1rem; border-radius: 12px; overflow: hidden; border: 1px solid rgba(150, 206, 180, 0.2);">
+                        <button class="faq-question" onclick="toggleFaq(this)" style="width: 100%; background: none; border: none; padding: 1.5rem; text-align: left; font-weight: 600; color: var(--text-primary); cursor: pointer; display: flex; justify-content: space-between; align-items: center;">
+                            How is this different from just asking ChatGPT for help?
+                            <span class="faq-arrow" style="color: var(--primary-teal); transition: transform 0.3s;">▼</span>
+                        </button>
+                        <div class="faq-answer" style="display: none; padding: 0 1.5rem 1.5rem 1.5rem; color: var(--text-secondary); line-height: 1.6;">
+                            ChatGPT gives generic advice to everyone. Our system is built on 15+ peer-reviewed studies and creates one of 64+ distinct program variations based on your specific habit pathway, personality traits, and personal motivations. Plus, you get a real human accountability partner and 24/7 AI coaching trained specifically on digital habit recovery - not general AI advice.
+                        </div>
+                    </div>
+
+                    <!-- FAQ Item 2 -->
+                    <div class="faq-item" style="background: var(--card-background); margin-bottom: 1rem; border-radius: 12px; overflow: hidden; border: 1px solid rgba(150, 206, 180, 0.2);">
+                        <button class="faq-question" onclick="toggleFaq(this)" style="width: 100%; background: none; border: none; padding: 1.5rem; text-align: left; font-weight: 600; color: var(--text-primary); cursor: pointer; display: flex; justify-content: space-between; align-items: center;">
+                            Why not just use app blockers or screen time controls?
+                            <span class="faq-arrow" style="color: var(--primary-teal); transition: transform 0.3s;">▼</span>
+                        </button>
+                        <div class="faq-answer" style="display: none; padding: 0 1.5rem 1.5rem 1.5rem; color: var(--text-secondary); line-height: 1.6;">
+                            App blockers treat the symptom, not the cause. Research shows that 87% of people find workarounds within 2 weeks. Our approach addresses the underlying psychological drivers of your phone habit and builds sustainable habits. App blockers fail because they don't address your specific habit pathway or give you alternatives that satisfy your core needs.
+                        </div>
+                    </div>
+
+                    <!-- FAQ Item 3 -->
+                    <div class="faq-item" style="background: var(--card-background); margin-bottom: 1rem; border-radius: 12px; overflow: hidden; border: 1px solid rgba(150, 206, 180, 0.2);">
+                        <button class="faq-question" onclick="toggleFaq(this)" style="width: 100%; background: none; border: none; padding: 1.5rem; text-align: left; font-weight: 600; color: var(--text-primary); cursor: pointer; display: flex; justify-content: space-between; align-items: center;">
+                            What if I've tried to quit before and failed?
+                            <span class="faq-arrow" style="color: var(--primary-teal); transition: transform 0.3s;">▼</span>
+                        </button>
+                        <div class="faq-answer" style="display: none; padding: 0 1.5rem 1.5rem 1.5rem; color: var(--text-secondary); line-height: 1.6;">
+                            That's exactly why personalization matters. Previous attempts likely failed because they weren't designed for YOUR specific habit pathway and personality. For example, if you're a "Relationship Maintenance" type, willpower-based approaches will never work - you need social connection strategies. Our assessment identifies why previous attempts failed and gives you the right approach for your brain.
+                        </div>
+                    </div>
+
+                    <!-- FAQ Item 4 -->
+                    <div class="faq-item" style="background: var(--card-background); margin-bottom: 1rem; border-radius: 12px; overflow: hidden; border: 1px solid rgba(150, 206, 180, 0.2);">
+                        <button class="faq-question" onclick="toggleFaq(this)" style="width: 100%; background: none; border: none; padding: 1.5rem; text-align: left; font-weight: 600; color: var(--text-primary); cursor: pointer; display: flex; justify-content: space-between; align-items: center;">
+                            What if it doesn't work for me?
+                            <span class="faq-arrow" style="color: var(--primary-teal); transition: transform 0.3s;">▼</span>
+                        </button>
+                        <div class="faq-answer" style="display: none; padding: 0 1.5rem 1.5rem 1.5rem; color: var(--text-secondary); line-height: 1.6;">
+                            We offer a 60-day money-back guarantee. If you follow the program for 8 weeks and don't see significant improvement, we'll refund your investment completely. Our success rate is 89%, but we stand behind our results.
+                        </div>
+                    </div>
+
+                    <!-- FAQ Item 5 -->
+                    <div class="faq-item" style="background: var(--card-background); margin-bottom: 1rem; border-radius: 12px; overflow: hidden; border: 1px solid rgba(150, 206, 180, 0.2);">
+                        <button class="faq-question" onclick="toggleFaq(this)" style="width: 100%; background: none; border: none; padding: 1.5rem; text-align: left; font-weight: 600; color: var(--text-primary); cursor: pointer; display: flex; justify-content: space-between; align-items: center;">
+                            How does the accountability partner system work?
+                            <span class="faq-arrow" style="color: var(--primary-teal); transition: transform 0.3s;">▼</span>
+                        </button>
+                        <div class="faq-answer" style="display: none; padding: 0 1.5rem 1.5rem 1.5rem; color: var(--text-secondary); line-height: 1.6;">
+                            Based on your assessment, we match you with someone who has a compatible personality and similar habit pattern. You'll have structured weekly check-ins, daily optional support, and shared progress tracking. Research shows accountability partnerships increase success rates by 65%. Your partner receives training on your specific needs and coordinates with your AI coach.
+                        </div>
+                    </div>
+
+                    <!-- FAQ Item 6 -->
+                    <div class="faq-item" style="background: var(--card-background); margin-bottom: 1rem; border-radius: 12px; overflow: hidden; border: 1px solid rgba(150, 206, 180, 0.2);">
+                        <button class="faq-question" onclick="toggleFaq(this)" style="width: 100%; background: none; border: none; padding: 1.5rem; text-align: left; font-weight: 600; color: var(--text-primary); cursor: pointer; display: flex; justify-content: space-between; align-items: center;">
+                            What if I don't like my accountability partner?
+                            <span class="faq-arrow" style="color: var(--primary-teal); transition: transform 0.3s;">▼</span>
+                        </button>
+                        <div class="faq-answer" style="display: none; padding: 0 1.5rem 1.5rem 1.5rem; color: var(--text-secondary); line-height: 1.6;">
+                            We offer one free re-match within the first two weeks. Our matching algorithm has a 94% compatibility rate, but if needed, we'll find you a better fit at no extra cost.
+                        </div>
+                    </div>
+
+                    <!-- FAQ Item 7 -->
+                    <div class="faq-item" style="background: var(--card-background); margin-bottom: 1rem; border-radius: 12px; overflow: hidden; border: 1px solid rgba(150, 206, 180, 0.2);">
+                        <button class="faq-question" onclick="toggleFaq(this)" style="width: 100%; background: none; border: none; padding: 1.5rem; text-align: left; font-weight: 600; color: var(--text-primary); cursor: pointer; display: flex; justify-content: space-between; align-items: center;">
+                            How long until I see results?
+                            <span class="faq-arrow" style="color: var(--primary-teal); transition: transform 0.3s;">▼</span>
+                        </button>
+                        <div class="faq-answer" style="display: none; padding: 0 1.5rem 1.5rem 1.5rem; color: var(--text-secondary); line-height: 1.6;">
+                            89% of users report significant improvements within 30 days. However, lasting change typically takes 8-12 weeks. Your program is designed as a 3-month transformation with adaptive strategies that evolve based on your progress.
+                        </div>
+                    </div>
+
+                    <!-- FAQ Item 8 -->
+                    <div class="faq-item" style="background: var(--card-background); margin-bottom: 1rem; border-radius: 12px; overflow: hidden; border: 1px solid rgba(150, 206, 180, 0.2);">
+                        <button class="faq-question" onclick="toggleFaq(this)" style="width: 100%; background: none; border: none; padding: 1.5rem; text-align: left; font-weight: 600; color: var(--text-primary); cursor: pointer; display: flex; justify-content: space-between; align-items: center;">
+                            What if I don't have time for a complex program?
+                            <span class="faq-arrow" style="color: var(--primary-teal); transition: transform 0.3s;">▼</span>
+                        </button>
+                        <div class="faq-answer" style="display: none; padding: 0 1.5rem 1.5rem 1.5rem; color: var(--text-secondary); line-height: 1.6;">
+                            The program requires just 10-15 minutes daily. Everything is pre-planned based on your assessment - no decision fatigue. Your AI coach provides bite-sized daily actions, and accountability check-ins are built into your existing routine.
+                        </div>
+                    </div>
+
+                    <!-- FAQ Item 9 -->
+                    <div class="faq-item" style="background: var(--card-background); margin-bottom: 1rem; border-radius: 12px; overflow: hidden; border: 1px solid rgba(150, 206, 180, 0.2);">
+                        <button class="faq-question" onclick="toggleFaq(this)" style="width: 100%; background: none; border: none; padding: 1.5rem; text-align: left; font-weight: 600; color: var(--text-primary); cursor: pointer; display: flex; justify-content: space-between; align-items: center;">
+                            Is my data secure and private?
+                            <span class="faq-arrow" style="color: var(--primary-teal); transition: transform 0.3s;">▼</span>
+                        </button>
+                        <div class="faq-answer" style="display: none; padding: 0 1.5rem 1.5rem 1.5rem; color: var(--text-secondary); line-height: 1.6;">
+                            Absolutely. All assessment data is encrypted and never shared. Your accountability partner only receives the information necessary to support you (no personal details). You control what you share and when.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION 5A: WHAT HAPPENS AFTER PURCHASE -->
+            <div class="what-happens-section" style="margin: 4rem 0; background: var(--card-background); border-radius: 20px; padding: 3rem; border-left: 6px solid var(--primary-teal);">
+                <h2 style="color: var(--primary-teal); margin-bottom: 2rem; text-align: center;">🚀 What Happens After You Purchase</h2>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem;">
+                    <div style="text-align: center;">
+                        <div style="width: 60px; height: 60px; background: rgba(78, 205, 196, 0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-size: 1.5rem;">⚡</div>
+                        <h3 style="color: var(--text-primary); margin-bottom: 1rem;">Immediate Access</h3>
+                        <p style="color: var(--text-secondary);">Get instant access to your personalized dashboard and AI coach setup within 5 minutes.</p>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="width: 60px; height: 60px; background: rgba(78, 205, 196, 0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-size: 1.5rem;">📋</div>
+                        <h3 style="color: var(--text-primary); margin-bottom: 1rem;">Week 1 Plan</h3>
+                        <p style="color: var(--text-secondary);">Your customized Week 1 action plan will be ready, tailored to your specific habit pathway.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION 5B: PROGRAM TIMELINE -->
+            <div class="program-timeline-section" style="margin: 4rem 0; background: var(--card-background); border-radius: 20px; padding: 3rem; border-left: 6px solid var(--secondary-coral);">
+                <h2 style="color: var(--secondary-coral); margin-bottom: 2rem; text-align: center;">📅 Your 12-Week Transformation Timeline</h2>
+                <div style="position: relative;">
+                    <div style="position: absolute; left: 30px; top: 60px; bottom: 60px; width: 3px; background: linear-gradient(to bottom, var(--primary-teal), var(--secondary-coral)); border-radius: 2px;"></div>
+                    <div style="display: flex; flex-direction: column; gap: 2rem;">
+                        <div style="display: flex; align-items: flex-start; gap: 1.5rem;">
+                            <div style="width: 60px; height: 60px; background: var(--primary-teal); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; flex-shrink: 0;">1-2</div>
+                            <div>
+                                <h3 style="color: var(--primary-teal); margin-bottom: 0.5rem;">Weeks 1-2: Foundation & Assessment</h3>
+                                <p style="color: var(--text-secondary);">Environmental design, baseline tracking, and building your first "sacred time" blocks.</p>
+                            </div>
+                        </div>
+                        <div style="display: flex; align-items: flex-start; gap: 1.5rem;">
+                            <div style="width: 60px; height: 60px; background: rgba(78, 205, 196, 0.8); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; flex-shrink: 0;">3-6</div>
+                            <div>
+                                <h3 style="color: var(--primary-teal); margin-bottom: 0.5rem;">Weeks 3-6: Habit Replacement</h3>
+                                <p style="color: var(--text-secondary);">Replace phone habits with fulfilling alternatives based on your personality type and motivations.</p>
+                            </div>
+                        </div>
+                        <div style="display: flex; align-items: flex-start; gap: 1.5rem;">
+                            <div style="width: 60px; height: 60px; background: rgba(255, 107, 107, 0.8); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; flex-shrink: 0;">7-10</div>
+                            <div>
+                                <h3 style="color: var(--primary-teal); margin-bottom: 0.5rem;">Weeks 7-10: Strengthening & Challenges</h3>
+                                <p style="color: var(--text-secondary);">Navigate difficult situations, stress responses, and social pressures with proven strategies.</p>
+                            </div>
+                        </div>
+                        <div style="display: flex; align-items: flex-start; gap: 1.5rem;">
+                            <div style="width: 60px; height: 60px; background: var(--secondary-coral); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; flex-shrink: 0;">11-12</div>
+                            <div>
+                                <h3 style="color: var(--primary-teal); margin-bottom: 0.5rem;">Weeks 11-12: Mastery & Maintenance</h3>
+                                <p style="color: var(--text-secondary);">Lock in your new lifestyle and prepare long-term maintenance strategies for sustained freedom.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION 5C: MONEY-BACK GUARANTEE -->
+            <div class="guarantee-section" style="margin: 4rem 0; background: linear-gradient(135deg, rgba(150, 206, 180, 0.1), rgba(78, 205, 196, 0.05)); border-radius: 20px; padding: 3rem; text-align: center; border: 2px solid rgba(78, 205, 196, 0.3);">
+                <h2 style="color: var(--primary-teal); margin-bottom: 2rem;">💯 60-Day Money-Back Guarantee</h2>
+                <div style="max-width: 600px; margin: 0 auto;">
+                    <div style="background: white; border-radius: 16px; padding: 2rem; margin-bottom: 2rem; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);">
+                        <h3 style="color: var(--text-primary); margin-bottom: 1rem;">Our Promise to You</h3>
+                        <p style="color: var(--text-secondary); line-height: 1.6; margin-bottom: 1.5rem;">
+                            Follow the program for 8 weeks. If you don't see significant improvement in your relationship with your phone, we'll refund your investment completely - no questions asked.
+                        </p>
+                        <div style="background: rgba(78, 205, 196, 0.1); padding: 1rem; border-radius: 8px; border-left: 4px solid var(--primary-teal);">
+                            <p style="color: var(--primary-teal); font-weight: bold; margin: 0;">89% success rate • 2,847+ transformations • Zero risk to you</p>
+                        </div>
+                    </div>
+                    <p style="color: var(--text-secondary); font-style: italic;">
+                        We stand behind our results because we've seen this program work for thousands of people with all types of digital habit patterns.
+                    </p>
+                </div>
+            </div>
+
+            <!-- SECTION 6: FINAL CONVERSION PUSH -->
+            <div class="final-conversion-section" style="margin: 4rem 0; text-align: center; background: linear-gradient(135deg, rgba(78, 205, 196, 0.1), rgba(255, 107, 107, 0.05)); padding: 3rem; border-radius: 20px;">
+                <h2 style="color: var(--secondary-coral); margin-bottom: 2rem;">⚡ Introductory Pricing is for the first 1000 members ONLY</h2>
+                
+                <div style="max-width: 600px; margin: 0 auto 3rem auto;">
+                    <p style="color: var(--text-secondary); line-height: 1.6; margin-bottom: 1.5rem;">
+                        You've just gained incredible insight into your digital habit patterns. Most people will read this, feel motivated for a day or two, then fall back into old habits.
+                    </p>
+                    <p style="color: var(--text-secondary); line-height: 1.6; margin-bottom: 1.5rem;">
+                        The difference between those who transform their lives and those who stay stuck? Taking action while the motivation is strong.
+                    </p>
+                    <p style="color: var(--text-primary); font-weight: 600; line-height: 1.6;">
+                        Your assessment data is ready. Your personalized program is waiting. Your perfect accountability partner is in our system.
+                    </p>
+                </div>
+
+                <!-- Final CTA button -->
+                <button class="btn" onclick="showCompleteResults()" style="background: linear-gradient(135deg, var(--primary-teal), var(--secondary-coral)); color: white; font-weight: bold; font-size: 1.2rem; padding: 1.25rem 2.5rem; margin-bottom: 2rem; border: none; min-width: 350px; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
+                    🚀 Get My Complete Personalized Program - $97
+                </button>
+
+                <div>
+                    <button class="btn" onclick="sendBasicResults()" style="background: transparent; border: none; color: var(--text-secondary); text-decoration: underline; cursor: pointer; font-size: 0.9rem;">
+                        Still not sure? Send me the basic results and I'll think about it later.
+                    </button>
+                </div>
+            </div>
+            <!-- MAIN CHECKOUT SECTION - Single Stripe Integration Point -->
+            <section id="mainCheckoutSection" style="background: var(--card-background); border-radius: 20px; padding: 3rem 2rem; margin: 4rem 0; border: 3px solid var(--primary-teal); text-align: center;">
+                <h2 style="color: var(--primary-teal); font-size: 2rem; margin-bottom: 1rem;">🚀 Complete Your Order</h2>
+                <p style="color: var(--text-secondary); margin-bottom: 2rem; font-size: 1.1rem;">
+                    Ready to transform your digital habits? Your personalized program is waiting.
+                </p>
+                
+                <div style="background: linear-gradient(135deg, var(--primary-teal), var(--secondary-coral)); padding: 2rem; border-radius: 16px; margin-bottom: 2rem; color: white;">
+                    <div style="font-size: 1.5rem; margin-bottom: 0.5rem; font-weight: 600;">Complete Personalized Program</div>
+                    <div style="font-size: 3rem; font-weight: bold; margin-bottom: 1rem;">
+                        <span style="text-decoration: line-through; opacity: 0.7; font-size: 1.8rem;">$297</span> → <span style="color: #FFD700;">$97</span>
+                    </div>
+                    <div style="font-size: 1rem; opacity: 0.9;">Limited Time Offer - Today Only</div>
+                </div>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem; text-align: left;">
+                    <div style="background: rgba(78, 205, 196, 0.1); padding: 1.5rem; border-radius: 12px;">
+                        <div style="font-weight: 600; color: var(--primary-teal); margin-bottom: 0.5rem;">✅ What You Get:</div>
+                        <ul style="color: var(--text-secondary); font-size: 0.9rem; margin: 0; padding-left: 1rem;">
+                            <li>12-week personalized action plan</li>
+                            <li>Your habit DNA analysis</li>
+                            <li>Weekly progress tracking</li>
+                            <li>Crisis management protocols</li>
+                        </ul>
+                    </div>
+                    <div style="background: rgba(150, 206, 180, 0.1); padding: 1.5rem; border-radius: 12px;">
+                        <div style="font-weight: 600; color: var(--success-green); margin-bottom: 0.5rem;">🛡️ Our Guarantee:</div>
+                        <ul style="color: var(--text-secondary); font-size: 0.9rem; margin: 0; padding-left: 1rem;">
+                            <li>30-day money-back guarantee</li>
+                            <li>Lifetime access to materials</li>
+                            <li>Free updates and new content</li>
+                            <li>Email support included</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <button 
+                    onclick="proceedToMainCheckout()" 
+                    style="
+                        background: linear-gradient(45deg, var(--success-green), var(--primary-teal));
+                        color: white;
+                        border: none;
+                        padding: 1.5rem 3rem;
+                        border-radius: 16px;
+                        font-size: 1.3rem;
+                        font-weight: 700;
+                        cursor: pointer;
+                        transition: all 0.3s ease;
+                        box-shadow: 0 8px 25px rgba(150, 206, 180, 0.4);
+                        margin-bottom: 1rem;
+                        min-width: 300px;
+                    "
+                    onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 12px 35px rgba(150, 206, 180, 0.5)'"
+                    onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 8px 25px rgba(150, 206, 180, 0.4)'"
+                >
+                    🛒 Confirm Order - $97
+                </button>
+                
+                <div style="font-size: 0.9rem; color: var(--text-secondary); margin-top: 1rem;">
+                    <p>🔒 Secure checkout powered by Stripe</p>
+                    <p>💳 All major cards accepted • 🛡️ SSL encrypted</p>
+                </div>
+            </section>
+            
+            <div id="remainingConversionSections">
+                <!-- Social proof, FAQ, and final CTA sections will be added here -->
+            </div>
+            </div> <!-- Close container -->
+        </section>
+
+        <!-- Confirmation/Sharing Section -->
+        <section class="results-section" id="confirmationSection" style="display: none;">
+            <div class="container">
+            <h2 style="text-align: center;">Your Results Have Been Sent!</h2>
+            
+            <div class="overall-score">
+                <div class="score-circle">
+                    <div class="score-inner" id="confirmScore">--</div>
+                </div>
+                <h3 id="confirmCategory">--</h3>
+                <p id="confirmDescription">--</p>
+            </div>
+
+            <div style="margin: 3rem 0;">
+                <div id="affiliateRecommendations">
+                    <!-- This will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <div style="text-align: center; margin: 3rem 0;">
+                <h3 style="color: var(--primary-teal); margin-bottom: 1.5rem;">📤 Share with Friends</h3>
+                <p style="color: var(--text-secondary); margin-bottom: 1rem;">
+                    Help your friends discover their digital wellness patterns too and see how they compare.
+                </p>
+                <p style="color: var(--text-secondary); margin-bottom: 2rem; font-style: italic;">
+                    Talking about digital dependency is a useful step in helping to change behaviours - you aren't alone.
+                </p>
+                
+                <div class="share-score-toggle" style="background: rgba(150, 206, 180, 0.1); padding: 1rem; border-radius: 8px; margin: 1.5rem 0;">
+                    <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; justify-content: center;">
+                        <input type="checkbox" id="includeScore" style="margin-right: 0.5rem;">
+                        <span>Include my score (<span id="shareScore">--</span>) in shared message</span>
+                    </label>
+                </div>
+                
+                <div id="sharingOptions">
+                    <!-- This will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 3rem; margin-bottom: 4rem;">
+                <button class="btn" onclick="retakeAssessment()" 
+                        style="background: var(--primary-teal); margin: 0 1rem;">
+                    Take Assessment Again
+                </button>
+            </div>
+            </div> <!-- Close container -->
+        </section>
+    </div>
+
+    <!-- Firebase SDKs -->
+    <script src="src/analytics-tracker.js"></script>
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+        import { getFirestore, collection, addDoc, doc, updateDoc, serverTimestamp, arrayUnion } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+        
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDZTvAZSZb96LHC2QYk1l4wBq9m42eSa8M",
+            authDomain: "dopair.firebaseapp.com",
+            projectId: "dopair",
+            storageBucket: "dopair.firebasestorage.app",
+            messagingSenderId: "49485045614",
+            appId: "1:49485045614:web:8e7fba7242e3b270f6ab7f",
+            measurementId: "G-PJH603P6D2"
+        };
+        
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        
+        // Make Firebase available globally
+        window.firebaseDB = db;
+        window.firebaseUtils = { collection, addDoc, doc, updateDoc, serverTimestamp, arrayUnion };
+        
+        // Initialize analytics tracker
+        window.analytics = new AnalyticsTracker();
+        window.analytics.setupExitTracking();
+        
+        // Aggressively force scroll to top on page load
+        if ('scrollRestoration' in history) {
+            history.scrollRestoration = 'manual';
+        }
+        
+        // Immediate scroll
+        window.scrollTo(0, 0);
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0;
+        
+        // Force scroll on various events
+        document.addEventListener('DOMContentLoaded', () => {
+            window.scrollTo(0, 0);
+            document.documentElement.scrollTop = 0;
+            document.body.scrollTop = 0;
+        });
+        
+        window.addEventListener('load', () => {
+            window.scrollTo(0, 0);
+            document.documentElement.scrollTop = 0;
+            document.body.scrollTop = 0;
+        });
+        
+        // Force scroll after a small delay too
+        setTimeout(() => {
+            window.scrollTo(0, 0);
+            document.documentElement.scrollTop = 0;
+            document.body.scrollTop = 0;
+        }, 100);
+        
+        // Results Page Initialization
+        function initResultsPage() {
+            // Check if we have assessment data
+            const ddasSession = localStorage.getItem('ddas_session');
+            if (!ddasSession) {
+                // No assessment data, redirect to assessment
+                window.location.href = '/assessment';
+                return;
+            }
+
+            const sessionData = JSON.parse(ddasSession);
+            
+            // Check if we have email (should have come from email-confirmation page)
+            if (!sessionData.email) {
+                // No email, redirect to email confirmation
+                window.location.href = '/email-confirmation';
+                return;
+            }
+            
+            // We have assessment data and email, populate the results
+            console.log('Initializing results page with data:', sessionData);
+            
+            // Disable immediate auto-send to prevent duplicates
+            // sendResultsEmail(sessionData);
+
+            // Auto-email timer disabled - users now get results via email confirmation flow
+            // startAutoEmailTimer(sessionData);
+            
+            // Show the user's name
+            document.getElementById('userFirstName').textContent = sessionData.firstName || 'there';
+            
+            // Update the database with email when quiz app becomes available
+            const updateEmailInDatabase = () => {
+                console.log('Attempting email update...', {
+                    quizAvailable: typeof window.quiz !== 'undefined',
+                    email: sessionData.email,
+                    assessmentId: sessionData.assessmentId
+                });
+                
+                if (typeof window.quiz !== 'undefined' && sessionData.email) {
+                    window.quiz.userEmail = sessionData.email;
+                    console.log('Calling updateAssessmentWithEmail for:', sessionData.email);
+                    window.quiz.updateAssessmentWithEmail()
+                        .then(() => {
+                            console.log('✅ Email update successful for:', sessionData.email);
+                        })
+                        .catch(error => {
+                            console.error('❌ Email update failed:', error);
+                        });
+                    return true;
+                }
+                console.log('❌ Cannot update email - quiz app not ready or no email');
+                return false;
+            };
+            
+            // Try to update immediately, if not successful, retry
+            if (!updateEmailInDatabase()) {
+                console.log('First attempt failed, retrying in 1 second...');
+                setTimeout(() => {
+                    if (!updateEmailInDatabase()) {
+                        console.warn('❌ FINAL FAILURE: Could not update email in database after retry');
+                    }
+                }, 1000);
+            }
+            
+            // Initialize the quiz app with the session data to populate results
+            if (typeof initializeQuizApp === 'function') {
+                // The quiz app will handle populating the results using the stored data
+                initializeQuizApp();
+            } else if (typeof window.quiz !== 'undefined') {
+                // If quiz instance exists, call method directly
+                window.quiz.initializeFromLocalStorage();
+            } else {
+                console.log('Quiz app not ready, retrying...');
+                // Retry after a short delay to allow scripts to load
+                setTimeout(() => {
+                    if (typeof initializeQuizApp === 'function') {
+                        initializeQuizApp();
+                    } else {
+                        console.error('Quiz app failed to initialize');
+                        populateBasicResults(sessionData);
+                    }
+                }, 500);
+            }
+        }
+
+        function populateBasicResults(sessionData) {
+            if (sessionData.scores) {
+                // Display basic score information
+                const totalScore = sessionData.totalScore || 0;
+                console.log('Populating results with score:', totalScore);
+                
+                // This would normally be handled by quiz-app.js
+                // but we include this fallback for safety
+            }
+        }
+
+        // 10-minute auto-email functionality
+        let hasPurchased = false;
+        let emailAlreadySent = false; // Prevent duplicate emails
+        
+        function startAutoEmailTimer(sessionData) {
+            // Check if auto-email is enabled
+            const autoEmailEnabled = localStorage.getItem('autoEmailEnabled');
+            const timerStart = localStorage.getItem('autoEmailTimer');
+            
+            if (!autoEmailEnabled || autoEmailEnabled !== 'true' || !timerStart) {
+                console.log('Auto-email not enabled or timer not set');
+                return;
+            }
+            
+            const startTime = parseInt(timerStart);
+            const elapsed = Date.now() - startTime;
+            const remaining = (10 * 60 * 1000) - elapsed; // 10 minutes in ms
+            
+            if (remaining <= 0) {
+                // Timer already expired, send email immediately
+                sendAutoEmail(sessionData);
+                return;
+            }
+            
+            console.log(`⏰ Auto-email timer started: ${Math.round(remaining / 1000 / 60)} minutes remaining`);
+            
+            // Set timer for remaining time
+            setTimeout(() => {
+                sendAutoEmail(sessionData);
+            }, remaining);
+        }
+        
+        async function sendResultsEmail(sessionData) {
+            console.log('📧 Sending results email immediately');
+
+            // Prevent duplicate emails
+            if (emailAlreadySent) {
+                console.log('⚠️ Email already sent, skipping duplicate');
+                return;
+            }
+
+            try {
+                // Wait for EmailService to be available
+                let attempts = 0;
+                while (!window.EmailService && attempts < 10) {
+                    console.log('Waiting for EmailService to load...', attempts);
+                    await new Promise(resolve => setTimeout(resolve, 500));
+                    attempts++;
+                }
+                
+                if (window.EmailService && sessionData.email) {
+                    const emailService = new EmailService();
+                    console.log('Sending email with data:', {
+                        email: sessionData.email,
+                        firstName: sessionData.firstName,
+                        totalScore: sessionData.totalScore,
+                        scores: sessionData.scores
+                    });
+                    
+                    const result = await emailService.sendDDASResults(sessionData.email, {
+                        firstName: sessionData.firstName || 'Friend',
+                        totalScore: sessionData.totalScore || 50,
+                        scores: sessionData.scores || {},
+                        personalizedTips: sessionData.personalizedTips || []
+                    });
+                    
+                    if (result.success) {
+                        console.log('✅ Results email sent successfully');
+                        emailAlreadySent = true; // Mark as sent to prevent duplicates
+
+                        // Disable auto-email since we sent it already
+                        localStorage.removeItem('autoEmailTimer');
+                        localStorage.removeItem('autoEmailEnabled');
+                    } else {
+                        console.error('❌ Results email failed:', result);
+                    }
+                } else {
+                    console.error('❌ EmailService not available or no email');
+                }
+            } catch (error) {
+                console.error('❌ Results email error:', error);
+            }
+        }
+
+        async function sendAutoEmail(sessionData) {
+            // Check if user is still on page and hasn't purchased
+            if (document.hidden || hasPurchased || emailAlreadySent) {
+                console.log('User not active or has purchased or email already sent, skipping auto-email');
+                return;
+            }
+            
+            console.log('📧 Auto-sending email after 10 minutes');
+            
+            try {
+                if (window.EmailService && sessionData.email) {
+                    const emailService = new EmailService();
+                    const result = await emailService.sendDDASResults(sessionData.email, {
+                        firstName: sessionData.firstName || 'Friend',
+                        totalScore: sessionData.totalScore || 50,
+                        scores: sessionData.scores || {},
+                        personalizedTips: sessionData.personalizedTips || []
+                    });
+                    
+                    if (result.success) {
+                        console.log('✅ Auto-email sent successfully');
+                        showAutoEmailNotification();
+                        
+                        // Clear the timer flags
+                        localStorage.removeItem('autoEmailTimer');
+                        localStorage.removeItem('autoEmailEnabled');
+                    }
+                }
+            } catch (error) {
+                console.error('❌ Auto-email failed:', error);
+            }
+        }
+        
+        function showAutoEmailNotification() {
+            // Show subtle notification
+            const notification = document.createElement('div');
+            notification.innerHTML = `
+                <div style="position: fixed; top: 20px; right: 20px; background: var(--success-green); color: white; padding: 1rem; border-radius: 8px; z-index: 1000; max-width: 300px;">
+                    📧 Your results have been automatically emailed to you!
+                </div>
+            `;
+            document.body.appendChild(notification);
+            
+            // Remove after 5 seconds
+            setTimeout(() => {
+                notification.remove();
+            }, 5000);
+        }
+        
+        // Initialize results page when DOM is ready
+        document.addEventListener('DOMContentLoaded', () => {
+            initResultsPage();
+        });
+
+        
+        // Tooltip System JavaScript
+        class TooltipSystem {
+            constructor() {
+                this.activeTooltip = null;
+                this.tooltipData = {
+                    'assessment-title': {
+                        title: 'Digital Dopamine Assessment™',
+                        content: `This assessment is built on Dr. Mark Griffiths' scientifically-validated Component Model of Habit, used worldwide to understand behavioral habits. We adapted his six core habit components into four user-friendly categories, incorporating recent research on smartphone habit, dopamine systems, and digital wellness. The model draws from peer-reviewed studies including the Bergen Social Media Habit Scale and longitudinal research from Stanford University's Habit Medicine clinic.`
+                    },
+                    'salience-preoccupation': {
+                        title: 'Salience & Preoccupation',
+                        content: `This measures how often you think about your phone when not using it, whether it feels like the most important thing in your life, and if thoughts about checking it interrupt other activities. High scores suggest your phone has become a central focus that crowds out other interests.`
+                    },
+                    'loss-of-control': {
+                        title: 'Loss of Control',
+                        content: `This assesses whether you can stick to limits you set for yourself, resist urges to check your phone, and stop using it when you intend to. High scores indicate difficulty controlling usage despite wanting to, similar to other impulse control challenges.`
+                    },
+                    'tolerance-withdrawal': {
+                        title: 'Tolerance & Withdrawal',
+                        content: `This examines if you need more phone time to feel satisfied and how you feel when separated from your device. High scores suggest you may experience anxiety, restlessness, or discomfort when your phone isn't available, and that your usage has gradually increased over time.`
+                    },
+                    'functional-impairment': {
+                        title: 'Functional Impairment',
+                        content: `This looks at whether phone use interferes with important areas of your life like sleep, work productivity, face-to-face relationships, or physical activities. High scores indicate that phone use may be creating real problems in daily functioning and life satisfaction.`
+                    },
+                    'dimension-breakdown': {
+                        title: 'Your Dimension Breakdown & Insights',
+                        content: `These four dimensions represent the core aspects of digital dependency based on scientific research. Each score shows how your phone use patterns align with established markers of problematic technology use. Understanding these dimensions helps identify specific areas where targeted interventions can be most effective.`
+                    },
+                    'phone-usage-impact': {
+                        title: 'Phone Usage Life Impact',
+                        content: `This visualization shows how your current phone usage patterns will impact your remaining lifetime. The calculation is based on average life expectancy and 7.5 hours sleep per night. The colored bars represent your years awake and phone-free (green), time spent on your phone that could be reclaimed (red), and sleeping hours (gray). This helps put your digital habits into perspective and shows the potential time available for other meaningful activities.`
+                    }
+                };
+                this.init();
+            }
+
+            init() {
+                this.createTooltipContainer();
+                this.bindEvents();
+            }
+
+            createTooltipContainer() {
+                // Create backdrop
+                this.backdrop = document.createElement('div');
+                this.backdrop.className = 'tooltip-backdrop';
+                this.backdrop.addEventListener('click', () => this.closeTooltip());
+                document.body.appendChild(this.backdrop);
+
+                // Create tooltip content container
+                this.tooltip = document.createElement('div');
+                this.tooltip.className = 'tooltip-content';
+                this.tooltip.setAttribute('role', 'dialog');
+                this.tooltip.setAttribute('aria-modal', 'true');
+                document.body.appendChild(this.tooltip);
+            }
+
+            bindEvents() {
+                // Handle click events on info icons
+                document.addEventListener('click', (e) => {
+                    if (e.target.classList.contains('info-icon')) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        const tooltipId = e.target.getAttribute('data-tooltip');
+                        console.log('Clicked info icon with tooltip ID:', tooltipId);
+                        this.showTooltip(tooltipId);
+                    }
+                });
+
+                // Handle escape key
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape' && this.activeTooltip) {
+                        this.closeTooltip();
+                    }
+                });
+
+                // Prevent scrolling when tooltip is open
+                this.tooltip.addEventListener('touchmove', (e) => {
+                    e.stopPropagation();
+                });
+            }
+
+            showTooltip(tooltipId) {
+                console.log('showTooltip called with ID:', tooltipId);
+                console.log('Available tooltip data keys:', Object.keys(this.tooltipData));
+                
+                const data = this.tooltipData[tooltipId];
+                if (!data) {
+                    console.warn('No tooltip data found for:', tooltipId);
+                    console.warn('Available keys:', Object.keys(this.tooltipData));
+                    return;
+                }
+
+                console.log('Found tooltip data:', data);
+                this.activeTooltip = tooltipId;
+
+                // Set content
+                const tooltipHTML = `
+                    <div class="tooltip-header">
+                        <h3 class="tooltip-title">${data.title}</h3>
+                        <button class="tooltip-close" aria-label="Close tooltip" onclick="window.tooltipSystem.closeTooltip()">
+                            ×
+                        </button>
+                    </div>
+                    <div class="tooltip-body">
+                        <p>${data.content}</p>
+                    </div>
+                `;
+                
+                console.log('Setting tooltip HTML:', tooltipHTML);
+                this.tooltip.innerHTML = tooltipHTML;
+
+                // Show tooltip with animation
+                requestAnimationFrame(() => {
+                    this.backdrop.classList.add('active');
+                    this.tooltip.classList.add('active');
+                    
+                    console.log('Tooltip should be visible now');
+                    
+                    // Focus management for accessibility
+                    const closeButton = this.tooltip.querySelector('.tooltip-close');
+                    if (closeButton) {
+                        closeButton.focus();
+                    }
+                    
+                    // Prevent body scroll
+                    document.body.style.overflow = 'hidden';
+                });
+            }
+
+            closeTooltip() {
+                if (!this.activeTooltip) return;
+
+                const currentTooltip = this.activeTooltip;
+                
+                this.backdrop.classList.remove('active');
+                this.tooltip.classList.remove('active');
+                this.activeTooltip = null;
+                
+                // Restore body scroll
+                document.body.style.overflow = '';
+
+                // Return focus to the trigger element
+                setTimeout(() => {
+                    const triggerElement = document.querySelector(`[data-tooltip="${currentTooltip}"]`);
+                    if (triggerElement) {
+                        triggerElement.focus();
+                    }
+                }, 100);
+            }
+        }
+
+        // Initialize tooltip system when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            window.tooltipSystem = new TooltipSystem();
+        });
+
+        // Load the quiz app after Firebase is ready
+        import('./src/quiz-app.js').then(module => {
+            console.log('Quiz app loaded successfully');
+        }).catch(error => {
+            console.error('Error loading quiz app:', error);
+        });
+    </script>
+
+
+    <!-- Stripe Integration -->
+    <script src="https://js.stripe.com/v3/"></script>
+    <script>
+        // Initialize Stripe - Replace with your publishable key
+        // For testing: use pk_test_... key, for production: use pk_live_... key
+        const stripe = Stripe('pk_test_51S4LL4B0md0hKsVZcoLB07vZO2iFciBybGNlDGA79NJveduHrwmgrbLOvrjVmEUQJ8kRXi5Vic19PRPFX8M4waha00OrvOmKOw');
+        
+        // Track Stripe instance to prevent multiple checkouts
+        let stripeCheckoutInstance = null;
+        
+        // Global Stripe checkout function
+        window.proceedToStripeCheckout = async function(event) {
+            try {
+                console.log('🚀 Stripe checkout initiated!', event);
+                
+                // Prevent multiple checkout instances
+                if (stripeCheckoutInstance) {
+                    console.log('🚨 Checkout already in progress, cancelling new request');
+                    return;
+                }
+                
+                // Clean up any existing checkout overlays first
+                const existingOverlays = document.querySelectorAll('#checkout-overlay');
+                existingOverlays.forEach(overlay => overlay.remove());
+                
+                // Clean up any existing Stripe elements
+                const existingStripeElements = document.querySelectorAll('[data-testid="hosted-payment-element"]');
+                existingStripeElements.forEach(el => el.remove());
+                
+                // Track checkout initiation
+                if (window.analytics) {
+                    window.analytics.trackButtonClick('stripe_checkout_initiated');
+                }
+
+                // Show loading state
+                let button = event?.target || document.querySelector('[onclick*="proceedToStripeCheckout"]');
+                let originalText = 'Get My Complete Program';
+                if (button) {
+                    originalText = button.textContent;
+                    button.textContent = 'Loading checkout...';
+                    button.disabled = true;
+                }
+
+                // Store user data for post-purchase
+                const userData = {
+                    firstName: window.quiz?.userName || 'User',
+                    birthYear: window.quiz?.birthYear || null,
+                    assessmentId: window.quiz?.assessmentId || 'assessment-' + Date.now(),
+                    timestamp: Date.now(),
+                    email: window.quiz?.userEmail || null
+                };
+                localStorage.setItem('dopair_user_data', JSON.stringify(userData));
+
+                // Use embedded checkout for all devices (better UX)
+                const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+
+                console.log('🚀 Starting embedded checkout for all devices');
+
+                // Desktop localhost - try the embedded checkout
+                let response;
+                try {
+                    response = await fetch('/api/create-checkout-session', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            priceId: 'price_test_complete_program',
+                            successUrl: window.location.origin + '/payment-success',
+                            cancelUrl: window.location.origin + '/payment-cancelled',
+                            customerEmail: userData.email,
+                            metadata: {
+                                assessmentId: userData.assessmentId,
+                                firstName: userData.firstName,
+                                birthYear: userData.birthYear
+                            }
+                        })
+                    });
+                } catch (fetchError) {
+                    console.error('❌ Network error creating checkout session:', fetchError);
+                    alert('Unable to connect to payment system. Please check your internet connection and try again.');
+                    return;
+                }
+
+                if (!response.ok) {
+                    console.error('❌ Server error creating checkout session:', response.status);
+                    alert('Payment system temporarily unavailable. Please try again in a moment.');
+                    return;
+                }
+
+                const session = await response.json();
+                console.log('📄 Session response:', session);
+
+                // Create embedded checkout modal using client secret
+                stripeCheckoutInstance = await stripe.initEmbeddedCheckout({
+                    clientSecret: session.clientSecret
+                });
+
+                // Create modal overlay
+                const overlay = document.createElement('div');
+                overlay.id = 'checkout-overlay';
+                overlay.style.cssText = `
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100vw;
+                    height: 100vh;
+                    background: rgba(0, 0, 0, 0.8);
+                    z-index: 9999;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    backdrop-filter: blur(5px);
+                `;
+                
+                // Add close button
+                const closeBtn = document.createElement('button');
+                closeBtn.innerHTML = '✕';
+                closeBtn.style.cssText = `
+                    position: absolute;
+                    top: 2rem;
+                    right: 2rem;
+                    background: white;
+                    border: none;
+                    width: 40px;
+                    height: 40px;
+                    border-radius: 50%;
+                    font-size: 1.2rem;
+                    cursor: pointer;
+                    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                    z-index: 10001;
+                `;
+                closeBtn.onclick = () => {
+                    // Clean up Stripe instance
+                    if (stripeCheckoutInstance) {
+                        try {
+                            stripeCheckoutInstance.destroy();
+                        } catch (e) {
+                            console.log('Stripe instance cleanup error:', e);
+                        }
+                        stripeCheckoutInstance = null;
+                    }
+                    
+                    document.body.removeChild(overlay);
+                    if (button) {
+                        button.textContent = originalText;
+                        button.disabled = false;
+                    }
+                };
+                
+                // Create empty container for Stripe (MUST be empty!)
+                const checkoutContainer = document.createElement('div');
+                checkoutContainer.id = 'stripe-checkout-container';
+                checkoutContainer.style.cssText = `
+                    width: 100%;
+                    max-width: 600px;
+                    max-height: 90vh;
+                    overflow: auto;
+                    background: white;
+                    border-radius: 12px;
+                    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+                `;
+                
+                // Add close button and empty container to overlay
+                overlay.appendChild(closeBtn);
+                overlay.appendChild(checkoutContainer);
+                document.body.appendChild(overlay);
+                
+                // Mount checkout to the EMPTY container
+                stripeCheckoutInstance.mount(checkoutContainer);
+
+            } catch (error) {
+                console.error('🚨 Stripe checkout error:', error);
+                alert('Debug: ' + error.message);
+                
+                // Clean up Stripe instance on error
+                if (stripeCheckoutInstance) {
+                    try {
+                        stripeCheckoutInstance.destroy();
+                    } catch (e) {
+                        console.log('Stripe instance cleanup error:', e);
+                    }
+                    stripeCheckoutInstance = null;
+                }
+                
+                // Show user-friendly error
+                const errorMsg = error.message.includes('fetch') 
+                    ? 'Using direct payment link...' 
+                    : 'Sorry, there was an error. Please try again.';
+                
+                if (error.message.includes('fetch')) {
+                    // Fallback to direct payment link
+                    window.location.href = 'https://buy.stripe.com/fZu3cu4TSgo35OQbAO63K00';
+                } else {
+                    alert(errorMsg);
+                }
+                
+                // Reset button
+                const resetButton = () => {
+                    if (button && originalText) {
+                        button.textContent = originalText;
+                        button.disabled = false;
+                    }
+                };
+                resetButton();
+                
+                // Track error
+                if (window.analytics) {
+                    window.analytics.trackError('stripe_checkout_error', error.message);
+                }
+            }
+        };
+
+        // Update existing proceedToCheckout function to use Stripe
+        window.proceedToCheckout = window.proceedToStripeCheckout;
+        
+        // Fallback function for any buttons still calling openPremiumModal
+        window.openPremiumModal = function() {
+            console.log('🔄 openPremiumModal called - redirecting to Stripe checkout');
+            window.proceedToStripeCheckout();
+        };
+        
+        // Make the modal button scroll to checkout
+        document.addEventListener('DOMContentLoaded', function() {
+            // Update the "Get My Complete Program" button to scroll instead of direct Stripe
+            const modalButton = document.getElementById('unlockPremiumBtn');
+            if (modalButton) {
+                modalButton.onclick = showCompleteResults;
+            }
+        });
+
+        // Missing functions for results.html buttons
+        function showCompleteResults() {
+            console.log('📍 Scrolling to main checkout section');
+            
+            // Track the click
+            if (window.analytics) {
+                window.analytics.trackButtonClick('scroll_to_checkout');
+            }
+            
+            // Scroll to main checkout section
+            const checkoutSection = document.getElementById('mainCheckoutSection');
+            if (checkoutSection) {
+                checkoutSection.scrollIntoView({ 
+                    behavior: 'smooth', 
+                    block: 'center' 
+                });
+                
+                // Add highlight effect
+                checkoutSection.style.background = 'rgba(78, 205, 196, 0.1)';
+                checkoutSection.style.transition = 'background 0.5s ease';
+                setTimeout(() => {
+                    checkoutSection.style.background = '';
+                }, 2000);
+            }
+        }
+        
+        function proceedToMainCheckout() {
+            console.log('🚀 Stripe checkout initiated from main section');
+            
+            // Mark that user clicked purchase (prevent auto-email)
+            hasPurchased = true;
+            
+            // Track the click
+            if (window.analytics) {
+                window.analytics.trackButtonClick('main_checkout_initiated');
+            }
+            
+            // Use Stripe checkout - but ensure only ONE instance
+            try {
+                // Clear any existing Stripe checkout instances
+                const existingElements = document.querySelectorAll('[data-testid="hosted-payment-element"]');
+                existingElements.forEach(el => el.remove());
+                
+                if (window.proceedToStripeCheckout) {
+                    window.proceedToStripeCheckout();
+                } else {
+                    // Initialize Stripe checkout if not available
+                    initializeStripeCheckout();
+                    setTimeout(() => {
+                        if (window.proceedToStripeCheckout) {
+                            window.proceedToStripeCheckout();
+                        }
+                    }, 500);
+                }
+            } catch (error) {
+                console.error('Stripe checkout error:', error);
+                alert('Checkout temporarily unavailable. Please try again in a moment.');
+            }
+        }
+        
+        function initializeStripeCheckout() {
+            // Only initialize if not already done
+            if (window.proceedToStripeCheckout) return;
+            
+            const stripe = Stripe('pk_test_51S4LL4B0md0hKsVZcoLB07vZO2iFciBybGNlDGA79NJveduHrwmgrbLOvrjVmEUQJ8kRXi5Vic19PRPFX8M4waha00OrvOmKOw');
+            
+            window.proceedToStripeCheckout = async function(event) {
+                try {
+                    console.log('🚀 Stripe checkout initiated!');
+                    
+                    const { error } = await stripe.redirectToCheckout({
+                        lineItems: [{
+                            price: 'price_1S4LS8B0md0hKsVZD2q8vHge', // $97 price ID
+                            quantity: 1,
+                        }],
+                        mode: 'payment',
+                        successUrl: window.location.origin + '/success?session_id={CHECKOUT_SESSION_ID}',
+                        cancelUrl: window.location.origin + '/results',
+                    });
+                    
+                    if (error) {
+                        console.error('Stripe checkout error:', error);
+                        throw error;
+                    }
+                } catch (error) {
+                    console.error('Stripe checkout failed:', error);
+                    alert('Checkout failed. Please try again.');
+                }
+            };
+        }
+
+        async function sendBasicResults() {
+            console.log('📧 Sending basic results from results page');
+
+            // Prevent duplicate emails
+            if (emailAlreadySent) {
+                console.log('⚠️ Email already sent, skipping duplicate');
+                alert('Your results have already been sent to your email!');
+                return;
+            }
+
+            // Track the click
+            if (window.analytics) {
+                window.analytics.trackButtonClick('send_basic_results_results_page');
+            }
+            
+            // Show loading state
+            const button = event?.target || document.querySelector('[onclick*="sendBasicResults"]');
+            const originalText = button?.textContent || 'Send Results';
+            if (button) {
+                button.textContent = 'Sending Results...';
+                button.disabled = true;
+            }
+            
+            try {
+                // Get user data from localStorage or quiz instance
+                const userEmail = localStorage.getItem('userEmail') || 'daniel@dopair.app'; // fallback for testing
+                const firstName = localStorage.getItem('firstName') || 'Friend';
+                const ddasSession = localStorage.getItem('ddas_session');
+                
+                if (!userEmail) {
+                    throw new Error('No email found');
+                }
+                
+                let scoreData = { overall: 50 }; // fallback
+                let dimensionScores = {};
+                let personalizedTips = [];
+                
+                // Try to get real data from session
+                if (ddasSession) {
+                    try {
+                        const sessionData = JSON.parse(ddasSession);
+                        if (sessionData.totalScore) scoreData.overall = sessionData.totalScore;
+                        if (sessionData.scores) dimensionScores = sessionData.scores;
+                        if (sessionData.personalizedTips) personalizedTips = sessionData.personalizedTips;
+                    } catch (e) {
+                        console.warn('Could not parse session data:', e);
+                    }
+                }
+                
+                // Send email using EmailService
+                if (window.EmailService) {
+                    const emailService = new EmailService();
+                    const result = await emailService.sendAssessmentResults(
+                        { email: userEmail, firstName: firstName },
+                        scoreData,
+                        dimensionScores,
+                        personalizedTips
+                    );
+                    
+                    if (result.success) {
+                        emailAlreadySent = true; // Mark as sent to prevent duplicates
+
+                        // Show success message on page instead of redirecting
+                        const successHTML = `
+                            <div style="background: var(--success-green); color: white; padding: 1rem; border-radius: 8px; margin: 1rem 0; text-align: center;">
+                                ✅ Success! Your results have been emailed to ${userEmail}
+                                <div style="margin-top: 0.5rem; font-size: 0.9rem; opacity: 0.9;">
+                                    Check your inbox (and spam folder) for the complete report.
+                                </div>
+                            </div>
+                        `;
+                        
+                        // Add success message at top of page
+                        const container = document.querySelector('.container');
+                        if (container) {
+                            container.insertAdjacentHTML('afterbegin', successHTML);
+                        }
+                        
+                        // Scroll to top to show success message
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                        
+                        // Reset button after delay
+                        setTimeout(() => {
+                            if (button) {
+                                button.textContent = '✅ Sent!';
+                                button.style.background = 'var(--success-green)';
+                            }
+                        }, 1000);
+                        
+                    } else {
+                        throw new Error(result.message || 'Email failed');
+                    }
+                } else {
+                    throw new Error('EmailService not available');
+                }
+                
+            } catch (error) {
+                console.error('Error sending results:', error);
+                
+                // Show error message
+                const errorHTML = `
+                    <div style="background: #ff6b6b; color: white; padding: 1rem; border-radius: 8px; margin: 1rem 0; text-align: center;">
+                        ❌ Unable to send email right now. Please try again or contact support.
+                    </div>
+                `;
+                
+                const container = document.querySelector('.container');
+                if (container) {
+                    container.insertAdjacentHTML('afterbegin', errorHTML);
+                }
+                
+                // Reset button
+                if (button) {
+                    button.textContent = originalText;
+                    button.disabled = false;
+                }
+            }
+        }
+    </script>
+</body>
+</html>
