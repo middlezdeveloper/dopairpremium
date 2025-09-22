@@ -109,6 +109,14 @@ export default function HomePage() {
             >
               Take Free DDAS Assessment
             </Link>
+
+            <Link
+              href="/checkout"
+              className="bg-green-600 text-white px-8 py-3 rounded-lg text-lg font-medium hover:bg-green-700 transition-colors"
+            >
+              UAT Test Checkout 🧪
+            </Link>
+
             {!user && (
               <Link
                 href="/signup"

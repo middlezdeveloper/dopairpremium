@@ -49,25 +49,30 @@ export const createCheckoutSession = onRequest({
         });
       }
 
-      // Verify authentication
-      const user = await verifyAuthentication(req);
-      if (!user) {
-        res.status(401).json({ error: "Unauthorized" });
-        return;
-      }
+      const { priceId, mode = 'subscription', publicCheckout = false } = req.body;
 
-      const { priceId, mode = 'subscription' } = req.body;
+      // For public checkout, we don't require authentication
+      let user = null;
+      let stripeCustomerId = null;
+
+      if (!publicCheckout) {
+        // Verify authentication for authenticated checkouts
+        user = await verifyAuthentication(req);
+        if (!user) {
+          res.status(401).json({ error: "Unauthorized" });
+          return;
+        }
+        // Get or create Stripe customer for authenticated users
+        stripeCustomerId = await getOrCreateStripeCustomer(user.uid, user.email || '');
+      }
 
       if (!priceId) {
         res.status(400).json({ error: "Price ID is required" });
         return;
       }
 
-      // Get or create Stripe customer
-      let stripeCustomerId = await getOrCreateStripeCustomer(user.uid, user.email || '');
-
       // Create checkout session
-      console.log('Creating checkout session for user:', user.uid, 'with price:', priceId);
+      console.log('Creating checkout session', publicCheckout ? '(public)' : `for user: ${user?.uid}`, 'with price:', priceId);
 
       const sessionParams: Stripe.Checkout.SessionCreateParams = {
         customer: stripeCustomerId,
@@ -80,16 +85,18 @@ export const createCheckoutSession = onRequest({
           },
         ],
         allow_promotion_codes: true,
-        success_url: `${process.env.NODE_ENV === 'production' ? 'https://premium.dopair.app' : 'http://localhost:3000'}/account?session_id={CHECKOUT_SESSION_ID}`,
-        cancel_url: `${process.env.NODE_ENV === 'production' ? 'https://premium.dopair.app' : 'http://localhost:3000'}/test-checkout`,
+        success_url: `${process.env.NODE_ENV === 'production' ? 'https://premium.dopair.app' : 'http://localhost:3000'}${publicCheckout ? '/checkout/success' : '/account'}?session_id={CHECKOUT_SESSION_ID}`,
+        cancel_url: `${process.env.NODE_ENV === 'production' ? 'https://premium.dopair.app' : 'http://localhost:3000'}${publicCheckout ? '/checkout' : '/test-checkout'}`,
         metadata: {
-          userId: user.uid,
-          userEmail: user.email || '',
+          userId: user?.uid || 'public',
+          userEmail: user?.email || '',
+          publicCheckout: publicCheckout.toString(),
         },
         subscription_data: mode === 'subscription' ? {
           metadata: {
-            userId: user.uid,
-            userEmail: user.email || '',
+            userId: user?.uid || 'public',
+            userEmail: user?.email || '',
+            publicCheckout: publicCheckout.toString(),
           },
         } : undefined,
       };
