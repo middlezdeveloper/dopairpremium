@@ -6,15 +6,27 @@ service cloud.firestore {
     function isAdmin() {
       return request.auth != null &&
              (request.auth.token.email == 'middlezdeveloper@gmail.com' ||
-              request.auth.token.email == 'daniel@mzconsulting.com.au');
+              request.auth.token.email == 'daniel@mzconsulting.com.au' ||
+              request.auth.token.email == 'gmiddlez@gmail.com');
+    }
+
+    function isAuthenticated() {
+      return request.auth != null;
     }
 
     // USER PROFILES - With admin access for approvals
     match /users/{userId} {
       // Users can create and update their own profile, OR admins can update any profile
-      allow create, update: if
+      // Also allow system (unauthenticated) creates for webhook integration
+      allow create: if
         (request.auth != null && request.auth.uid == userId) ||
-        isAdmin();
+        isAdmin() ||
+        request.auth == null; // Allow system/webhook creates
+
+      allow update: if
+        (request.auth != null && request.auth.uid == userId) ||
+        isAdmin() ||
+        request.auth == null; // Allow system/webhook updates
 
       // Users can read their own profile, admins can read all
       allow read: if

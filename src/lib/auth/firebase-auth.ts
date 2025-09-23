@@ -209,7 +209,28 @@ export async function resetPassword(email: string) {
 // Create user document in Firestore
 async function createUserDocument(user: User, additionalData: any = {}) {
   try {
-    const userDoc = {
+    // Check for existing premium subscription by email
+    const { collection, query, where, limit, getDocs } = await import('firebase/firestore');
+
+    let existingPremiumUser = null;
+    try {
+      const existingUserQuery = await getDocs(
+        query(
+          collection(db, COLLECTIONS.USERS),
+          where('email', '==', user.email),
+          where('status', 'in', ['premium', 'grace_period']),
+          limit(1)
+        )
+      );
+
+      if (!existingUserQuery.empty) {
+        existingPremiumUser = existingUserQuery.docs[0];
+      }
+    } catch (queryError) {
+      console.log('Query for existing premium user failed, continuing with default creation:', queryError);
+    }
+
+    let userDoc: any = {
       uid: user.uid,
       email: user.email,
       displayName: user.displayName,
@@ -224,6 +245,32 @@ async function createUserDocument(user: User, additionalData: any = {}) {
       lastActive: serverTimestamp(),
       assessmentId: null,
     };
+
+    // If user has existing premium subscription, copy premium status
+    if (existingPremiumUser) {
+      const existingData = existingPremiumUser.data();
+      console.log(`Found existing premium subscription for ${user.email}, copying status`);
+
+      userDoc = {
+        ...userDoc,
+        status: existingData.status,
+        paymentStatus: existingData.paymentStatus,
+        isApproved: true, // Auto-approve premium users
+        subscription: existingData.subscription || userDoc.subscription,
+      };
+
+      // Archive the old profile (don't delete to maintain audit trail)
+      try {
+        await updateDoc(existingPremiumUser.ref, {
+          archived: true,
+          archivedAt: serverTimestamp(),
+          migratedToUID: user.uid,
+        });
+        console.log(`Migrated premium subscription from ${existingPremiumUser.id} to ${user.uid}`);
+      } catch (archiveError) {
+        console.log('Failed to archive old profile, but continuing:', archiveError);
+      }
+    }
 
     await setDoc(doc(db, COLLECTIONS.USERS, user.uid), userDoc);
     return userDoc;

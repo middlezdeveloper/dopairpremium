@@ -1,7 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useRouter } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import {
   signUpWithEmail,
@@ -9,14 +10,31 @@ import {
   signInWithFacebook
 } from '@/lib/auth/firebase-auth';
 
-export default function SignUpPage() {
+function SignUpPageContent() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [displayName, setDisplayName] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
+  const [isPremiumUser, setIsPremiumUser] = useState(false);
   const router = useRouter();
+  const searchParams = useSearchParams();
+
+  // Check for payment success on component mount
+  useEffect(() => {
+    // Use window.location.search instead of searchParams for better compatibility
+    const urlParams = new URLSearchParams(window.location.search);
+    const paymentSuccess = urlParams.get('payment_success');
+    const sessionId = urlParams.get('session_id');
+
+    console.log('Checking URL parameters:', { paymentSuccess, sessionId });
+
+    if (paymentSuccess === 'true' && sessionId) {
+      setIsPremiumUser(true);
+      console.log('Premium user detected from payment success');
+    }
+  }, []);
 
   const handleEmailSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -72,19 +90,40 @@ export default function SignUpPage() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
               </div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-2">Account Created!</h2>
-              <p className="text-gray-600 mb-4">
-                Your account has been created successfully. You'll need admin approval to access the platform.
-              </p>
-              <p className="text-sm text-gray-500 mb-6">
-                We'll notify you via email once your account is approved.
-              </p>
-              <Link
-                href="/login"
-                className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700"
-              >
-                Go to Login
-              </Link>
+
+              {isPremiumUser ? (
+                <>
+                  <h2 className="text-2xl font-bold text-gray-900 mb-2">Welcome to Dopair Premium! 🎉</h2>
+                  <p className="text-gray-600 mb-4">
+                    Your account has been created and your premium subscription is active. You can now access all premium features.
+                  </p>
+                  <p className="text-sm text-gray-500 mb-6">
+                    Click below to start using your premium account.
+                  </p>
+                  <Link
+                    href="/dashboard"
+                    className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700"
+                  >
+                    Access Premium Dashboard
+                  </Link>
+                </>
+              ) : (
+                <>
+                  <h2 className="text-2xl font-bold text-gray-900 mb-2">Account Created!</h2>
+                  <p className="text-gray-600 mb-4">
+                    Your account has been created successfully. You'll need admin approval to access the platform.
+                  </p>
+                  <p className="text-sm text-gray-500 mb-6">
+                    We'll notify you via email once your account is approved.
+                  </p>
+                  <Link
+                    href="/login"
+                    className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700"
+                  >
+                    Go to Login
+                  </Link>
+                </>
+              )}
             </div>
           </div>
         </div>
@@ -96,12 +135,30 @@ export default function SignUpPage() {
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <div className="text-center">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">
-            Join Dopair Premium
-          </h1>
-          <p className="text-gray-600">
-            Create your account to access AI-powered recovery coaching
-          </p>
+          {isPremiumUser ? (
+            <>
+              <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100 mb-4">
+                <svg className="h-6 w-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+              <h1 className="text-3xl font-bold text-gray-900 mb-2">
+                Payment Successful! 🎉
+              </h1>
+              <p className="text-gray-600">
+                Choose how you'd like to sign in to access your premium features
+              </p>
+            </>
+          ) : (
+            <>
+              <h1 className="text-3xl font-bold text-gray-900 mb-2">
+                Join Dopair Premium
+              </h1>
+              <p className="text-gray-600">
+                Create your account to access AI-powered recovery coaching
+              </p>
+            </>
+          )}
         </div>
       </div>
 
@@ -243,5 +300,24 @@ export default function SignUpPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function SignUpPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+        <div className="sm:mx-auto sm:w-full sm:max-w-md">
+          <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+            <div className="text-center">
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-600 mx-auto"></div>
+              <p className="mt-2 text-gray-600">Loading...</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    }>
+      <SignUpPageContent />
+    </Suspense>
   );
 }

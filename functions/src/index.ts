@@ -367,8 +367,8 @@ export {
   getPaymentMethodUpdateURL
 } from "./billing-management";
 
-// Export checkout session creation
-export { createCheckoutSession } from "./create-checkout-session";
+// Export checkout session creation (v1 with proper CORS)
+export { createCheckoutSessionV1 as createCheckoutSession } from "./create-checkout-session-v1";
 
 // Export CORS test function
 export { corsTest } from "./cors-test";

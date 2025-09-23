@@ -15,21 +15,33 @@ let stripe: Stripe | null = null;
  */
 export const createCheckoutSession = onRequest({
   secrets: [stripeSecretKey],
-  cors: true
 }, async (req, res) => {
-    // Set CORS headers manually to ensure they work
-    res.set('Access-Control-Allow-Origin', '*');
+    console.log('🚀 FUNCTION START - Method:', req.method, 'Origin:', req.headers.origin);
+
+    // Set CORS headers FIRST THING - before any other logic
+    const allowedOrigins = [
+      'https://dopair.app',
+      'https://premium.dopair.app',
+      'https://dopair.web.app',
+      'https://premium.dopair.web.app',
+      'http://localhost:3000',
+      'http://localhost:3001'
+    ];
+
+    const origin = req.headers.origin;
+    if (allowedOrigins.includes(origin || '')) {
+      res.set('Access-Control-Allow-Origin', origin);
+    }
+
     res.set('Access-Control-Allow-Credentials', 'true');
     res.set('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
     res.set('Access-Control-Allow-Headers', 'Content-Type, Authorization');
 
-    // Handle preflight
+    // Handle preflight requests BEFORE any other logic
     if (req.method === 'OPTIONS') {
-      console.log('✅ Handling OPTIONS preflight request');
       res.status(200).end();
       return;
     }
-    console.log('🚀 Function called - Method:', req.method, 'Origin:', req.headers.origin);
 
     if (req.method !== 'POST') {
       console.log('❌ Method not allowed:', req.method);

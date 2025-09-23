@@ -162,10 +162,50 @@ async function handleSubscriptionCreated(event: Stripe.Event): Promise<any> {
   console.log(`Processing subscription created: ${subscription.id} for customer: ${customerId}`);
 
   // Find user by Stripe customer ID
-  const user = await findUserByStripeCustomerId(customerId);
+  let user = await findUserByStripeCustomerId(customerId);
   if (!user) {
-    console.error(`User not found for Stripe customer: ${customerId}`);
-    return { status: "user_not_found" };
+    console.log(`User not found for Stripe customer: ${customerId}, creating user profile from subscription`);
+
+    // Get customer details from Stripe to create user profile
+    if (!stripe) {
+      throw new Error("Stripe not initialized");
+    }
+
+    const customer = await stripe.customers.retrieve(customerId);
+    if (!customer || customer.deleted) {
+      console.error(`Stripe customer ${customerId} not found or deleted`);
+      return { status: "customer_not_found" };
+    }
+
+    const customerData = customer as Stripe.Customer;
+    if (!customerData.email) {
+      console.error(`No email found for Stripe customer: ${customerId}`);
+      return { status: "no_email" };
+    }
+
+    // Create user profile with premium status
+    const newUserId = `stripe_${customerId}`; // Generate a unique user ID
+    const newUserProfile: Partial<UserProfile> = {
+      email: customerData.email,
+      name: customerData.name || customerData.email.split('@')[0],
+      status: 'premium',
+      paymentStatus: 'active',
+      isApproved: true,
+      createdAt: admin.firestore.FieldValue.serverTimestamp(),
+      updatedAt: admin.firestore.FieldValue.serverTimestamp(),
+      subscription: {
+        tier: 'premium',
+        stripeCustomerId: customerId,
+        subscriptionId: subscription.id,
+        status: subscription.status
+      }
+    };
+
+    // Create the user profile
+    await admin.firestore().collection(COLLECTIONS.USERS).doc(newUserId).set(newUserProfile);
+
+    console.log(`Created user profile for ${customerData.email} with premium status`);
+    user = { uid: newUserId, ...newUserProfile } as UserProfile;
   }
 
   // Check for discount information
