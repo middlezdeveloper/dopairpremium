@@ -1,69 +1,74 @@
 'use client';
 
-import { useState } from 'react';
-import { loadStripe } from '@stripe/stripe-js';
+import { useState, useEffect } from 'react';
 
-// Load Stripe
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
+interface CurrencyData {
+  symbol: string;
+  price: string;
+  currency: string;
+  country: string;
+}
 
-export default function PublicCheckoutPage() {
+export default function CheckoutPage() {
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [currencyLoading, setCurrencyLoading] = useState(true);
+  const [currencyData, setCurrencyData] = useState<CurrencyData>({
+    symbol: '$',
+    price: '24.00',
+    currency: 'USD',
+    country: 'US'
+  });
 
-  // Real Stripe Price ID for subscription ($29 USD)
-  const SUBSCRIPTION_PRICE_ID = 'price_1S9P9NB0md0hKsVZMF665sGk';
+  // Stripe Payment Link (pre-configured with price and success/cancel URLs)
+  const STRIPE_PAYMENT_LINK = 'https://buy.stripe.com/28E9ASfyw8VB3GIgV863K02';
 
-  const handleCheckout = async () => {
-    if (loading) return;
+  // Fetch currency data using client-side IP detection
+  useEffect(() => {
+    const fetchCurrencyData = async () => {
+      try {
+        // Currency mapping based on Stripe pricing (will sync manually when Stripe prices change)
+        const currencyMap: Record<string, { symbol: string; price: string; currency: string }> = {
+          'AU': { symbol: 'A$', price: '36.40', currency: 'AUD' },
+          'CA': { symbol: 'CA$', price: '33.07', currency: 'CAD' },
+          'GB': { symbol: '£', price: '17.81', currency: 'GBP' },
+          'NZ': { symbol: 'NZ$', price: '40.98', currency: 'NZD' },
+          'US': { symbol: '$', price: '24.00', currency: 'USD' }
+        };
 
+        // Get user's country from IP
+        const ipResponse = await fetch('https://ipapi.co/json/', {
+          headers: { 'Accept': 'application/json' }
+        });
+
+        let country = 'US'; // Fallback
+        if (ipResponse.ok) {
+          const ipData = await ipResponse.json();
+          country = ipData.country_code || 'US';
+        }
+
+        // Get currency data for this country
+        const currencyData = currencyMap[country] || currencyMap['US'];
+
+        setCurrencyData({
+          ...currencyData,
+          country
+        });
+
+      } catch (error) {
+        console.log('Using default USD pricing:', error);
+        // Keep default USD values
+      } finally {
+        setCurrencyLoading(false);
+      }
+    };
+
+    fetchCurrencyData();
+  }, []);
+
+  const handleCheckout = () => {
     setLoading(true);
-    setError(null);
-
-    try {
-      console.log('Creating public checkout session');
-
-      // Call our Cloud Function to create checkout session - using Firebase Functions URL
-      const response = await fetch('https://us-central1-dopair.cloudfunctions.net/createCheckoutSession', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          priceId: SUBSCRIPTION_PRICE_ID,
-          mode: 'subscription',
-          publicCheckout: true, // Flag for public checkout
-        }),
-      });
-
-      if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.error || 'Failed to create checkout session');
-      }
-
-      const { sessionId } = await response.json();
-      console.log('Checkout session created:', sessionId);
-
-      // Initialize Stripe and redirect to hosted checkout
-      const stripe = await stripePromise;
-      if (!stripe) {
-        throw new Error('Stripe failed to load');
-      }
-
-      // Redirect to Stripe's hosted checkout
-      const result = await stripe.redirectToCheckout({
-        sessionId: sessionId,
-      });
-
-      if (result.error) {
-        throw new Error(result.error.message);
-      }
-
-    } catch (error) {
-      console.error('Checkout creation failed:', error);
-      setError(error instanceof Error ? error.message : 'Failed to create checkout');
-    } finally {
-      setLoading(false);
-    }
+    // Redirect to Stripe payment link
+    window.location.href = STRIPE_PAYMENT_LINK;
   };
 
   return (
@@ -72,15 +77,24 @@ export default function PublicCheckoutPage() {
         <div className="text-center">
           <h1 className="text-2xl font-bold text-gray-900 mb-4">Dopair Premium</h1>
           <p className="text-gray-600 mb-6">
-            Join thousands improving their mental health with AI-powered coaching
+            Transform your digital wellness with AI-powered coaching
           </p>
 
           <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
             <h3 className="font-medium text-blue-900 mb-2">Premium Subscription</h3>
-            <div className="text-2xl font-bold text-blue-900 mb-1">
-              $29.00<span className="text-sm font-normal">/month</span>
-            </div>
-            <div className="text-xs text-gray-600 mb-3">Enter promotional codes directly in checkout</div>
+            {currencyLoading ? (
+              <div className="text-lg text-blue-900 mb-3">
+                <div className="animate-pulse bg-blue-200 h-8 w-32 rounded mb-2"></div>
+                <div className="animate-pulse bg-blue-200 h-4 w-24 rounded"></div>
+              </div>
+            ) : (
+              <>
+                <div className="text-2xl font-bold text-blue-900 mb-1">
+                  {currencyData.symbol}{currencyData.price}<span className="text-sm font-normal">/month</span>
+                </div>
+                <div className="text-xs text-gray-600 mb-3">Pricing shown in {currencyData.currency}</div>
+              </>
+            )}
             <ul className="text-sm text-blue-800 space-y-1">
               <li>✓ Unlimited AI Coach conversations</li>
               <li>✓ Personalized recovery programs</li>
@@ -90,29 +104,17 @@ export default function PublicCheckoutPage() {
           </div>
 
           <div className="space-y-4">
-            <div className="bg-green-50 border border-green-200 rounded-lg p-3">
-              <div className="text-sm text-green-700">
-                <strong>💰 UAT Testing Mode!</strong><br/>
-                Use promotional code <strong>DOPAIR98VIP</strong> in checkout for 98% off (just $0.58/month).
-              </div>
-            </div>
-
-            {error && (
-              <div className="bg-red-50 border border-red-200 rounded-lg p-3">
-                <div className="text-sm text-red-700">{error}</div>
-              </div>
-            )}
 
             <button
               onClick={handleCheckout}
               disabled={loading}
-              className="w-full bg-indigo-600 text-white py-3 px-4 rounded-lg hover:bg-indigo-700 font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full bg-indigo-600 text-white py-3 px-4 rounded-lg hover:bg-indigo-700 font-medium disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
             >
-              {loading ? 'Loading...' : 'Subscribe Now'}
+              {loading ? 'Redirecting...' : 'Get Premium Access'}
             </button>
 
             <div className="text-xs text-gray-500">
-              Secure payment processing by Stripe. Live mode enabled for testing.
+              Secure payment processing by Stripe. Cancel anytime.
             </div>
           </div>
 
@@ -122,7 +124,7 @@ export default function PublicCheckoutPage() {
               <div>💳 Credit Cards</div>
               <div>🍎 Apple Pay</div>
               <div>🟢 Google Pay</div>
-              <div>🏦 Bank Transfers</div>
+              <div>💙 PayPal</div>
             </div>
           </div>
 
