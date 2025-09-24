@@ -251,7 +251,8 @@ export async function getUserApprovalStatus(uid: string): Promise<boolean> {
 
     if (userDoc.exists()) {
       const userData = userDoc.data();
-      return userData.isApproved || false;
+      // User is approved if they have any paid status or legacy isApproved flag
+      return userData.status !== 'free' || userData.isApproved || false;
     }
 
     return false;
@@ -274,17 +275,16 @@ export async function approveUser(uid: string) {
   }
 }
 
-// Check if user has active subscription (placeholder for Stripe integration)
+// Check if user has active subscription
 export async function hasActiveSubscription(uid: string): Promise<boolean> {
   try {
     const userDoc = await getDoc(doc(db, COLLECTIONS.USERS, uid));
 
     if (userDoc.exists()) {
       const userData = userDoc.data();
-      const subscription = userData.subscription;
 
-      // Check subscription status
-      return subscription?.status === 'active' && subscription?.tier !== 'free';
+      // Check user status - premium status means active subscription
+      return userData.status === 'premium';
     }
 
     return false;

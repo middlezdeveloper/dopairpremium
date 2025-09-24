@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome Back - Payment Successfully Updated</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f8fffe;
+        }
+        .container {
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .logo {
+            color: #2563eb;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .wellness-accent {
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, #2563eb, #10b981);
+            margin: 0 auto 20px;
+            border-radius: 2px;
+        }
+        h1 {
+            color: #1f2937;
+            font-size: 24px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        .success-banner {
+            background: linear-gradient(135deg, #ecfdf5, #d1fae5);
+            border: 2px solid #10b981;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+        .success-icon {
+            width: 60px;
+            height: 60px;
+            background: #10b981;
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+        }
+        .success-title {
+            font-weight: bold;
+            color: #065f46;
+            font-size: 20px;
+            margin-bottom: 8px;
+        }
+        .success-subtitle {
+            color: #047857;
+            font-size: 14px;
+        }
+        .message {
+            font-size: 16px;
+            margin-bottom: 25px;
+            color: #4b5563;
+        }
+        .welcome-back-section {
+            background: linear-gradient(135deg, #f0f9ff, #dbeafe);
+            border-radius: 12px;
+            padding: 25px;
+            margin: 25px 0;
+            text-align: center;
+        }
+        .welcome-title {
+            font-weight: bold;
+            color: #1e40af;
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+        .restored-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .feature-item {
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+        }
+        .feature-icon {
+            font-size: 20px;
+            margin-bottom: 8px;
+            display: block;
+        }
+        .feature-name {
+            font-size: 12px;
+            color: #374151;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .stats-celebration {
+            background: #f9fafb;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 25px 0;
+            text-align: center;
+        }
+        .stats-title {
+            font-weight: bold;
+            color: #374151;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 15px;
+        }
+        .stat-item {
+            background: white;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        .stat-number {
+            font-size: 22px;
+            font-weight: bold;
+            color: #2563eb;
+            display: block;
+        }
+        .stat-label {
+            font-size: 11px;
+            color: #6b7280;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 5px;
+        }
+        .next-steps {
+            background: linear-gradient(135deg, #fef3c7, #fed7aa);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 25px 0;
+        }
+        .next-steps-title {
+            font-weight: bold;
+            color: #92400e;
+            margin-bottom: 15px;
+        }
+        .action-buttons {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            color: white;
+            padding: 16px 32px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            text-align: center;
+            margin: 10px;
+            transition: transform 0.2s ease;
+        }
+        .cta-button:hover {
+            transform: translateY(-1px);
+        }
+        .secondary-button {
+            background: linear-gradient(135deg, #059669, #047857);
+        }
+        .payment-details {
+            background: #f3f4f6;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 25px 0;
+            font-size: 14px;
+        }
+        .payment-details h4 {
+            color: #374151;
+            margin: 0 0 15px 0;
+        }
+        .payment-row {
+            display: flex;
+            justify-content: space-between;
+            margin: 8px 0;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        .payment-label {
+            color: #6b7280;
+        }
+        .payment-value {
+            color: #374151;
+            font-weight: 600;
+        }
+        .motivation-quote {
+            background: linear-gradient(135deg, #f0f9ff, #ecfdf5);
+            border-left: 4px solid #10b981;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 25px 0;
+            text-align: center;
+            font-style: italic;
+        }
+        .quote-text {
+            color: #065f46;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        .quote-author {
+            color: #047857;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .support-section {
+            background: #f9fafb;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 25px 0;
+            text-align: center;
+        }
+        .footer {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 14px;
+            color: #6b7280;
+        }
+        @media (max-width: 480px) {
+            body { padding: 10px; }
+            .container { padding: 20px; }
+            h1 { font-size: 22px; }
+            .stats-grid { grid-template-columns: 1fr 1fr; }
+            .payment-row { flex-direction: column; }
+            .cta-button { padding: 14px 24px; margin: 5px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">DopairPremium</div>
+            <div class="wellness-accent"></div>
+        </div>
+
+        <div class="success-banner">
+            <div class="success-icon">✓</div>
+            <div class="success-title">Payment Successful!</div>
+            <div class="success-subtitle">Your wellness journey continues without interruption</div>
+        </div>
+
+        <h1>Welcome back, {{userName}}!</h1>
+
+        <div class="message">
+            Fantastic news! Your payment has been successfully processed, and all your premium features are now fully restored. Thank you for resolving this quickly and for your continued commitment to your digital wellness journey.
+        </div>
+
+        <div class="welcome-back-section">
+            <div class="welcome-title">All Premium Features Restored</div>
+            <p style="margin: 10px 0; color: #1e40af;">Everything you love about DopairPremium is back and waiting for you</p>
+
+            <div class="restored-features">
+                <div class="feature-item">
+                    <span class="feature-icon">📊</span>
+                    <div class="feature-name">Advanced Analytics</div>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon">🎯</span>
+                    <div class="feature-name">Goal Tracking</div>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon">💡</span>
+                    <div class="feature-name">Personal Insights</div>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon">🧘</span>
+                    <div class="feature-name">Premium Sessions</div>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon">👥</span>
+                    <div class="feature-name">Community Access</div>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon">🏆</span>
+                    <div class="feature-name">Achievement System</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="stats-celebration">
+            <div class="stats-title">Your Wellness Journey Continues Strong</div>
+
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <span class="stat-number">{{totalDays}}</span>
+                    <span class="stat-label">Days Active</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">{{completedSessions}}</span>
+                    <span class="stat-label">Sessions Done</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">{{currentStreak}}</span>
+                    <span class="stat-label">Current Streak</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">{{goalsAchieved}}</span>
+                    <span class="stat-label">Goals Reached</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="payment-details">
+            <h4>Payment Confirmation</h4>
+            <div class="payment-row">
+                <span class="payment-label">Transaction Date:</span>
+                <span class="payment-value">{{paymentDate}}</span>
+            </div>
+            <div class="payment-row">
+                <span class="payment-label">Amount Charged:</span>
+                <span class="payment-value">{{paymentAmount}}</span>
+            </div>
+            <div class="payment-row">
+                <span class="payment-label">Payment Method:</span>
+                <span class="payment-value">{{paymentMethod}}</span>
+            </div>
+            <div class="payment-row">
+                <span class="payment-label">Next Billing Date:</span>
+                <span class="payment-value">{{nextBillingDate}}</span>
+            </div>
+            <div class="payment-row">
+                <span class="payment-label">Transaction ID:</span>
+                <span class="payment-value">{{transactionId}}</span>
+            </div>
+        </div>
+
+        <div class="next-steps">
+            <div class="next-steps-title">Continue Your Wellness Journey</div>
+            <p style="margin: 0; color: #a16207;">
+                Now that everything is restored, it's the perfect time to dive back into your wellness routine. Consider setting a new goal or exploring features you haven't tried yet!
+            </p>
+        </div>
+
+        <div class="action-buttons">
+            <a href="{{dashboardUrl}}" class="cta-button">View My Dashboard</a>
+            <a href="{{newGoalUrl}}" class="cta-button secondary-button">Set New Goal</a>
+        </div>
+
+        <div class="motivation-quote">
+            <div class="quote-text">
+                "The journey of a thousand miles begins with a single step. You've already taken many steps - keep going!"
+            </div>
+            <div class="quote-author">— Your DopairPremium Team</div>
+        </div>
+
+        <div class="message">
+            <strong>What's new while you were away:</strong> Check out the latest wellness insights we've generated for you, and don't miss the new guided sessions that were added to help deepen your digital wellness practice.
+        </div>
+
+        <div class="support-section">
+            <strong>Need help getting back on track?</strong><br>
+            Our support team is here to help you make the most of your restored premium access.<br><br>
+            <a href="{{supportUrl}}" style="color: #2563eb; font-weight: 600;">Contact Support</a> |
+            <a href="{{helpCenterUrl}}" style="color: #2563eb; font-weight: 600;">Help Center</a>
+        </div>
+
+        <div class="footer">
+            <p>Excited to continue this journey with you,<br>The DopairPremium Team</p>
+            <p style="margin-top: 20px; font-size: 12px;">
+                This email was sent to {{userEmail}} to confirm your successful payment.<br>
+                <a href="{{billingUrl}}" style="color: #6b7280;">Manage Billing</a> |
+                <a href="{{preferencesUrl}}" style="color: #6b7280;">Email Preferences</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>
